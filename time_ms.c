@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void print_current_time_with_ms (void)
+void main(void)
 {
     long            ms; // Milliseconds
     time_t          s;  // Seconds
