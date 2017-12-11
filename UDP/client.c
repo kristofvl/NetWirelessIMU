@@ -42,7 +42,7 @@ int main(void)
     while(1)
     {
         printf("Enter message : ");
-        gets(message);
+        fgets(message, BUFLEN, stdin);
          
         //send the message
         if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1)
