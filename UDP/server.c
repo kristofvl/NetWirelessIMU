@@ -47,7 +47,7 @@ int main(void)
     {
         printf("Waiting for data...");
         fflush(stdout);
-        memset(buf,’\0′, BUFLEN); //Clean the buffer
+        memset(buf, '\0', BUFLEN); //Clean the buffer
          
         //try to receive some data, this is a blocking call
         if ((recv_len = recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen)) == -1)
