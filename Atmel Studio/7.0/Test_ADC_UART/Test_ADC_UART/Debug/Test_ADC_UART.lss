@@ -1,0 +1,283 @@
+
+Test_ADC_UART.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000021c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001a8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000001  00800100  00800100  0000021c  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000021c  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000024c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000048  00000000  00000000  0000028c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000c0f  00000000  00000000  000002d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000acb  00000000  00000000  00000ee3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000003a8  00000000  00000000  000019ae  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000074  00000000  00000000  00001d58  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000547  00000000  00000000  00001dcc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000048  00000000  00000000  00002313  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000038  00000000  00000000  0000235b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+   4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+   8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+   c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  10:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  14:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  18:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  1c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  20:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  24:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  28:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  2c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  30:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  34:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  38:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  3c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  40:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  44:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  48:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  4c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  50:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  54:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  58:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  5c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  60:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  64:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  68:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  6c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  70:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  74:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  78:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  7c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  80:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  84:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  88:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  8c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  90:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  94:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  98:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  9c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a0:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+
+000000ac <__ctors_end>:
+  ac:	11 24       	eor	r1, r1
+  ae:	1f be       	out	0x3f, r1	; 63
+  b0:	cf ef       	ldi	r28, 0xFF	; 255
+  b2:	da e0       	ldi	r29, 0x0A	; 10
+  b4:	de bf       	out	0x3e, r29	; 62
+  b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_clear_bss>:
+  b8:	21 e0       	ldi	r18, 0x01	; 1
+  ba:	a0 e0       	ldi	r26, 0x00	; 0
+  bc:	b1 e0       	ldi	r27, 0x01	; 1
+  be:	01 c0       	rjmp	.+2      	; 0xc2 <.do_clear_bss_start>
+
+000000c0 <.do_clear_bss_loop>:
+  c0:	1d 92       	st	X+, r1
+
+000000c2 <.do_clear_bss_start>:
+  c2:	a1 30       	cpi	r26, 0x01	; 1
+  c4:	b2 07       	cpc	r27, r18
+  c6:	e1 f7       	brne	.-8      	; 0xc0 <.do_clear_bss_loop>
+  c8:	0e 94 bc 00 	call	0x178	; 0x178 <main>
+  cc:	0c 94 d2 00 	jmp	0x1a4	; 0x1a4 <_exit>
+
+000000d0 <__bad_interrupt>:
+  d0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000d4 <AVR_Init>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d4:	2f ef       	ldi	r18, 0xFF	; 255
+  d6:	89 e6       	ldi	r24, 0x69	; 105
+  d8:	98 e1       	ldi	r25, 0x18	; 24
+  da:	21 50       	subi	r18, 0x01	; 1
+  dc:	80 40       	sbci	r24, 0x00	; 0
+  de:	90 40       	sbci	r25, 0x00	; 0
+  e0:	e1 f7       	brne	.-8      	; 0xda <AVR_Init+0x6>
+  e2:	00 c0       	rjmp	.+0      	; 0xe4 <AVR_Init+0x10>
+  e4:	00 00       	nop
+unsigned char POT_Value;
+
+void AVR_Init(void)
+{
+	_delay_ms(500);		//Short pause
+	DDRD |= _BV(1);		//Set TX as output
+  e6:	51 9a       	sbi	0x0a, 1	; 10
+	DDRD |= ~(_BV(0));	//Set RX as input
+  e8:	8a b1       	in	r24, 0x0a	; 10
+  ea:	8e 6f       	ori	r24, 0xFE	; 254
+  ec:	8a b9       	out	0x0a, r24	; 10
+  ee:	08 95       	ret
+
+000000f0 <ADC_Init>:
+** frequency between 50kHz and 200kHz to get maximum resolution.]
+** Select a pre-scalar value to reflect that(16MHz/128 = 125kHz).
+*************************************************************************************/
+void ADC_Init(void)
+{
+	ADCSRA |= _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); //Pre-scalar = 128
+  f0:	ea e7       	ldi	r30, 0x7A	; 122
+  f2:	f0 e0       	ldi	r31, 0x00	; 0
+  f4:	80 81       	ld	r24, Z
+  f6:	87 60       	ori	r24, 0x07	; 7
+  f8:	80 83       	st	Z, r24
+	ADMUX  |= _BV(REFS0);							//AVCC as reference
+  fa:	ac e7       	ldi	r26, 0x7C	; 124
+  fc:	b0 e0       	ldi	r27, 0x00	; 0
+  fe:	8c 91       	ld	r24, X
+ 100:	80 64       	ori	r24, 0x40	; 64
+ 102:	8c 93       	st	X, r24
+	ADMUX  |= _BV(ADLAR);							//8-bit resolution
+ 104:	8c 91       	ld	r24, X
+ 106:	80 62       	ori	r24, 0x20	; 32
+ 108:	8c 93       	st	X, r24
+//	ADCSRA |= _BV(ADATE); // free running
+	ADCSRA |= _BV(ADEN); // enable ADC
+ 10a:	80 81       	ld	r24, Z
+ 10c:	80 68       	ori	r24, 0x80	; 128
+ 10e:	80 83       	st	Z, r24
+ 110:	08 95       	ret
+
+00000112 <UART_Init>:
+*************************************************************************************/
+void UART_Init(void)
+{
+	//Set the BAUD rate(Ref. ATmega32U4 Datasheet Pg.189, Table 18-1)
+	//To hard-code the Baud rate, Ref. Tables 18-9 to 18-12 in Pgs. 210 - 213
+	UBRR1 = ((F_CPU / (16UL * BAUD)) - 1);
+ 112:	87 e6       	ldi	r24, 0x67	; 103
+ 114:	90 e0       	ldi	r25, 0x00	; 0
+ 116:	90 93 cd 00 	sts	0x00CD, r25	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
+ 11a:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
+	
+	//Disables 2x speed
+	UCSR1A &= ~(_BV(U2X1));
+ 11e:	e8 ec       	ldi	r30, 0xC8	; 200
+ 120:	f0 e0       	ldi	r31, 0x00	; 0
+ 122:	80 81       	ld	r24, Z
+ 124:	8d 7f       	andi	r24, 0xFD	; 253
+ 126:	80 83       	st	Z, r24
+	
+	//Enable 8-bit character size, one stop-bit, no parity & asynchronous mode
+	UCSR1C |= _BV(UCSZ11) | _BV(UCSZ10);
+ 128:	ea ec       	ldi	r30, 0xCA	; 202
+ 12a:	f0 e0       	ldi	r31, 0x00	; 0
+ 12c:	80 81       	ld	r24, Z
+ 12e:	86 60       	ori	r24, 0x06	; 6
+ 130:	80 83       	st	Z, r24
+	
+	//Enable Transmitter & Receiver
+	UCSR1B |= _BV(TXEN1) | _BV(RXEN1);
+ 132:	e9 ec       	ldi	r30, 0xC9	; 201
+ 134:	f0 e0       	ldi	r31, 0x00	; 0
+ 136:	80 81       	ld	r24, Z
+ 138:	88 61       	ori	r24, 0x18	; 24
+ 13a:	80 83       	st	Z, r24
+ 13c:	08 95       	ret
+
+0000013e <ADC_Pot>:
+
+unsigned char ADC_Pot(void)
+{
+	//Reset ADC Multiplexer
+	//Select ADC_0
+	ADMUX &= 0b11100000;			
+ 13e:	ec e7       	ldi	r30, 0x7C	; 124
+ 140:	f0 e0       	ldi	r31, 0x00	; 0
+ 142:	80 81       	ld	r24, Z
+ 144:	80 7e       	andi	r24, 0xE0	; 224
+ 146:	80 83       	st	Z, r24
+
+	ADCSRA |= _BV(ADSC);				 //Start ADC conversion
+ 148:	ea e7       	ldi	r30, 0x7A	; 122
+ 14a:	f0 e0       	ldi	r31, 0x00	; 0
+ 14c:	80 81       	ld	r24, Z
+ 14e:	80 64       	ori	r24, 0x40	; 64
+ 150:	80 83       	st	Z, r24
+	loop_until_bit_is_set(ADCSRA, ADIF); //Wait until conversion is complete
+ 152:	80 81       	ld	r24, Z
+ 154:	84 ff       	sbrs	r24, 4
+ 156:	fd cf       	rjmp	.-6      	; 0x152 <ADC_Pot+0x14>
+	ADCSRA |= _BV(ADIF);				 //Set ADC interrupt flag again
+ 158:	ea e7       	ldi	r30, 0x7A	; 122
+ 15a:	f0 e0       	ldi	r31, 0x00	; 0
+ 15c:	80 81       	ld	r24, Z
+ 15e:	80 61       	ori	r24, 0x10	; 16
+ 160:	80 83       	st	Z, r24
+	return(ADCH);
+ 162:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
+}
+ 166:	08 95       	ret
+
+00000168 <UART_Tx>:
+
+void UART_Tx(unsigned char data)
+{
+	loop_until_bit_is_set(UCSR1A, UDRE1);  //Wait until buffer is empty
+ 168:	e8 ec       	ldi	r30, 0xC8	; 200
+ 16a:	f0 e0       	ldi	r31, 0x00	; 0
+ 16c:	90 81       	ld	r25, Z
+ 16e:	95 ff       	sbrs	r25, 5
+ 170:	fd cf       	rjmp	.-6      	; 0x16c <UART_Tx+0x4>
+	UDR1 = data;						   //Send 'H'	
+ 172:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
+ 176:	08 95       	ret
+
+00000178 <main>:
+}
+
+int main(void)
+{
+	AVR_Init();
+ 178:	0e 94 6a 00 	call	0xd4	; 0xd4 <AVR_Init>
+	ADC_Init();
+ 17c:	0e 94 78 00 	call	0xf0	; 0xf0 <ADC_Init>
+	UART_Init();
+ 180:	0e 94 89 00 	call	0x112	; 0x112 <UART_Init>
+	while(1)
+	{
+		POT_Value = ADC_Pot();
+ 184:	0e 94 9f 00 	call	0x13e	; 0x13e <ADC_Pot>
+ 188:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+		UART_Tx(POT_Value);		
+ 18c:	0e 94 b4 00 	call	0x168	; 0x168 <UART_Tx>
+ 190:	2f ef       	ldi	r18, 0xFF	; 255
+ 192:	83 ed       	ldi	r24, 0xD3	; 211
+ 194:	90 e3       	ldi	r25, 0x30	; 48
+ 196:	21 50       	subi	r18, 0x01	; 1
+ 198:	80 40       	sbci	r24, 0x00	; 0
+ 19a:	90 40       	sbci	r25, 0x00	; 0
+ 19c:	e1 f7       	brne	.-8      	; 0x196 <main+0x1e>
+ 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <main+0x28>
+ 1a0:	00 00       	nop
+ 1a2:	f0 cf       	rjmp	.-32     	; 0x184 <main+0xc>
+
+000001a4 <_exit>:
+ 1a4:	f8 94       	cli
+
+000001a6 <__stop_program>:
+ 1a6:	ff cf       	rjmp	.-2      	; 0x1a6 <__stop_program>
