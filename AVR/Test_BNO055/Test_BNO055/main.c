@@ -23,7 +23,7 @@ void AVR_Init(void)
 {
 	_delay_ms(750);		//Short pause after BNO055 Power-On Reset(Mandatory)
 	DDRD |= _BV(1);		//Set TX as output
-	DDRD |= ~(_BV(0));	//Set RX as input
+	DDRD &= ~(_BV(0));	//Set RX as input
 	
 	//Initialize TWI data
 	TWI_data = 0;

@@ -34,7 +34,7 @@ void AVR_Init(void)
 {
 	_delay_ms(500);		//Short pause
 	DDRD |= _BV(1);		//Set TX as output
-	DDRD |= ~(_BV(0));	//Set RX as input
+	DDRD &= ~(_BV(0));	//Set RX as input
 }
 
 /************************************************************************************
