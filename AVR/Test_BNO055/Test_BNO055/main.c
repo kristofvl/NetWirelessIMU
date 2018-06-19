@@ -7,7 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
-#define F_CPU 16000000UL //16 MHz frequency
+#define F_CPU 16000000UL	//16 MHz frequency
 #define BAUD  9600
 #include <util/setbaud.h>
 #include <util/delay.h>
@@ -80,8 +80,8 @@ void UART_Init(void)
 *************************************************************************************/
 void UART_Tx(unsigned char data)
 {
-	loop_until_bit_is_set(UCSR1A, UDRE1);  //Wait until buffer is empty
-	UDR1 = data;						   //Send TWI data via UART
+	loop_until_bit_is_set(UCSR1A, UDRE1);	//Wait until buffer is empty
+	UDR1 = data;				//Send TWI data via UART
 }
 
 /************************************************************************************
@@ -91,15 +91,15 @@ void UART_Tx(unsigned char data)
 *************************************************************************************/
 void TWI_Start(uint8_t address)
 {
-    TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
+	TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
 	
 	while(!(TWCR & (1 << TWINT)));
 //	UART_Tx(0x03);
-//  loop_until_bit_is_set(TWCR, TWINT);	
+//	loop_until_bit_is_set(TWCR, TWINT);	
 
 	TWDR = address;
-    TWCR = _BV(TWINT) | _BV(TWEN);
-    while(!(TWCR & (1 << TWINT)));	
+	TWCR = _BV(TWINT) | _BV(TWEN);
+	while(!(TWCR & (1 << TWINT)));	
 }
 
 /************************************************************************************
@@ -108,7 +108,7 @@ void TWI_Start(uint8_t address)
 *************************************************************************************/
 void TWI_Stop(void)
 {
-    TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN);
+	TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN);
 }
 
 /************************************************************************************
@@ -117,10 +117,10 @@ void TWI_Stop(void)
 *************************************************************************************/
 void TWI_Write(uint8_t data)
 {
-    TWDR = data;
-    TWCR = _BV(TWINT) | _BV(TWEN);
+	TWDR = data;
+	TWCR = _BV(TWINT) | _BV(TWEN);
 	while(!(TWCR & (1 << TWINT)));
-//    loop_until_bit_is_set(TWCR, TWINT);	
+//	loop_until_bit_is_set(TWCR, TWINT);	
 }
 
 /************************************************************************************
@@ -129,11 +129,11 @@ void TWI_Write(uint8_t data)
 *************************************************************************************/
 uint8_t TWI_Read(void)
 {
-//    TWCR = _BV(TWINT) | _BV(TWEN) | _BV(TWEA);
+//	TWCR = _BV(TWINT) | _BV(TWEN) | _BV(TWEA);
 	TWCR = _BV(TWINT) | _BV(TWEN);
 	while(!(TWCR & (1 << TWINT)));
-//    loop_until_bit_is_set(TWCR, TWINT);	
-    return TWDR;	
+//	loop_until_bit_is_set(TWCR, TWINT);	
+	return TWDR;	
 }
 
 /************************************************************************************
@@ -181,7 +181,7 @@ int main(void)
 	{
 		Receive_from_IMU(BNO055_ADDRESS, BNO055_CHIP_ID_ADDR);
 		UART_Tx(TWI_data);
-		_delay_ms(1000);					   //1 second delay
+		_delay_ms(1000);					//1 second delay
 	}
 }
 

@@ -3,31 +3,31 @@ Test_ADC_UART.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000021c  2**0
+  0 .data         00000000  00800100  00800100  00000218  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001a8  00000000  00000000  00000074  2**1
+  1 .text         000001a4  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800100  00800100  0000021c  2**0
+  2 .bss          00000001  00800100  00800100  00000218  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000021c  2**0
+  3 .comment      00000030  00000000  00000000  00000218  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000024c  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000248  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000048  00000000  00000000  0000028c  2**0
+  5 .debug_aranges 00000048  00000000  00000000  00000288  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000c0f  00000000  00000000  000002d4  2**0
+  6 .debug_info   00000c16  00000000  00000000  000002d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000acb  00000000  00000000  00000ee3  2**0
+  7 .debug_abbrev 00000ae2  00000000  00000000  00000ee6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000003a8  00000000  00000000  000019ae  2**0
+  8 .debug_line   000003a8  00000000  00000000  000019c8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000074  00000000  00000000  00001d58  2**2
+  9 .debug_frame  00000074  00000000  00000000  00001d70  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000547  00000000  00000000  00001dcc  2**0
+ 10 .debug_str    00000547  00000000  00000000  00001de4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000048  00000000  00000000  00002313  2**0
+ 11 .debug_loc    00000048  00000000  00000000  0000232b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000038  00000000  00000000  0000235b  2**0
+ 12 .debug_ranges 00000038  00000000  00000000  00002373  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -99,7 +99,7 @@ Disassembly of section .text:
   c4:	b2 07       	cpc	r27, r18
   c6:	e1 f7       	brne	.-8      	; 0xc0 <.do_clear_bss_loop>
   c8:	0e 94 bc 00 	call	0x178	; 0x178 <main>
-  cc:	0c 94 d2 00 	jmp	0x1a4	; 0x1a4 <_exit>
+  cc:	0c 94 d0 00 	jmp	0x1a0	; 0x1a0 <_exit>
 
 000000d0 <__bad_interrupt>:
   d0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -120,8 +120,8 @@ Disassembly of section .text:
   e0:	e1 f7       	brne	.-8      	; 0xda <AVR_Init+0x6>
   e2:	00 c0       	rjmp	.+0      	; 0xe4 <AVR_Init+0x10>
   e4:	00 00       	nop
-unsigned char POT_Value;
-
+** - Initializes the I/O peripherals
+*************************************************************************************/
 void AVR_Init(void)
 {
 	_delay_ms(500);		//Short pause
@@ -134,8 +134,8 @@ void AVR_Init(void)
   ee:	08 95       	ret
 
 000000f0 <ADC_Init>:
-** frequency between 50kHz and 200kHz to get maximum resolution.]
-** Select a pre-scalar value to reflect that(16MHz/128 = 125kHz).
+** - Select ADC data resolution
+** - Enable the ADC
 *************************************************************************************/
 void ADC_Init(void)
 {
@@ -155,8 +155,7 @@ void ADC_Init(void)
  104:	8c 91       	ld	r24, X
  106:	80 62       	ori	r24, 0x20	; 32
  108:	8c 93       	st	X, r24
-//	ADCSRA |= _BV(ADATE); // free running
-	ADCSRA |= _BV(ADEN); // enable ADC
+	ADCSRA |= _BV(ADEN);							//Enable ADC
  10a:	80 81       	ld	r24, Z
  10c:	80 68       	ori	r24, 0x80	; 128
  10e:	80 83       	st	Z, r24
@@ -200,7 +199,7 @@ void UART_Init(void)
  13c:	08 95       	ret
 
 0000013e <ADC_Pot>:
-
+*************************************************************************************/
 unsigned char ADC_Pot(void)
 {
 	//Reset ADC Multiplexer
@@ -228,13 +227,15 @@ unsigned char ADC_Pot(void)
  15c:	80 81       	ld	r24, Z
  15e:	80 61       	ori	r24, 0x10	; 16
  160:	80 83       	st	Z, r24
-	return(ADCH);
+	return(ADCH);						 //Return the 8-bit converted value
  162:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
 }
  166:	08 95       	ret
 
 00000168 <UART_Tx>:
-
+** - Transmits the ADC data via the USB Serial
+** - The data is received & displayed in a Hyperterminal
+*************************************************************************************/
 void UART_Tx(unsigned char data)
 {
 	loop_until_bit_is_set(UCSR1A, UDRE1);  //Wait until buffer is empty
@@ -248,8 +249,9 @@ void UART_Tx(unsigned char data)
  176:	08 95       	ret
 
 00000178 <main>:
-}
-
+** - Contains an endless loop
+** - Fetches the ADC data and transmits it serially @1Hz
+*************************************************************************************/
 int main(void)
 {
 	AVR_Init();
@@ -258,26 +260,26 @@ int main(void)
  17c:	0e 94 78 00 	call	0xf0	; 0xf0 <ADC_Init>
 	UART_Init();
  180:	0e 94 89 00 	call	0x112	; 0x112 <UART_Init>
+
+	//Endless Loop
 	while(1)
 	{
 		POT_Value = ADC_Pot();
  184:	0e 94 9f 00 	call	0x13e	; 0x13e <ADC_Pot>
  188:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
-		UART_Tx(POT_Value);		
- 18c:	0e 94 b4 00 	call	0x168	; 0x168 <UART_Tx>
- 190:	2f ef       	ldi	r18, 0xFF	; 255
- 192:	83 ed       	ldi	r24, 0xD3	; 211
- 194:	90 e3       	ldi	r25, 0x30	; 48
- 196:	21 50       	subi	r18, 0x01	; 1
- 198:	80 40       	sbci	r24, 0x00	; 0
- 19a:	90 40       	sbci	r25, 0x00	; 0
- 19c:	e1 f7       	brne	.-8      	; 0x196 <main+0x1e>
- 19e:	00 c0       	rjmp	.+0      	; 0x1a0 <main+0x28>
- 1a0:	00 00       	nop
- 1a2:	f0 cf       	rjmp	.-32     	; 0x184 <main+0xc>
+		UART_Tx(0xAA);			
+ 18c:	8a ea       	ldi	r24, 0xAA	; 170
+ 18e:	0e 94 b4 00 	call	0x168	; 0x168 <UART_Tx>
+ 192:	8f e3       	ldi	r24, 0x3F	; 63
+ 194:	9c e9       	ldi	r25, 0x9C	; 156
+ 196:	01 97       	sbiw	r24, 0x01	; 1
+ 198:	f1 f7       	brne	.-4      	; 0x196 <main+0x1e>
+ 19a:	00 c0       	rjmp	.+0      	; 0x19c <main+0x24>
+ 19c:	00 00       	nop
+ 19e:	f2 cf       	rjmp	.-28     	; 0x184 <main+0xc>
 
-000001a4 <_exit>:
- 1a4:	f8 94       	cli
+000001a0 <_exit>:
+ 1a0:	f8 94       	cli
 
-000001a6 <__stop_program>:
- 1a6:	ff cf       	rjmp	.-2      	; 0x1a6 <__stop_program>
+000001a2 <__stop_program>:
+ 1a2:	ff cf       	rjmp	.-2      	; 0x1a2 <__stop_program>

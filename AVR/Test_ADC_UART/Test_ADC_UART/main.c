@@ -10,7 +10,9 @@
 ** https://www.nongnu.org/avr-libc/user-manual/modules.html
 ************************************************************************************/
 #include <avr/io.h>
-#define F_CPU 16000000UL //16 MHz frequency
+#include <avr/sfr_defs.h>
+
+#define F_CPU 16000000UL	//16 MHz frequency
 #define BAUD  9600
 #include <util/setbaud.h>
 #include <util/delay.h>
@@ -53,10 +55,10 @@ void AVR_Init(void)
 *************************************************************************************/
 void ADC_Init(void)
 {
-	ADCSRA |= _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); //Pre-scalar = 128
-	ADMUX  |= _BV(REFS0);							//AVCC as reference
-	ADMUX  |= _BV(ADLAR);							//8-bit resolution
-	ADCSRA |= _BV(ADEN);							//Enable ADC
+	ADCSRA |= _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0);	//Pre-scalar = 128
+	ADMUX  |= _BV(REFS0);				//AVCC as reference
+	ADMUX  |= _BV(ADLAR);				//8-bit resolution
+	ADCSRA |= _BV(ADEN);				//Enable ADC
 }
 
 /************************************************************************************
@@ -101,10 +103,10 @@ unsigned char ADC_Pot(void)
 	//Select ADC_0
 	ADMUX &= 0b11100000;			
 
-	ADCSRA |= _BV(ADSC);				 //Start ADC conversion
-	loop_until_bit_is_set(ADCSRA, ADIF); //Wait until conversion is complete
-	ADCSRA |= _BV(ADIF);				 //Set ADC interrupt flag again
-	return(ADCH);						 //Return the 8-bit converted value
+	ADCSRA |= _BV(ADSC);			//Start ADC conversion
+	loop_until_bit_is_set(ADCSRA, ADIF);	//Wait until conversion is complete
+	ADCSRA |= _BV(ADIF);			//Set ADC interrupt flag again
+	return(ADCH);				//Return the 8-bit converted value
 }
 
 /************************************************************************************
@@ -114,8 +116,8 @@ unsigned char ADC_Pot(void)
 *************************************************************************************/
 void UART_Tx(unsigned char data)
 {
-	loop_until_bit_is_set(UCSR1A, UDRE1);  //Wait until buffer is empty
-	UDR1 = data;						   //Send 'H'	
+	loop_until_bit_is_set(UCSR1A, UDRE1);	//Wait until buffer is empty
+	UDR1 = data;				//Send 'H'	
 }
 
 /************************************************************************************
@@ -133,7 +135,7 @@ int main(void)
 	while(1)
 	{
 		POT_Value = ADC_Pot();
-		UART_Tx(POT_Value);		
-		_delay_ms(1000);					   //1 second delay
+		UART_Tx(0xAA);			
+		_delay_ms(10);			//1 second delay
 	}
 }

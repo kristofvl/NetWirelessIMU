@@ -13,19 +13,19 @@
 #include <util/delay.h>
 
 //SPI macros
-#define SPI_PORT PORTB
-#define SPI_DDR  DDRB
-#define MOSI	 2
-#define MISO	 3
-#define SCLK	 1
-#define CSN      0
-#define CE		 4
+#define SPI_PORT	PORTB
+#define SPI_DDR		DDRB
+#define MOSI		2
+#define MISO		3
+#define SCLK		1
+#define CSN		0
+#define CE		4
 
 //nRF control macros
-#define CE_LOW()		SPI_PORT &= ~(_BV(CE))
-#define CE_HIGH()		SPI_PORT |= _BV(CE)
-#define CSN_LOW()		SPI_PORT &= ~(_BV(CSN))
-#define CSN_HIGH()		SPI_PORT |= _BV(CSN)
+#define CE_LOW()	SPI_PORT &= ~(_BV(CE))
+#define CE_HIGH()	SPI_PORT |= _BV(CE)
+#define CSN_LOW()	SPI_PORT &= ~(_BV(CSN))
+#define CSN_HIGH()	SPI_PORT |= _BV(CSN)
 
 //nRF read/write macros
 #define NRF24L01_READ	0x00
@@ -71,9 +71,14 @@ void SPI_Init(void)
 /*
 ** Note: 
 ** nRF requires typically 5.3ms settling time after POR.
-** When nRF24L01 is in power down mode it must settle for 1.5ms before it can enter the TX or RX modes. 
-** If an external clock is used this delay is reduced to 150?s.
+
+** When nRF24L01 is in power down mode it must settle for 1.5ms 
+** before it can enter the TX or RX modes. 
+
+** If an external clock is used this delay is reduced to 150µs.
+
 ** CE should be held low/high for a minimum of 10µs.
+
 ** The settling time must be controlled by the MCU.
 */
 void nRF24L01_Init(void)
@@ -113,8 +118,8 @@ void nRF24L01_Write_Reg(uint8_t reg, uint8_t data)
 	//Pull CSN low to start SPI communication
 	CSN_LOW;
 	
-	SPI_Write_Byte(NRF24L01_WRITE + reg); //Set write access to register
-	SPI_Write_Byte(data);				  //Write data to register
+	SPI_Write_Byte(NRF24L01_WRITE + reg);		//Set write access to register
+	SPI_Write_Byte(data);				//Write data to register
 	
 	//Pull CSN high to stop SPI communication
 	CSN_HIGH;	
@@ -122,16 +127,17 @@ void nRF24L01_Write_Reg(uint8_t reg, uint8_t data)
 
 void nRF24L01_Write_Regs(uint8_t reg, uint8_t *data, uint8_t len)
 {
-	int8_t wByte_cnt = 0;				  //Reset the write byte count
+	int8_t wByte_cnt = 0;				//Reset the write byte count
 	
 	//Pull CSN low to start SPI communication
 	CSN_LOW;
 	
-	SPI_Write_Byte(NRF24L01_WRITE + reg); //Set write access to register
+	SPI_Write_Byte(NRF24L01_WRITE + reg);		//Set write access to register
 
 	for(wByte_cnt = 0; wByte_cnt < len; wByte_cnt++)
 	{
-		SPI_Write_Byte(data[wByte_cnt]);  //Write data to register
+		//Write data to register
+		SPI_Write_Byte(data[wByte_cnt]);
 	}
 	
 	//Pull CSN high to stop SPI communication
@@ -143,27 +149,28 @@ uint8_t nRF24L01_Read_Reg(uint8_t reg)
 	//Pull CSN low to start SPI communication
 	CSN_LOW;
 	
-	SPI_Write_Byte(NRF24L01_READ + reg);		 //Set read access to register
-	uint8_t data = SPI_Write_Byte(NRF24L01_NOP); //Read data from register
+	SPI_Write_Byte(NRF24L01_READ + reg);		//Set read access to register
+	uint8_t data = SPI_Write_Byte(NRF24L01_NOP);	//Read data from register
 	
 	//Pull CSN high to stop SPI communication
 	CSN_HIGH;	
 	
-	return data;								 //Return the read data
+	return data;					//Return the read data
 }
 
 void nRF24L01_Read_Regs(uint8_t reg, uint8_t *data, uint8_t len)
 {
-	uint8_t rByte_cnt = 0; //Reset the read byte count
+	uint8_t rByte_cnt = 0;				//Reset the read byte count
 	
 	//Pull CSN low to start SPI communication
 	CSN_LOW;
 	
-	SPI_Write_Byte(NRF24L01_READ + reg);				//Set read access to register
+	SPI_Write_Byte(NRF24L01_READ + reg);		//Set read access to register
 	
 	for(rByte_cnt = 0; rByte_cnt < len; rByte_cnt++)
 	{
-		data[rByte_cnt] = SPI_Write_Byte(NRF24L01_NOP); //Read data from register
+		//Read data from register
+		data[rByte_cnt] = SPI_Write_Byte(NRF24L01_NOP);
 	}
 	
 	//Pull CSN high to stop SPI communication
