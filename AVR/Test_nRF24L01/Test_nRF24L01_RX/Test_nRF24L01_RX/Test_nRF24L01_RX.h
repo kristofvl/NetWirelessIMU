@@ -28,6 +28,7 @@
 
 //Payload length(1 - 32 bytes)
 #define NRF24L01_PAYLOAD_LEN		0x01	//1 byte
+#define NRF24L01_PAYLOAD_CNT		1	//Payload count
 
 //Address width
 #define NRF24L01_ADDRESS_WIDTH		0x03	//5 bytes
@@ -35,7 +36,17 @@
 //Retry count
 #define NRF24L01_RETRY_COUNT		0x00	//Retry disabled
 
-//nRF24L01 register map
+//Transceiver mode
+#define NRF24L01_POWER_DOWN		0	//Power-down mode
+#define NRF24L01_TX_MODE		1	//Transmitter mode
+#define NRF24L01_RX_MODE		2	//Receiver mode
+
+//Default config
+#define NRF24L01_DEFAULT_CONFIG		(_BV(NRF24L01_REG_EN_CRC))
+
+/************************************************************************/
+/*                       nRF24L01 register map                          */
+/************************************************************************/
 #define NRF24L01_REG_CONFIG		0x00
 #define NRF24L01_REG_EN_AA		0x01
 #define NRF24L01_REG_EN_RXADDR		0x02
@@ -119,49 +130,5 @@
 #define NRF24L01_CMD_FLUSH_RX		0xE2
 #define NRF24L01_CMD_REUSE_TX_PL	0xE3
 #define NRF24L01_CMD_NOP		0xFF
-
-/*
-//CE and CSN port definitions
-#define NRF24L01_DDR DDRB
-#define NRF24L01_PORT PORTB
-#define NRF24L01_CE PB0
-#define NRF24L01_CSN PB1
-
-
-//CE and CSN functions
-#define nrf24l01_CSNhi NRF24L01_PORT |= (1<<NRF24L01_CSN);
-#define nrf24l01_CSNlo NRF24L01_PORT &= ~(1<<NRF24L01_CSN);
-#define nrf24l01_CEhi NRF24L01_PORT |=  (1<<NRF24L01_CE);
-#define nrf24l01_CElo NRF24L01_PORT &= ~(1<<NRF24L01_CE);
-*/
-
-//crc setup
-#define NRF24L01_RF24_CRC_DISABLED 1
-#define NRF24L01_RF24_CRC_8 2
-#define NRF24L01_RF24_CRC_16 3
-#define NRF24L01_RF24_CRC NRF24L01_RF24_CRC_16
-
-
-
-
-
-//auto ack enabled
-#define NRF24L01_ACK 1
-
-//auto retransmit delay and count
-#define NRF24L01_RETR (0b0100 << NRF24L01_REG_ARD) | (0b0111 << NRF24L01_REG_ARC) //1500uS, 15 times
-
-//enable / disable pipe
-#define NRF24L01_ENABLEDP0 1 //pipe 0
-#define NRF24L01_ENABLEDP1 1 //pipe 1
-#define NRF24L01_ENABLEDP2 1 //pipe 2
-#define NRF24L01_ENABLEDP3 1 //pipe 3
-#define NRF24L01_ENABLEDP4 1 //pipe 4
-#define NRF24L01_ENABLEDP5 1 //pipe 5
-
-//address size
-#define NRF24L01_ADDRSIZE 5
-
-
 
 #endif /* TEST_NRF24L01_RX_H_ */
