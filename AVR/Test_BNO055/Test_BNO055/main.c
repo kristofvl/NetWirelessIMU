@@ -94,7 +94,7 @@ void TWI_Start(uint8_t address)
 	TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
 	
 	while(!(TWCR & (1 << TWINT)));
-//	UART_Tx(0x03);
+	UART_Tx(0x03);
 //	loop_until_bit_is_set(TWCR, TWINT);	
 
 	TWDR = address;
@@ -179,8 +179,9 @@ int main(void)
 	//Endless Loop
 	while(1)
 	{
-		Receive_from_IMU(BNO055_ADDRESS, BNO055_CHIP_ID_ADDR);
+		Receive_from_IMU(BNO055_ADDRESS, BNO055_CHIP_ID_ADDR);	//Chip ID should read 0xA0
 		UART_Tx(TWI_data);
+		UART_Tx(0x01);
 		_delay_ms(1000);					//1 second delay
 	}
 }
