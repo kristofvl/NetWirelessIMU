@@ -1,0 +1,24 @@
+=================================IMU Node=================================
+1)  Pin access for Bosch firmware update for ARM Cortex M0 processor(PS0, PS1).
+2)  ISP access for AVR bootloader update(6-pin).
+3)  LiPo charger/regulator IC(from TI). - MCP73831
+4)  TX/RX/GND access for AVR UART sniffing and debugging.
+5)  Decide on no. of switches, buttons and LEDs.
+6)  Clearance for nRF24L01 antenna.
+7)  MAX17043 for fuel gauge.
+8)  Using external crystal for BNO055.
+9)  Using the Sparkfun nRF24L01+ module.
+10) Mapping the external interrupts for BNO, nRF, Battery Gauge and buttons.
+11) Provision for test pads.
+12) Slide switch for power
+13) USB micro R/A connector.
+14) 
+
+==================================eGlove===================================
+
+============================Base Station Shield============================
+1) Rotary encoder for input selection.
+2) 20x4 RGB LCD display.
+3) BNO055 for frame of reference.
+4) nRF as the main node for reception.
+5) Piezo-buzzer
