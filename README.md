@@ -1,2 +1,2 @@
 # MasterThesis
-Source codes concerning Master Thesis
+Data and reference concerning Master Thesis
