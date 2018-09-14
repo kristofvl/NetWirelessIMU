@@ -1,24 +1,47 @@
-=================================IMU Node=================================
+ 888888ba   a88888b.  888888ba      a88888b. d888888P  .88888.  888888ba   .88888.  
+ 88    `8b d8'   `88  88    `8b    d8'   `88    88    d8'   `8b 88    `8b d8'   `8b 
+a88aaaa8P' 88        a88aaaa8P'    88 d8P 88    88    88     88 88     88 88     88 
+ 88        88         88   `8b.    88 Yo8b88    88    88     88 88     88 88     88 
+ 88        Y8.   .88  88    .88    Y8.          88    Y8.   .8P 88    .8P Y8.   .8P 
+ dP         Y88888P'  88888888P     Y88888P'    dP     `8888P'  8888888P   `8888P'  
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+                                                                                                                                                                 
+=================================IMU_node=================================
 1)  Pin access for Bosch firmware update for ARM Cortex M0 processor(PS0, PS1).
-2)  ISP access for AVR bootloader update(6-pin).
+2)  ISP access for AVR bootloader update(6-pin) - [3x2] Berg connector.
 3)  LiPo charger/regulator IC(from TI). - MCP73831
 4)  TX/RX/GND access for AVR UART sniffing and debugging.
-5)  Decide on no. of switches, buttons and LEDs.
+5)  Decide on no. of switches (Power), buttons (Reset, User) and LEDs.
 6)  Clearance for nRF24L01 antenna.
 7)  MAX17043 for fuel gauge.
-8)  Using external crystal for BNO055.
+8)  Using 32.768kHz external crystal for BNO055.
 9)  Using the Sparkfun nRF24L01+ module.
 10) Mapping the external interrupts for BNO, nRF, Battery Gauge and buttons.
 11) Provision for test pads.
-12) Slide switch for power
-13) USB micro R/A connector.
-14) 
+12) Slide switch for power.
+13) USB Mini R/A connector.
+14) JST-PH connector for battery.
+15) Keep the dimensions of the PCB same as that of the LiPo battery.
+16) 8MHz crystal oscillator for ATmega32U4.
+17) TL1105BF160Q for tactile switch.
+18) CUS-12TB / PCM12SMTR for slide switch.
+19) MBR120 Schottky diode (SOD-123FL package).
 
-==================================eGlove===================================
+=================================IMU_hand==================================
+1)  1Ah rated 3.3V voltage regulator - TPS79633-Q1 (SOT223-6 package).
+2)  74HC4051 (SO16 package) 8-channel MUX/DEMUX to multiplex the I2C line.
+3)  One IMU on the eGlove PCB.
+4)  EG1218 for silde switch.
+2)  4-pin JST-SH connector.
+
+
+================================IMU_finger=================================
+1)  15mm x 20mm small profile.
+2)  4-pin JST-SH connector.
 
 ============================Base Station Shield============================
-1) Rotary encoder for input selection.
-2) 20x4 RGB LCD display.
-3) BNO055 for frame of reference.
-4) nRF as the main node for reception.
-5) Piezo-buzzer
+1)  Rotary encoder for input selection.
+2)  20x4 RGB LCD display.
+3)  One BNO055 IMU for frame of reference.
+4)  nRF+ as the main node for reception with RP-SMA antenna.
+5)  Piezo-buzzer.
