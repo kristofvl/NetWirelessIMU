@@ -9,7 +9,7 @@
 #include <avr/sfr_defs.h>
 #include <stdint.h>
 #include <stdlib.h>
-#define F_CPU 16000000UL	//16 MHz frequency
+#define F_CPU 1000000UL	//1 MHz frequency
 #include <util/delay.h>
 
 #include "Test_BNO055.h"
@@ -32,6 +32,24 @@ void AVR_Init(void)
 	_delay_ms(750);		//Short pause after BNO055 Power-On Reset(Mandatory)
 	DDRD |= _BV(1);		//Set TX as output
 	DDRD &= ~(_BV(0));	//Set RX as input
+
+	DDRC |= _BV(6);		//Makes PORTC, bit 6 as Output
+	DDRC |= _BV(7);		//Makes PORTC, bit 7 as Output
+	
+	//Start-up LED sequence loop
+	for (int i = 5; i != 0; i--)
+	{
+		PORTC &= ~(_BV(6));	//Turns OFF LED in Port C pin 6
+		PORTC |= _BV(7);	//Turns ON LED in Port C pin 7
+		_delay_ms(100);		//0.1 second delay
+		
+		PORTC |= _BV(6);	//Turns ON LED in Port C pin 6
+		PORTC &= ~(_BV(7));	//Turns OFF LED in Port C pin 7
+		_delay_ms(100);		//0.1 second delay
+	}
+
+	PORTC &= ~(_BV(6));	//Turns OFF LED in Port C pin 6
+	PORTC &= ~(_BV(7));	//Turns OFF LED in Port C pin 7
 
 	//Initialize TWI data
 	TWI_data = 0;
@@ -232,7 +250,7 @@ void transmit_data(unsigned char tdata)
 	PORTB |= _BV(CSN);	//CSN high
 	_delay_us(15);		//Need at least 10us before sending
 	PORTB |= _BV(CE);	//CE high
-	_delay_us(20);  	//Hold CE high for at least 10us and not longer than 2ms
+	_delay_us(20);  	//Hold CE high for at least 10us and not longer than 4ms
 	PORTB &= ~_BV(CE);	//CE low
 	_delay_ms(1); 		//Delay needed for retransmissions before reset
 }
@@ -277,7 +295,7 @@ int main(void)
 
 	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
 	i2c_write(BNO055_OPR_MODE_ADDR);
-	i2c_write(OPERATION_MODE_IMUPLUS);		//Set operation mode to IMU
+	i2c_write(OPERATION_MODE_NDOF);		//Set operation mode to IMU
 	i2c_stop();
 	_delay_ms(10);
 

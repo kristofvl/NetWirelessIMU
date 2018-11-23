@@ -19,6 +19,15 @@
 #define CSN		0
 #define CE		4
 
+#define PAYLOAD_LEN	32
+
+uint8_t payload[32];
+
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len);
+uint8_t nrf24_getStatus(void);
+uint8_t nrf24_dataReady(void);
+uint8_t nrf24_rxFifoEmpty(void);
+
 void Init_SPI()
 {
 	//Set the output pin(s) for SPI
@@ -123,7 +132,7 @@ void Init_nrf(void)
 	_delay_ms(100);
 	
 	//Enable auto-acknowledgment for data pipe 0
-//	Write_byte(EN_AA, 0x01); 
+	Write_byte(EN_AA, 0x01); 
 	
 	//Enable data pipe 0
 	Write_byte(EN_RXADDR, 0x01); 
@@ -147,15 +156,15 @@ void Init_nrf(void)
 	//Setup p0 pipe address for receiving
 	spi_tranceiver(W_REGISTER + RX_ADDR_P0); 
 	_delay_us(10);
-	spi_tranceiver(0x01);
+	spi_tranceiver(0xAA);
 	_delay_us(10);
-	spi_tranceiver(0x02);
+	spi_tranceiver(0xBB);
 	_delay_us(10);
-	spi_tranceiver(0x03);
+	spi_tranceiver(0xCC);
 	_delay_us(10);
-	spi_tranceiver(0x04);
+	spi_tranceiver(0xDD);
 	_delay_us(10);
-	spi_tranceiver(0x05);
+	spi_tranceiver(0xEE);
 	_delay_us(10);
 	PORTB |= _BV(CSN);	//CSN high
 	
@@ -178,8 +187,8 @@ void Init_nrf(void)
 	_delay_us(10);
 	PORTB |= _BV(CSN);	//CSN high
 	
-	//Set the payload width as 1-byte	
-	Write_byte(RX_PW_P0, 0x01); 
+	//Set the payload width as 32-bytes	
+	Write_byte(RX_PW_P0, 0x20); 
 	
 	//Set the retransmission delay to 750us with 15 retries
 //	Write_byte(SETUP_RETR, 0x2F); 
@@ -221,33 +230,76 @@ void reset(void)
 	_delay_us(10);
 }
 
-void Init_INT6(void)
+void nrf24_getData(uint8_t* data)
 {
-	EICRB &= ~(1 << ISC60) | (1 << ISC61);	//INT6 active when low
-	EIMSK |= (1 << INT6);			//Enable INT6
-	sei();					//Enable global interrupts
+	/* Pull down chip select */
+	PORTB &= ~_BV(CSN); //CSN low
+
+	/* Send command to read RX payload */
+	spi_tranceiver(R_RX_PAYLOAD);
+	
+	/* Read payload */
+	Payload_RX(data, data, PAYLOAD_LEN);
+	
+	/* Pull up chip select */
+	PORTB |= _BV(CSN);  //CSN high
+
+	/* Reset status register */
+	Write_byte(STATUS, (1<<RX_DR));
 }
 
-ISR(INT6_vect)
-{	
-	cli();					//Disable global interrupt
+/* send and receive multiple bytes over SPI */
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+	uint8_t i;
+
+	for(i=0; i<len; i++)
+	{
+		data_in[i] = spi_tranceiver(data_out[i]);
+		UART_Tx(data_in[i]);   //Send the received data to UART
+	}
+}
+
+uint8_t nrf24_getStatus()
+{
+	uint8_t rv;
+	PORTB &= ~_BV(CSN); //CSN low
+	rv = spi_tranceiver(NOP);
+	PORTB |= _BV(CSN);  //CSN high
+	return rv;
+}
+
+/* Checks if data is available for reading */
+/* Returns 1 if data is ready ... */
+uint8_t nrf24_dataReady()
+{
+	// See note in getData() function - just checking RX_DR isn't good enough
+	uint8_t status = nrf24_getStatus();
+
+	// We can short circuit on RX_DR, but if it's not set, we still need
+	// to check the FIFO for any pending packets
+	if (status & (1 << RX_DR))
+	{
+		return 1;
+	}
+
+	return !nrf24_rxFifoEmpty();;
+}
+
+/* Checks if receive FIFO is empty or not */
+uint8_t nrf24_rxFifoEmpty()
+{
+	uint8_t fifoStatus;
+
+	fifoStatus = Read_Byte(FIFO_STATUS);
 	
-	PORTB &= ~_BV(CE); 			//Stop listening
-	unsigned char my_data = Read_Byte(R_RX_PAYLOAD);
-	
-	UART_Tx(my_data);			//Send the received data to UART
-	
-	Flush_rx();				//Flush RX
-	reset();				//Reset IRQ
-	sei();
-	PORTB |= _BV(CE);  			//Start listening again
+	return (fifoStatus & (1 << RX_EMPTY));
 }
 
 int main(void)
 {
 
 	Init_SPI();
-	Init_INT6();
 	Init_nrf();
 	UART_Init();
 	Flush_rx();
@@ -256,6 +308,10 @@ int main(void)
     
  	while (1) 
     	{
-    		//Loop forever		
+    		//Loop forever	
+	        if(nrf24_dataReady())
+	        {
+		        nrf24_getData(payload);
+	        }	
     	}
 }

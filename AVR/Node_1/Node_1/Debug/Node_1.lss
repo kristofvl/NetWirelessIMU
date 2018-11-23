@@ -1,0 +1,1408 @@
+
+Node_1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000007f2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000077e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000012  00800100  00800100  000007f2  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000007f2  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000824  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000128  00000000  00000000  00000864  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00002238  00000000  00000000  0000098c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000d00  00000000  00000000  00002bc4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000d33  00000000  00000000  000038c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000280  00000000  00000000  000045f8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000006f6  00000000  00000000  00004878  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000114c  00000000  00000000  00004f6e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000108  00000000  00000000  000060ba  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+   4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+   8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+   c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  10:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  14:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  18:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  1c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  20:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  24:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  28:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  2c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  30:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  34:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  38:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  3c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  40:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  44:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  48:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  4c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  50:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  54:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  58:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  5c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  60:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  64:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  68:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  6c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  70:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  74:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  78:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  7c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  80:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  84:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  88:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  8c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  90:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  94:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  98:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  9c:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a0:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a4:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+  a8:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__bad_interrupt>
+
+000000ac <__ctors_end>:
+  ac:	11 24       	eor	r1, r1
+  ae:	1f be       	out	0x3f, r1	; 63
+  b0:	cf ef       	ldi	r28, 0xFF	; 255
+  b2:	da e0       	ldi	r29, 0x0A	; 10
+  b4:	de bf       	out	0x3e, r29	; 62
+  b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_clear_bss>:
+  b8:	21 e0       	ldi	r18, 0x01	; 1
+  ba:	a0 e0       	ldi	r26, 0x00	; 0
+  bc:	b1 e0       	ldi	r27, 0x01	; 1
+  be:	01 c0       	rjmp	.+2      	; 0xc2 <.do_clear_bss_start>
+
+000000c0 <.do_clear_bss_loop>:
+  c0:	1d 92       	st	X+, r1
+
+000000c2 <.do_clear_bss_start>:
+  c2:	a2 31       	cpi	r26, 0x12	; 18
+  c4:	b2 07       	cpc	r27, r18
+  c6:	e1 f7       	brne	.-8      	; 0xc0 <.do_clear_bss_loop>
+  c8:	0e 94 e9 02 	call	0x5d2	; 0x5d2 <main>
+  cc:	0c 94 bd 03 	jmp	0x77a	; 0x77a <_exit>
+
+000000d0 <__bad_interrupt>:
+  d0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000d4 <AVR_Init>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d4:	2f ef       	ldi	r18, 0xFF	; 255
+  d6:	8e e9       	ldi	r24, 0x9E	; 158
+  d8:	94 e2       	ldi	r25, 0x24	; 36
+  da:	21 50       	subi	r18, 0x01	; 1
+  dc:	80 40       	sbci	r24, 0x00	; 0
+  de:	90 40       	sbci	r25, 0x00	; 0
+  e0:	e1 f7       	brne	.-8      	; 0xda <AVR_Init+0x6>
+  e2:	00 c0       	rjmp	.+0      	; 0xe4 <AVR_Init+0x10>
+  e4:	00 00       	nop
+** - Initializes the I/O peripherals
+*************************************************************************************/
+void AVR_Init(void)
+{
+	_delay_ms(750);		//Short pause after BNO055 Power-On Reset(Mandatory)
+	DDRD |= _BV(1);		//Set TX as output
+  e6:	51 9a       	sbi	0x0a, 1	; 10
+	DDRD &= ~(_BV(0));	//Set RX as input
+  e8:	50 98       	cbi	0x0a, 0	; 10
+
+	//Initialize TWI data
+	TWI_data = 0;
+  ea:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <TWI_data>
+  ee:	08 95       	ret
+
+000000f0 <UART_Init>:
+** - Set the USART mode(Synchronous/Asynchronous/Asynchronous 2x)
+** - Enable Receiver & Transmitter(Set RXEN & TXEN bits in UCSRB register)
+*************************************************************************************/
+void UART_Init(void)
+{
+	DDRD |= _BV(1);		//Set TX as output
+  f0:	51 9a       	sbi	0x0a, 1	; 10
+	DDRD &= ~(_BV(0));	//Set RX as input
+  f2:	50 98       	cbi	0x0a, 0	; 10
+
+	//Set the BAUD rate(Ref. ATmega32U4 Datasheet Pg.189, Table 18-1)
+	//To hard-code the Baud rate, Ref. Tables 18-9 to 18-12 in Pgs. 210 - 213
+	UBRR1 = ((F_CPU / (16UL * BAUD)) - 1);
+  f4:	80 e1       	ldi	r24, 0x10	; 16
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	90 93 cd 00 	sts	0x00CD, r25	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
+  fc:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
+	
+	//Disables 2x speed
+	UCSR1A &= ~(_BV(U2X1));
+ 100:	e8 ec       	ldi	r30, 0xC8	; 200
+ 102:	f0 e0       	ldi	r31, 0x00	; 0
+ 104:	80 81       	ld	r24, Z
+ 106:	8d 7f       	andi	r24, 0xFD	; 253
+ 108:	80 83       	st	Z, r24
+	
+	//Enable 8-bit character size, one stop-bit, no parity & asynchronous mode
+	UCSR1C |= _BV(UCSZ11) | _BV(UCSZ10);
+ 10a:	ea ec       	ldi	r30, 0xCA	; 202
+ 10c:	f0 e0       	ldi	r31, 0x00	; 0
+ 10e:	80 81       	ld	r24, Z
+ 110:	86 60       	ori	r24, 0x06	; 6
+ 112:	80 83       	st	Z, r24
+	
+	//Enable Transmitter & Receiver
+	UCSR1B |= _BV(TXEN1) | _BV(RXEN1);
+ 114:	e9 ec       	ldi	r30, 0xC9	; 201
+ 116:	f0 e0       	ldi	r31, 0x00	; 0
+ 118:	80 81       	ld	r24, Z
+ 11a:	88 61       	ori	r24, 0x18	; 24
+ 11c:	80 83       	st	Z, r24
+ 11e:	08 95       	ret
+
+00000120 <UART_Tx>:
+** - Transmits the ADC data via the USB Serial
+** - The data is received & displayed in a Hyperterminal
+*************************************************************************************/
+void UART_Tx(unsigned char data)
+{
+	loop_until_bit_is_set(UCSR1A, UDRE1);	//Wait until buffer is empty
+ 120:	e8 ec       	ldi	r30, 0xC8	; 200
+ 122:	f0 e0       	ldi	r31, 0x00	; 0
+ 124:	90 81       	ld	r25, Z
+ 126:	95 ff       	sbrs	r25, 5
+ 128:	fd cf       	rjmp	.-6      	; 0x124 <UART_Tx+0x4>
+	UDR1 = data;				//Send data
+ 12a:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
+ 12e:	08 95       	ret
+
+00000130 <Init_SPI>:
+}
+
+void Init_SPI()
+{
+	//Set the output pin(s) for SPI
+	DDRB |= _BV(CE);	//CE
+ 130:	24 9a       	sbi	0x04, 4	; 4
+	DDRB |= _BV(CSN);	//CSN
+ 132:	20 9a       	sbi	0x04, 0	; 4
+	DDRB |= _BV(MOSI);  	//MOSI
+ 134:	22 9a       	sbi	0x04, 2	; 4
+	DDRB |= _BV(SCLK);  	//SCLK
+ 136:	21 9a       	sbi	0x04, 1	; 4
+
+	//Set the input pin(s) for SPI
+	DDRB &= ~_BV(MISO); 	//MISO
+ 138:	23 98       	cbi	0x04, 3	; 4
+
+	
+	SPCR |= ((1 << SPE) | (1 << MSTR) | (1 << SPR0));	//Enable SPI as master
+ 13a:	8c b5       	in	r24, 0x2c	; 44
+ 13c:	81 65       	ori	r24, 0x51	; 81
+ 13e:	8c bd       	out	0x2c, r24	; 44
+	SPCR &= (~_BV(SPI2X) & ~_BV(SPR1)); 		   	//Set clock rate but not too important
+ 140:	8c b5       	in	r24, 0x2c	; 44
+ 142:	8c 7f       	andi	r24, 0xFC	; 252
+ 144:	8c bd       	out	0x2c, r24	; 44
+	
+	PORTB |= _BV(CSN);	//CSN high
+ 146:	28 9a       	sbi	0x05, 0	; 5
+	PORTB &= ~_BV(CE);	//CE low
+ 148:	2c 98       	cbi	0x05, 4	; 5
+ 14a:	08 95       	ret
+
+0000014c <spi_tranceiver>:
+}
+
+unsigned char spi_tranceiver(unsigned char data)
+{
+	// Load data into the buffer
+	SPDR = data;
+ 14c:	8e bd       	out	0x2e, r24	; 46
+	
+	//Wait until transmission complete
+	while(!(SPSR & (1 << SPIF)));
+ 14e:	0d b4       	in	r0, 0x2d	; 45
+ 150:	07 fe       	sbrs	r0, 7
+ 152:	fd cf       	rjmp	.-6      	; 0x14e <spi_tranceiver+0x2>
+
+	//Return received data
+	return(SPDR);
+ 154:	8e b5       	in	r24, 0x2e	; 46
+}
+ 156:	08 95       	ret
+
+00000158 <Read_Byte>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 158:	95 e3       	ldi	r25, 0x35	; 53
+ 15a:	9a 95       	dec	r25
+ 15c:	f1 f7       	brne	.-4      	; 0x15a <Read_Byte+0x2>
+ 15e:	00 00       	nop
+
+unsigned char Read_Byte(unsigned char reg)
+{
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);	//CSN low
+ 160:	28 98       	cbi	0x05, 0	; 5
+ 162:	95 e3       	ldi	r25, 0x35	; 53
+ 164:	9a 95       	dec	r25
+ 166:	f1 f7       	brne	.-4      	; 0x164 <Read_Byte+0xc>
+ 168:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(R_REGISTER + reg);
+ 16a:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 16e:	85 e3       	ldi	r24, 0x35	; 53
+ 170:	8a 95       	dec	r24
+ 172:	f1 f7       	brne	.-4      	; 0x170 <Read_Byte+0x18>
+ 174:	00 00       	nop
+	_delay_us(10);
+	reg = spi_tranceiver(NOP);
+ 176:	8f ef       	ldi	r24, 0xFF	; 255
+ 178:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 17c:	95 e3       	ldi	r25, 0x35	; 53
+ 17e:	9a 95       	dec	r25
+ 180:	f1 f7       	brne	.-4      	; 0x17e <Read_Byte+0x26>
+ 182:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);	//CSN high
+ 184:	28 9a       	sbi	0x05, 0	; 5
+	return reg;
+}
+ 186:	08 95       	ret
+
+00000188 <Write_byte>:
+
+void Write_byte(unsigned char reg, unsigned char data)
+{
+ 188:	cf 93       	push	r28
+ 18a:	c6 2f       	mov	r28, r22
+ 18c:	95 e3       	ldi	r25, 0x35	; 53
+ 18e:	9a 95       	dec	r25
+ 190:	f1 f7       	brne	.-4      	; 0x18e <Write_byte+0x6>
+ 192:	00 00       	nop
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);	//CSN low
+ 194:	28 98       	cbi	0x05, 0	; 5
+ 196:	95 e3       	ldi	r25, 0x35	; 53
+ 198:	9a 95       	dec	r25
+ 19a:	f1 f7       	brne	.-4      	; 0x198 <Write_byte+0x10>
+ 19c:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(W_REGISTER + reg);
+ 19e:	80 5e       	subi	r24, 0xE0	; 224
+ 1a0:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 1a4:	85 e3       	ldi	r24, 0x35	; 53
+ 1a6:	8a 95       	dec	r24
+ 1a8:	f1 f7       	brne	.-4      	; 0x1a6 <Write_byte+0x1e>
+ 1aa:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(data);
+ 1ac:	8c 2f       	mov	r24, r28
+ 1ae:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 1b2:	95 e3       	ldi	r25, 0x35	; 53
+ 1b4:	9a 95       	dec	r25
+ 1b6:	f1 f7       	brne	.-4      	; 0x1b4 <Write_byte+0x2c>
+ 1b8:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);	//CSN high
+ 1ba:	28 9a       	sbi	0x05, 0	; 5
+}
+ 1bc:	cf 91       	pop	r28
+ 1be:	08 95       	ret
+
+000001c0 <Flush_tx>:
+ 1c0:	85 e3       	ldi	r24, 0x35	; 53
+ 1c2:	8a 95       	dec	r24
+ 1c4:	f1 f7       	brne	.-4      	; 0x1c2 <Flush_tx+0x2>
+ 1c6:	00 00       	nop
+}
+
+void Flush_tx(void)
+{
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);	//CSN low
+ 1c8:	28 98       	cbi	0x05, 0	; 5
+ 1ca:	85 e3       	ldi	r24, 0x35	; 53
+ 1cc:	8a 95       	dec	r24
+ 1ce:	f1 f7       	brne	.-4      	; 0x1cc <Flush_tx+0xc>
+ 1d0:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(FLUSH_TX);
+ 1d2:	81 ee       	ldi	r24, 0xE1	; 225
+ 1d4:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 1d8:	85 e3       	ldi	r24, 0x35	; 53
+ 1da:	8a 95       	dec	r24
+ 1dc:	f1 f7       	brne	.-4      	; 0x1da <Flush_tx+0x1a>
+ 1de:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);	//CSN high
+ 1e0:	28 9a       	sbi	0x05, 0	; 5
+ 1e2:	85 e3       	ldi	r24, 0x35	; 53
+ 1e4:	8a 95       	dec	r24
+ 1e6:	f1 f7       	brne	.-4      	; 0x1e4 <Flush_tx+0x24>
+ 1e8:	00 00       	nop
+ 1ea:	08 95       	ret
+
+000001ec <nRF_TX_mode>:
+	_delay_ms(100);
+}
+
+void nRF_TX_mode(void)
+{
+	PORTB &= ~_BV(CE); //CE low
+ 1ec:	2c 98       	cbi	0x05, 4	; 5
+	Write_byte(CONFIG, 0x1E);
+ 1ee:	6e e1       	ldi	r22, 0x1E	; 30
+ 1f0:	80 e0       	ldi	r24, 0x00	; 0
+ 1f2:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	Flush_tx();
+ 1f6:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <Flush_tx>
+ 1fa:	87 e5       	ldi	r24, 0x57	; 87
+ 1fc:	92 e0       	ldi	r25, 0x02	; 2
+ 1fe:	01 97       	sbiw	r24, 0x01	; 1
+ 200:	f1 f7       	brne	.-4      	; 0x1fe <nRF_TX_mode+0x12>
+ 202:	00 c0       	rjmp	.+0      	; 0x204 <nRF_TX_mode+0x18>
+ 204:	00 00       	nop
+ 206:	08 95       	ret
+
+00000208 <Flush_rx>:
+ 208:	85 e3       	ldi	r24, 0x35	; 53
+ 20a:	8a 95       	dec	r24
+ 20c:	f1 f7       	brne	.-4      	; 0x20a <Flush_rx+0x2>
+ 20e:	00 00       	nop
+}
+
+void Flush_rx(void)
+{
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);
+ 210:	28 98       	cbi	0x05, 0	; 5
+ 212:	85 e3       	ldi	r24, 0x35	; 53
+ 214:	8a 95       	dec	r24
+ 216:	f1 f7       	brne	.-4      	; 0x214 <Flush_rx+0xc>
+ 218:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(FLUSH_RX);
+ 21a:	82 ee       	ldi	r24, 0xE2	; 226
+ 21c:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 220:	85 e3       	ldi	r24, 0x35	; 53
+ 222:	8a 95       	dec	r24
+ 224:	f1 f7       	brne	.-4      	; 0x222 <Flush_rx+0x1a>
+ 226:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);
+ 228:	28 9a       	sbi	0x05, 0	; 5
+ 22a:	85 e3       	ldi	r24, 0x35	; 53
+ 22c:	8a 95       	dec	r24
+ 22e:	f1 f7       	brne	.-4      	; 0x22c <Flush_rx+0x24>
+ 230:	00 00       	nop
+ 232:	08 95       	ret
+
+00000234 <Payload_TX>:
+	_delay_us(10);
+}
+
+void Payload_TX(uint8_t* data, uint8_t len)
+{
+ 234:	0f 93       	push	r16
+ 236:	1f 93       	push	r17
+ 238:	cf 93       	push	r28
+ 23a:	df 93       	push	r29
+	uint8_t i;
+	
+	for(i = 0; i < len; i++)
+ 23c:	66 23       	and	r22, r22
+ 23e:	69 f0       	breq	.+26     	; 0x25a <Payload_TX+0x26>
+ 240:	c0 e0       	ldi	r28, 0x00	; 0
+ 242:	d1 e0       	ldi	r29, 0x01	; 1
+ 244:	61 50       	subi	r22, 0x01	; 1
+ 246:	06 2f       	mov	r16, r22
+ 248:	10 e0       	ldi	r17, 0x00	; 0
+ 24a:	0f 5f       	subi	r16, 0xFF	; 255
+ 24c:	1e 4f       	sbci	r17, 0xFE	; 254
+	{
+		spi_tranceiver(N1_payload_TX[i]);
+ 24e:	89 91       	ld	r24, Y+
+ 250:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+
+void Payload_TX(uint8_t* data, uint8_t len)
+{
+	uint8_t i;
+	
+	for(i = 0; i < len; i++)
+ 254:	c0 17       	cp	r28, r16
+ 256:	d1 07       	cpc	r29, r17
+ 258:	d1 f7       	brne	.-12     	; 0x24e <Payload_TX+0x1a>
+	{
+		spi_tranceiver(N1_payload_TX[i]);
+	}
+
+}
+ 25a:	df 91       	pop	r29
+ 25c:	cf 91       	pop	r28
+ 25e:	1f 91       	pop	r17
+ 260:	0f 91       	pop	r16
+ 262:	08 95       	ret
+
+00000264 <transmit_data>:
+
+void transmit_data(unsigned char *tdata)
+{
+	Flush_tx();
+ 264:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <Flush_tx>
+	PORTB &= ~_BV(CSN); //CSN low
+ 268:	28 98       	cbi	0x05, 0	; 5
+ 26a:	85 e3       	ldi	r24, 0x35	; 53
+ 26c:	8a 95       	dec	r24
+ 26e:	f1 f7       	brne	.-4      	; 0x26c <transmit_data+0x8>
+ 270:	00 00       	nop
+	_delay_us(10);
+	//Transmit payload with ACK enabled
+	spi_tranceiver(W_TX_PAYLOAD);
+ 272:	80 ea       	ldi	r24, 0xA0	; 160
+ 274:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 278:	85 e3       	ldi	r24, 0x35	; 53
+ 27a:	8a 95       	dec	r24
+ 27c:	f1 f7       	brne	.-4      	; 0x27a <transmit_data+0x16>
+ 27e:	00 00       	nop
+	_delay_us(10);
+	Payload_TX(N1_payload_TX, PAYLOAD_LEN);
+ 280:	68 e0       	ldi	r22, 0x08	; 8
+ 282:	80 e0       	ldi	r24, 0x00	; 0
+ 284:	91 e0       	ldi	r25, 0x01	; 1
+ 286:	0e 94 1a 01 	call	0x234	; 0x234 <Payload_TX>
+ 28a:	85 e3       	ldi	r24, 0x35	; 53
+ 28c:	8a 95       	dec	r24
+ 28e:	f1 f7       	brne	.-4      	; 0x28c <transmit_data+0x28>
+ 290:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);  //CSN high
+ 292:	28 9a       	sbi	0x05, 0	; 5
+ 294:	80 e5       	ldi	r24, 0x50	; 80
+ 296:	8a 95       	dec	r24
+ 298:	f1 f7       	brne	.-4      	; 0x296 <transmit_data+0x32>
+	_delay_us(15);      //Need at least 10us before sending
+	PORTB |= _BV(CE);   //CE high
+ 29a:	2c 9a       	sbi	0x05, 4	; 5
+ 29c:	8a e6       	ldi	r24, 0x6A	; 106
+ 29e:	8a 95       	dec	r24
+ 2a0:	f1 f7       	brne	.-4      	; 0x29e <transmit_data+0x3a>
+ 2a2:	00 c0       	rjmp	.+0      	; 0x2a4 <transmit_data+0x40>
+ 2a4:	08 95       	ret
+
+000002a6 <Payload_RX>:
+	Write_byte(STATUS, (1<<RX_DR));
+}
+
+/* send and receive multiple bytes over SPI */
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+ 2a6:	cf 92       	push	r12
+ 2a8:	df 92       	push	r13
+ 2aa:	ef 92       	push	r14
+ 2ac:	ff 92       	push	r15
+ 2ae:	0f 93       	push	r16
+ 2b0:	1f 93       	push	r17
+ 2b2:	cf 93       	push	r28
+ 2b4:	df 93       	push	r29
+	uint8_t i;
+
+	for(i=0; i<len; i++)
+ 2b6:	44 23       	and	r20, r20
+ 2b8:	21 f1       	breq	.+72     	; 0x302 <Payload_RX+0x5c>
+ 2ba:	08 2f       	mov	r16, r24
+ 2bc:	19 2f       	mov	r17, r25
+ 2be:	eb 01       	movw	r28, r22
+ 2c0:	41 50       	subi	r20, 0x01	; 1
+ 2c2:	e4 2e       	mov	r14, r20
+ 2c4:	f1 2c       	mov	r15, r1
+ 2c6:	8f ef       	ldi	r24, 0xFF	; 255
+ 2c8:	e8 1a       	sub	r14, r24
+ 2ca:	f8 0a       	sbc	r15, r24
+ 2cc:	e6 0e       	add	r14, r22
+ 2ce:	f7 1e       	adc	r15, r23
+	{
+		data_in[i] = spi_tranceiver(data_out[i]);
+ 2d0:	f8 01       	movw	r30, r16
+ 2d2:	81 91       	ld	r24, Z+
+ 2d4:	8f 01       	movw	r16, r30
+ 2d6:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 2da:	6e 01       	movw	r12, r28
+ 2dc:	89 93       	st	Y+, r24
+		UART_Tx(data_in[i]);		   //Send the received data to UART
+ 2de:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+		if (data_in[i] == 0xAA)
+ 2e2:	f6 01       	movw	r30, r12
+ 2e4:	80 81       	ld	r24, Z
+ 2e6:	8a 3a       	cpi	r24, 0xAA	; 170
+ 2e8:	49 f4       	brne	.+18     	; 0x2fc <Payload_RX+0x56>
+		{
+			UART_Tx(RX_Payload_cnt);   //Send RX_Payload count to UART
+ 2ea:	80 91 11 01 	lds	r24, 0x0111	; 0x800111 <RX_Payload_cnt>
+ 2ee:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+			RX_Payload_cnt++;
+ 2f2:	80 91 11 01 	lds	r24, 0x0111	; 0x800111 <RX_Payload_cnt>
+ 2f6:	8f 5f       	subi	r24, 0xFF	; 255
+ 2f8:	80 93 11 01 	sts	0x0111, r24	; 0x800111 <RX_Payload_cnt>
+/* send and receive multiple bytes over SPI */
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+	uint8_t i;
+
+	for(i=0; i<len; i++)
+ 2fc:	ce 15       	cp	r28, r14
+ 2fe:	df 05       	cpc	r29, r15
+ 300:	39 f7       	brne	.-50     	; 0x2d0 <Payload_RX+0x2a>
+		{
+			UART_Tx(RX_Payload_cnt);   //Send RX_Payload count to UART
+			RX_Payload_cnt++;
+		}
+	}
+}
+ 302:	df 91       	pop	r29
+ 304:	cf 91       	pop	r28
+ 306:	1f 91       	pop	r17
+ 308:	0f 91       	pop	r16
+ 30a:	ff 90       	pop	r15
+ 30c:	ef 90       	pop	r14
+ 30e:	df 90       	pop	r13
+ 310:	cf 90       	pop	r12
+ 312:	08 95       	ret
+
+00000314 <nrf24_getData>:
+
+	return 1; /* true */
+}
+
+void nrf24_getData(uint8_t* data)
+{
+ 314:	cf 93       	push	r28
+ 316:	df 93       	push	r29
+ 318:	ec 01       	movw	r28, r24
+	/* Pull down chip select */
+	PORTB &= ~_BV(CSN); //CSN low
+ 31a:	28 98       	cbi	0x05, 0	; 5
+
+	/* Send command to read RX payload */
+	spi_tranceiver(R_RX_PAYLOAD);
+ 31c:	81 e6       	ldi	r24, 0x61	; 97
+ 31e:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+	
+	/* Read payload */
+	Payload_RX(data, data, PAYLOAD_LEN);
+ 322:	48 e0       	ldi	r20, 0x08	; 8
+ 324:	be 01       	movw	r22, r28
+ 326:	ce 01       	movw	r24, r28
+ 328:	0e 94 53 01 	call	0x2a6	; 0x2a6 <Payload_RX>
+	
+	/* Pull up chip select */
+	PORTB |= _BV(CSN);  //CSN high
+ 32c:	28 9a       	sbi	0x05, 0	; 5
+
+	/* Reset status register */
+	Write_byte(STATUS, (1<<RX_DR));
+ 32e:	60 e4       	ldi	r22, 0x40	; 64
+ 330:	87 e0       	ldi	r24, 0x07	; 7
+ 332:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+}
+ 336:	df 91       	pop	r29
+ 338:	cf 91       	pop	r28
+ 33a:	08 95       	ret
+
+0000033c <nrf24_getStatus>:
+}
+
+uint8_t nrf24_getStatus()
+{
+	uint8_t rv;
+	PORTB &= ~_BV(CSN); //CSN low
+ 33c:	28 98       	cbi	0x05, 0	; 5
+	rv = spi_tranceiver(NOP);
+ 33e:	8f ef       	ldi	r24, 0xFF	; 255
+ 340:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+	PORTB |= _BV(CSN);  //CSN high
+ 344:	28 9a       	sbi	0x05, 0	; 5
+	return rv;
+}
+ 346:	08 95       	ret
+
+00000348 <nrf24_isSending>:
+uint8_t nrf24_isSending()
+{
+	uint8_t status;
+
+	/* read the current status */
+	status = nrf24_getStatus();
+ 348:	0e 94 9e 01 	call	0x33c	; 0x33c <nrf24_getStatus>
+ 34c:	98 2f       	mov	r25, r24
+ 34e:	90 73       	andi	r25, 0x30	; 48
+ 350:	81 e0       	ldi	r24, 0x01	; 1
+ 352:	09 f0       	breq	.+2      	; 0x356 <nrf24_isSending+0xe>
+ 354:	80 e0       	ldi	r24, 0x00	; 0
+	{
+		return 0; /* false */
+	}
+
+	return 1; /* true */
+}
+ 356:	08 95       	ret
+
+00000358 <nrf24_rxFifoEmpty>:
+/* Checks if receive FIFO is empty or not */
+uint8_t nrf24_rxFifoEmpty()
+{
+	uint8_t fifoStatus;
+
+	fifoStatus = Read_Byte(FIFO_STATUS);
+ 358:	87 e1       	ldi	r24, 0x17	; 23
+ 35a:	0e 94 ac 00 	call	0x158	; 0x158 <Read_Byte>
+	
+	return (fifoStatus & (1 << RX_EMPTY));
+}
+ 35e:	81 70       	andi	r24, 0x01	; 1
+ 360:	08 95       	ret
+
+00000362 <nrf24_dataReady>:
+/* Checks if data is available for reading */
+/* Returns 1 if data is ready ... */
+uint8_t nrf24_dataReady()
+{
+	// See note in getData() function - just checking RX_DR isn't good enough
+	uint8_t status = nrf24_getStatus();
+ 362:	0e 94 9e 01 	call	0x33c	; 0x33c <nrf24_getStatus>
+
+	// We can short circuit on RX_DR, but if it's not set, we still need
+	// to check the FIFO for any pending packets
+	if (status & (1 << RX_DR))
+ 366:	86 fd       	sbrc	r24, 6
+ 368:	07 c0       	rjmp	.+14     	; 0x378 <nrf24_dataReady+0x16>
+	{
+		return 1;
+	}
+
+	return !nrf24_rxFifoEmpty();;
+ 36a:	0e 94 ac 01 	call	0x358	; 0x358 <nrf24_rxFifoEmpty>
+ 36e:	91 e0       	ldi	r25, 0x01	; 1
+ 370:	88 23       	and	r24, r24
+ 372:	19 f0       	breq	.+6      	; 0x37a <nrf24_dataReady+0x18>
+ 374:	90 e0       	ldi	r25, 0x00	; 0
+ 376:	01 c0       	rjmp	.+2      	; 0x37a <nrf24_dataReady+0x18>
+
+	// We can short circuit on RX_DR, but if it's not set, we still need
+	// to check the FIFO for any pending packets
+	if (status & (1 << RX_DR))
+	{
+		return 1;
+ 378:	91 e0       	ldi	r25, 0x01	; 1
+	}
+
+	return !nrf24_rxFifoEmpty();;
+}
+ 37a:	89 2f       	mov	r24, r25
+ 37c:	08 95       	ret
+
+0000037e <reset>:
+ 37e:	85 e3       	ldi	r24, 0x35	; 53
+ 380:	8a 95       	dec	r24
+ 382:	f1 f7       	brne	.-4      	; 0x380 <reset+0x2>
+ 384:	00 00       	nop
+
+void reset(void)
+{
+	_delay_us(10);
+	//Reset IRQ-flags in status register
+	Write_byte(STATUS, 0x70);
+ 386:	60 e7       	ldi	r22, 0x70	; 112
+ 388:	87 e0       	ldi	r24, 0x07	; 7
+ 38a:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+ 38e:	85 e3       	ldi	r24, 0x35	; 53
+ 390:	8a 95       	dec	r24
+ 392:	f1 f7       	brne	.-4      	; 0x390 <reset+0x12>
+ 394:	00 00       	nop
+ 396:	08 95       	ret
+
+00000398 <nRF_RX_mode>:
+	_delay_us(150);
+}
+
+void nRF_RX_mode(void)
+{
+	PORTB &= ~_BV(CE); //CE low
+ 398:	2c 98       	cbi	0x05, 4	; 5
+	Write_byte(CONFIG, 0x1F);
+ 39a:	6f e1       	ldi	r22, 0x1F	; 31
+ 39c:	80 e0       	ldi	r24, 0x00	; 0
+ 39e:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	Flush_rx();
+ 3a2:	0e 94 04 01 	call	0x208	; 0x208 <Flush_rx>
+	reset();
+ 3a6:	0e 94 bf 01 	call	0x37e	; 0x37e <reset>
+	PORTB |= _BV(CE);  //CE high
+ 3aa:	2c 9a       	sbi	0x05, 4	; 5
+ 3ac:	87 e5       	ldi	r24, 0x57	; 87
+ 3ae:	92 e0       	ldi	r25, 0x02	; 2
+ 3b0:	01 97       	sbiw	r24, 0x01	; 1
+ 3b2:	f1 f7       	brne	.-4      	; 0x3b0 <nRF_RX_mode+0x18>
+ 3b4:	00 c0       	rjmp	.+0      	; 0x3b6 <nRF_RX_mode+0x1e>
+ 3b6:	00 00       	nop
+ 3b8:	08 95       	ret
+
+000003ba <Init_nrf>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 3ba:	2f ef       	ldi	r18, 0xFF	; 255
+ 3bc:	81 ee       	ldi	r24, 0xE1	; 225
+ 3be:	94 e0       	ldi	r25, 0x04	; 4
+ 3c0:	21 50       	subi	r18, 0x01	; 1
+ 3c2:	80 40       	sbci	r24, 0x00	; 0
+ 3c4:	90 40       	sbci	r25, 0x00	; 0
+ 3c6:	e1 f7       	brne	.-8      	; 0x3c0 <Init_nrf+0x6>
+ 3c8:	00 c0       	rjmp	.+0      	; 0x3ca <Init_nrf+0x10>
+ 3ca:	00 00       	nop
+void Init_nrf(void)
+{
+	_delay_ms(100);
+	
+	//Enable auto-acknowledgment for data pipe 0
+	Write_byte(EN_AA, 0x01);
+ 3cc:	61 e0       	ldi	r22, 0x01	; 1
+ 3ce:	81 e0       	ldi	r24, 0x01	; 1
+ 3d0:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	
+	//Enable data pipe 0
+	Write_byte(EN_RXADDR, 0x01);
+ 3d4:	61 e0       	ldi	r22, 0x01	; 1
+ 3d6:	82 e0       	ldi	r24, 0x02	; 2
+ 3d8:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+
+	//Set address width to 5 bytes
+	Write_byte(SETUP_AW, 0x03);
+ 3dc:	63 e0       	ldi	r22, 0x03	; 3
+ 3de:	83 e0       	ldi	r24, 0x03	; 3
+ 3e0:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	
+	//Set channel frequency to 2.505GHz
+	Write_byte(RF_CH, 0x69);
+ 3e4:	69 e6       	ldi	r22, 0x69	; 105
+ 3e6:	85 e0       	ldi	r24, 0x05	; 5
+ 3e8:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	
+	//Set data rate to 2Mbps and 0dB gain
+	Write_byte(RF_SETUP, 0x0E);
+ 3ec:	6e e0       	ldi	r22, 0x0E	; 14
+ 3ee:	86 e0       	ldi	r24, 0x06	; 6
+ 3f0:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 3f4:	25 e3       	ldi	r18, 0x35	; 53
+ 3f6:	2a 95       	dec	r18
+ 3f8:	f1 f7       	brne	.-4      	; 0x3f6 <Init_nrf+0x3c>
+ 3fa:	00 00       	nop
+	//Enable W_TX_PAYLOAD_NOACK command
+	//	Write_byte(FEATURE, 0x01);
+	
+	//Set the 5-bytes receiver address as 0x01 0x02 0x03 0x04 0x05
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);	//CSN low
+ 3fc:	28 98       	cbi	0x05, 0	; 5
+ 3fe:	85 e3       	ldi	r24, 0x35	; 53
+ 400:	8a 95       	dec	r24
+ 402:	f1 f7       	brne	.-4      	; 0x400 <__LOCK_REGION_LENGTH__>
+ 404:	00 00       	nop
+	_delay_us(10);
+	//Setup p0 pipe address for receiving
+	spi_tranceiver(W_REGISTER + RX_ADDR_P0);
+ 406:	8a e2       	ldi	r24, 0x2A	; 42
+ 408:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 40c:	95 e3       	ldi	r25, 0x35	; 53
+ 40e:	9a 95       	dec	r25
+ 410:	f1 f7       	brne	.-4      	; 0x40e <__LOCK_REGION_LENGTH__+0xe>
+ 412:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0xAA);
+ 414:	8a ea       	ldi	r24, 0xAA	; 170
+ 416:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 41a:	25 e3       	ldi	r18, 0x35	; 53
+ 41c:	2a 95       	dec	r18
+ 41e:	f1 f7       	brne	.-4      	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+ 420:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0xBB);
+ 422:	8b eb       	ldi	r24, 0xBB	; 187
+ 424:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 428:	85 e3       	ldi	r24, 0x35	; 53
+ 42a:	8a 95       	dec	r24
+ 42c:	f1 f7       	brne	.-4      	; 0x42a <__LOCK_REGION_LENGTH__+0x2a>
+ 42e:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0xCC);
+ 430:	8c ec       	ldi	r24, 0xCC	; 204
+ 432:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 436:	95 e3       	ldi	r25, 0x35	; 53
+ 438:	9a 95       	dec	r25
+ 43a:	f1 f7       	brne	.-4      	; 0x438 <__LOCK_REGION_LENGTH__+0x38>
+ 43c:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0xDD);
+ 43e:	8d ed       	ldi	r24, 0xDD	; 221
+ 440:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 444:	25 e3       	ldi	r18, 0x35	; 53
+ 446:	2a 95       	dec	r18
+ 448:	f1 f7       	brne	.-4      	; 0x446 <__LOCK_REGION_LENGTH__+0x46>
+ 44a:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0xEE);
+ 44c:	8e ee       	ldi	r24, 0xEE	; 238
+ 44e:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 452:	85 e3       	ldi	r24, 0x35	; 53
+ 454:	8a 95       	dec	r24
+ 456:	f1 f7       	brne	.-4      	; 0x454 <__LOCK_REGION_LENGTH__+0x54>
+ 458:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);	//CSN high
+ 45a:	28 9a       	sbi	0x05, 0	; 5
+ 45c:	95 e3       	ldi	r25, 0x35	; 53
+ 45e:	9a 95       	dec	r25
+ 460:	f1 f7       	brne	.-4      	; 0x45e <__LOCK_REGION_LENGTH__+0x5e>
+ 462:	00 00       	nop
+	
+	//Set the 5-bytes transmitter address as 0x01 0x02 0x03 0x04 0x05
+	_delay_us(10);
+	PORTB &= ~_BV(CSN);	//CSN low
+ 464:	28 98       	cbi	0x05, 0	; 5
+ 466:	25 e3       	ldi	r18, 0x35	; 53
+ 468:	2a 95       	dec	r18
+ 46a:	f1 f7       	brne	.-4      	; 0x468 <__LOCK_REGION_LENGTH__+0x68>
+ 46c:	00 00       	nop
+	_delay_us(10);
+	//Setup the transmitter address
+	spi_tranceiver(W_REGISTER + TX_ADDR);
+ 46e:	80 e3       	ldi	r24, 0x30	; 48
+ 470:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 474:	85 e3       	ldi	r24, 0x35	; 53
+ 476:	8a 95       	dec	r24
+ 478:	f1 f7       	brne	.-4      	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
+ 47a:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0x11);
+ 47c:	81 e1       	ldi	r24, 0x11	; 17
+ 47e:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 482:	95 e3       	ldi	r25, 0x35	; 53
+ 484:	9a 95       	dec	r25
+ 486:	f1 f7       	brne	.-4      	; 0x484 <__LOCK_REGION_LENGTH__+0x84>
+ 488:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0x12);
+ 48a:	82 e1       	ldi	r24, 0x12	; 18
+ 48c:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 490:	25 e3       	ldi	r18, 0x35	; 53
+ 492:	2a 95       	dec	r18
+ 494:	f1 f7       	brne	.-4      	; 0x492 <__LOCK_REGION_LENGTH__+0x92>
+ 496:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0x13);
+ 498:	83 e1       	ldi	r24, 0x13	; 19
+ 49a:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 49e:	85 e3       	ldi	r24, 0x35	; 53
+ 4a0:	8a 95       	dec	r24
+ 4a2:	f1 f7       	brne	.-4      	; 0x4a0 <__LOCK_REGION_LENGTH__+0xa0>
+ 4a4:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0x14);
+ 4a6:	84 e1       	ldi	r24, 0x14	; 20
+ 4a8:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 4ac:	95 e3       	ldi	r25, 0x35	; 53
+ 4ae:	9a 95       	dec	r25
+ 4b0:	f1 f7       	brne	.-4      	; 0x4ae <__LOCK_REGION_LENGTH__+0xae>
+ 4b2:	00 00       	nop
+	_delay_us(10);
+	spi_tranceiver(0x15);
+ 4b4:	85 e1       	ldi	r24, 0x15	; 21
+ 4b6:	0e 94 a6 00 	call	0x14c	; 0x14c <spi_tranceiver>
+ 4ba:	25 e3       	ldi	r18, 0x35	; 53
+ 4bc:	2a 95       	dec	r18
+ 4be:	f1 f7       	brne	.-4      	; 0x4bc <__LOCK_REGION_LENGTH__+0xbc>
+ 4c0:	00 00       	nop
+	_delay_us(10);
+	PORTB |= _BV(CSN);	//CSN high
+ 4c2:	28 9a       	sbi	0x05, 0	; 5
+	
+	//Set the payload width as 8-bytes
+	Write_byte(RX_PW_P0, 0x08);
+ 4c4:	68 e0       	ldi	r22, 0x08	; 8
+ 4c6:	81 e1       	ldi	r24, 0x11	; 17
+ 4c8:	0e 94 c4 00 	call	0x188	; 0x188 <Write_byte>
+	//Set the retransmission delay to 750us with 15 retries
+//	Write_byte(SETUP_RETR, 0x2F);
+	
+	//Boot the nrf as RX and mask the maximum retransmission interrupt(disable)
+	//Enable CRC and set the length to 2-bytes
+	nRF_RX_mode();
+ 4cc:	0e 94 cc 01 	call	0x398	; 0x398 <nRF_RX_mode>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 4d0:	8f ef       	ldi	r24, 0xFF	; 255
+ 4d2:	91 ee       	ldi	r25, 0xE1	; 225
+ 4d4:	24 e0       	ldi	r18, 0x04	; 4
+ 4d6:	81 50       	subi	r24, 0x01	; 1
+ 4d8:	90 40       	sbci	r25, 0x00	; 0
+ 4da:	20 40       	sbci	r18, 0x00	; 0
+ 4dc:	e1 f7       	brne	.-8      	; 0x4d6 <__LOCK_REGION_LENGTH__+0xd6>
+ 4de:	00 c0       	rjmp	.+0      	; 0x4e0 <__LOCK_REGION_LENGTH__+0xe0>
+ 4e0:	00 00       	nop
+ 4e2:	08 95       	ret
+
+000004e4 <BNO_Read_Quaternions>:
+	Write_byte(STATUS, 0x70);
+	_delay_us(10);
+}
+
+void BNO_Read_Quaternions(void)
+{
+ 4e4:	cf 93       	push	r28
+ 4e6:	df 93       	push	r29
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 4e8:	80 e5       	ldi	r24, 0x50	; 80
+ 4ea:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_W_LSB_ADDR);	//Access LSB of Quaternion_W value
+ 4ee:	80 e2       	ldi	r24, 0x20	; 32
+ 4f0:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 4f4:	81 e5       	ldi	r24, 0x51	; 81
+ 4f6:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[0] = i2c_readNak();
+ 4fa:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 4fe:	c0 e0       	ldi	r28, 0x00	; 0
+ 500:	d1 e0       	ldi	r29, 0x01	; 1
+ 502:	88 83       	st	Y, r24
+//	UART_Tx(N1_payload_TX[0]);
+	i2c_stop();
+ 504:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 508:	80 e5       	ldi	r24, 0x50	; 80
+ 50a:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_W_MSB_ADDR);	//Access MSB of Quaternion_W value
+ 50e:	81 e2       	ldi	r24, 0x21	; 33
+ 510:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 514:	81 e5       	ldi	r24, 0x51	; 81
+ 516:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[1] = i2c_readNak();
+ 51a:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 51e:	89 83       	std	Y+1, r24	; 0x01
+//	UART_Tx(N1_payload_TX[1]);
+	i2c_stop();
+ 520:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 524:	80 e5       	ldi	r24, 0x50	; 80
+ 526:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_X_LSB_ADDR);	//Access LSB of Quaternion_X value
+ 52a:	82 e2       	ldi	r24, 0x22	; 34
+ 52c:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 530:	81 e5       	ldi	r24, 0x51	; 81
+ 532:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[2] = i2c_readNak();
+ 536:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 53a:	8a 83       	std	Y+2, r24	; 0x02
+//	UART_Tx(N1_payload_TX[2]);
+	i2c_stop();
+ 53c:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 540:	80 e5       	ldi	r24, 0x50	; 80
+ 542:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_X_MSB_ADDR);	//Access MSB of Quaternion_X value
+ 546:	83 e2       	ldi	r24, 0x23	; 35
+ 548:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 54c:	81 e5       	ldi	r24, 0x51	; 81
+ 54e:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[3] = i2c_readNak();
+ 552:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 556:	8b 83       	std	Y+3, r24	; 0x03
+//	UART_Tx(N1_payload_TX[3]);
+	i2c_stop();
+ 558:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 55c:	80 e5       	ldi	r24, 0x50	; 80
+ 55e:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_Y_LSB_ADDR);	//Access LSB of Quaternion_Y value
+ 562:	84 e2       	ldi	r24, 0x24	; 36
+ 564:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 568:	81 e5       	ldi	r24, 0x51	; 81
+ 56a:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[4] = i2c_readNak();
+ 56e:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 572:	8c 83       	std	Y+4, r24	; 0x04
+//	UART_Tx(N1_payload_TX[4]);
+	i2c_stop();
+ 574:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 578:	80 e5       	ldi	r24, 0x50	; 80
+ 57a:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_Y_MSB_ADDR);	//Access MSB of Quaternion_Y value
+ 57e:	85 e2       	ldi	r24, 0x25	; 37
+ 580:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 584:	81 e5       	ldi	r24, 0x51	; 81
+ 586:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[5] = i2c_readNak();
+ 58a:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 58e:	8d 83       	std	Y+5, r24	; 0x05
+//	UART_Tx(N1_payload_TX[5]);
+	i2c_stop();
+ 590:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 594:	80 e5       	ldi	r24, 0x50	; 80
+ 596:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_Z_LSB_ADDR);	//Access LSB of Quaternion_Z value
+ 59a:	86 e2       	ldi	r24, 0x26	; 38
+ 59c:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 5a0:	81 e5       	ldi	r24, 0x51	; 81
+ 5a2:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[6] = i2c_readNak();
+ 5a6:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 5aa:	8e 83       	std	Y+6, r24	; 0x06
+//	UART_Tx(N1_payload_TX[6]);
+	i2c_stop();
+ 5ac:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 5b0:	80 e5       	ldi	r24, 0x50	; 80
+ 5b2:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_QUATERNION_DATA_Z_MSB_ADDR);	//Access MSB of Quaternion_Z value
+ 5b6:	87 e2       	ldi	r24, 0x27	; 39
+ 5b8:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+ 5bc:	81 e5       	ldi	r24, 0x51	; 81
+ 5be:	0e 94 94 03 	call	0x728	; 0x728 <i2c_rep_start>
+	N1_payload_TX[7] = i2c_readNak();
+ 5c2:	0e 94 b2 03 	call	0x764	; 0x764 <i2c_readNak>
+ 5c6:	8f 83       	std	Y+7, r24	; 0x07
+//	UART_Tx(N1_payload_TX[7]);
+	i2c_stop();	
+ 5c8:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+}
+ 5cc:	df 91       	pop	r29
+ 5ce:	cf 91       	pop	r28
+ 5d0:	08 95       	ret
+
+000005d2 <main>:
+** - Contains an endless loop
+** - Sets the BNO055 in NDOF mode and fetches the quaternion data
+*************************************************************************************/
+int main(void)
+{
+	AVR_Init();
+ 5d2:	0e 94 6a 00 	call	0xd4	; 0xd4 <AVR_Init>
+	i2c_init();
+ 5d6:	0e 94 3f 03 	call	0x67e	; 0x67e <i2c_init>
+	
+	Init_SPI();
+ 5da:	0e 94 98 00 	call	0x130	; 0x130 <Init_SPI>
+	Init_nrf();
+ 5de:	0e 94 dd 01 	call	0x3ba	; 0x3ba <Init_nrf>
+	UART_Init();
+ 5e2:	0e 94 78 00 	call	0xf0	; 0xf0 <UART_Init>
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+ 5e6:	80 e5       	ldi	r24, 0x50	; 80
+ 5e8:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <i2c_start_wait>
+	i2c_write(BNO055_OPR_MODE_ADDR);
+ 5ec:	8d e3       	ldi	r24, 0x3D	; 61
+ 5ee:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_write(OPERATION_MODE_NDOF);			//Set operation mode to NDOF
+ 5f2:	8c e0       	ldi	r24, 0x0C	; 12
+ 5f4:	0e 94 a0 03 	call	0x740	; 0x740 <i2c_write>
+	i2c_stop();
+ 5f8:	0e 94 97 03 	call	0x72e	; 0x72e <i2c_stop>
+ 5fc:	8f e3       	ldi	r24, 0x3F	; 63
+ 5fe:	9c e9       	ldi	r25, 0x9C	; 156
+ 600:	01 97       	sbiw	r24, 0x01	; 1
+ 602:	f1 f7       	brne	.-4      	; 0x600 <main+0x2e>
+ 604:	00 c0       	rjmp	.+0      	; 0x606 <main+0x34>
+ 606:	00 00       	nop
+	_delay_ms(10);
+	
+	Flush_rx();
+ 608:	0e 94 04 01 	call	0x208	; 0x208 <Flush_rx>
+	reset();
+ 60c:	0e 94 bf 01 	call	0x37e	; 0x37e <reset>
+	PORTB |= _BV(CE);				//Start listening
+ 610:	2c 9a       	sbi	0x05, 4	; 5
+	
+	//Initialize the received payload count
+	RX_Payload_cnt = 0;
+ 612:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <RX_Payload_cnt>
+
+	//Endless Loop
+	while(1)
+	{	
+	        if(nrf24_dataReady())
+ 616:	0e 94 b1 01 	call	0x362	; 0x362 <nrf24_dataReady>
+ 61a:	88 23       	and	r24, r24
+ 61c:	21 f0       	breq	.+8      	; 0x626 <main+0x54>
+	        {
+		        nrf24_getData(N1_payload_RX);
+ 61e:	89 e0       	ldi	r24, 0x09	; 9
+ 620:	91 e0       	ldi	r25, 0x01	; 1
+ 622:	0e 94 8a 01 	call	0x314	; 0x314 <nrf24_getData>
+	        }
+
+	        UART_Tx(0xBB);   	//Send BP6 to UART
+ 626:	8b eb       	ldi	r24, 0xBB	; 187
+ 628:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+		
+		if (RX_Payload_cnt == PAYLOAD_LEN)
+ 62c:	80 91 11 01 	lds	r24, 0x0111	; 0x800111 <RX_Payload_cnt>
+ 630:	88 30       	cpi	r24, 0x08	; 8
+ 632:	09 f5       	brne	.+66     	; 0x676 <main+0xa4>
+		{
+			UART_Tx(0x55);   //Send BP1 to UART
+ 634:	85 e5       	ldi	r24, 0x55	; 85
+ 636:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+			
+			RX_Payload_cnt = 0;
+ 63a:	10 92 11 01 	sts	0x0111, r1	; 0x800111 <RX_Payload_cnt>
+			
+			//Read the Quaternions data from the BNO055
+			BNO_Read_Quaternions();
+ 63e:	0e 94 72 02 	call	0x4e4	; 0x4e4 <BNO_Read_Quaternions>
+
+			UART_Tx(0x66);   //Send BP2 to UART
+ 642:	86 e6       	ldi	r24, 0x66	; 102
+ 644:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+			
+			//Configure as Transmitter
+			nRF_TX_mode();
+ 648:	0e 94 f6 00 	call	0x1ec	; 0x1ec <nRF_TX_mode>
+//			_delay_us(1000);
+
+			UART_Tx(0x77);   //Send BP3 to UART
+ 64c:	87 e7       	ldi	r24, 0x77	; 119
+ 64e:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+			
+			//Transmit Quaternion payload
+			transmit_data(N1_payload_TX);
+ 652:	80 e0       	ldi	r24, 0x00	; 0
+ 654:	91 e0       	ldi	r25, 0x01	; 1
+ 656:	0e 94 32 01 	call	0x264	; 0x264 <transmit_data>
+			while(nrf24_isSending());
+ 65a:	0e 94 a4 01 	call	0x348	; 0x348 <nrf24_isSending>
+ 65e:	81 11       	cpse	r24, r1
+ 660:	fc cf       	rjmp	.-8      	; 0x65a <main+0x88>
+			reset();
+ 662:	0e 94 bf 01 	call	0x37e	; 0x37e <reset>
+
+			UART_Tx(0x88);   //Send BP4 to UART
+ 666:	88 e8       	ldi	r24, 0x88	; 136
+ 668:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+				
+			//Configure as Receiver
+			nRF_RX_mode();
+ 66c:	0e 94 cc 01 	call	0x398	; 0x398 <nRF_RX_mode>
+//			_delay_us(150);
+
+			UART_Tx(0x99);   //Send BP5 to UART
+ 670:	89 e9       	ldi	r24, 0x99	; 153
+ 672:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+		}
+
+		UART_Tx(0x00);   //Send BP5 to UART
+ 676:	80 e0       	ldi	r24, 0x00	; 0
+ 678:	0e 94 90 00 	call	0x120	; 0x120 <UART_Tx>
+	}
+ 67c:	cc cf       	rjmp	.-104    	; 0x616 <main+0x44>
+
+0000067e <i2c_init>:
+	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
+	while(!(TWCR & (1<<TWINT)));    
+
+    return TWDR;
+
+}/* i2c_readAck */
+ 67e:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+ 682:	8c e0       	ldi	r24, 0x0C	; 12
+ 684:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7e00b8>
+ 688:	08 95       	ret
+
+0000068a <i2c_start>:
+ 68a:	94 ea       	ldi	r25, 0xA4	; 164
+ 68c:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+ 690:	ec eb       	ldi	r30, 0xBC	; 188
+ 692:	f0 e0       	ldi	r31, 0x00	; 0
+ 694:	90 81       	ld	r25, Z
+ 696:	99 23       	and	r25, r25
+ 698:	ec f7       	brge	.-6      	; 0x694 <i2c_start+0xa>
+ 69a:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+ 69e:	98 7f       	andi	r25, 0xF8	; 248
+ 6a0:	98 30       	cpi	r25, 0x08	; 8
+ 6a2:	11 f0       	breq	.+4      	; 0x6a8 <i2c_start+0x1e>
+ 6a4:	90 31       	cpi	r25, 0x10	; 16
+ 6a6:	a1 f4       	brne	.+40     	; 0x6d0 <i2c_start+0x46>
+ 6a8:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7e00bb>
+ 6ac:	84 e8       	ldi	r24, 0x84	; 132
+ 6ae:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+ 6b2:	ec eb       	ldi	r30, 0xBC	; 188
+ 6b4:	f0 e0       	ldi	r31, 0x00	; 0
+ 6b6:	80 81       	ld	r24, Z
+ 6b8:	88 23       	and	r24, r24
+ 6ba:	ec f7       	brge	.-6      	; 0x6b6 <i2c_start+0x2c>
+ 6bc:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+ 6c0:	98 7f       	andi	r25, 0xF8	; 248
+ 6c2:	98 31       	cpi	r25, 0x18	; 24
+ 6c4:	39 f0       	breq	.+14     	; 0x6d4 <i2c_start+0x4a>
+ 6c6:	81 e0       	ldi	r24, 0x01	; 1
+ 6c8:	90 34       	cpi	r25, 0x40	; 64
+ 6ca:	29 f4       	brne	.+10     	; 0x6d6 <i2c_start+0x4c>
+ 6cc:	80 e0       	ldi	r24, 0x00	; 0
+ 6ce:	08 95       	ret
+ 6d0:	81 e0       	ldi	r24, 0x01	; 1
+ 6d2:	08 95       	ret
+ 6d4:	80 e0       	ldi	r24, 0x00	; 0
+ 6d6:	08 95       	ret
+
+000006d8 <i2c_start_wait>:
+ 6d8:	cf 93       	push	r28
+ 6da:	df 93       	push	r29
+ 6dc:	ec eb       	ldi	r30, 0xBC	; 188
+ 6de:	f0 e0       	ldi	r31, 0x00	; 0
+ 6e0:	24 ea       	ldi	r18, 0xA4	; 164
+ 6e2:	a9 eb       	ldi	r26, 0xB9	; 185
+ 6e4:	b0 e0       	ldi	r27, 0x00	; 0
+ 6e6:	cb eb       	ldi	r28, 0xBB	; 187
+ 6e8:	d0 e0       	ldi	r29, 0x00	; 0
+ 6ea:	34 e8       	ldi	r19, 0x84	; 132
+ 6ec:	44 e9       	ldi	r20, 0x94	; 148
+ 6ee:	20 83       	st	Z, r18
+ 6f0:	90 81       	ld	r25, Z
+ 6f2:	99 23       	and	r25, r25
+ 6f4:	ec f7       	brge	.-6      	; 0x6f0 <i2c_start_wait+0x18>
+ 6f6:	9c 91       	ld	r25, X
+ 6f8:	98 7f       	andi	r25, 0xF8	; 248
+ 6fa:	98 30       	cpi	r25, 0x08	; 8
+ 6fc:	11 f0       	breq	.+4      	; 0x702 <i2c_start_wait+0x2a>
+ 6fe:	90 31       	cpi	r25, 0x10	; 16
+ 700:	b1 f7       	brne	.-20     	; 0x6ee <i2c_start_wait+0x16>
+ 702:	88 83       	st	Y, r24
+ 704:	30 83       	st	Z, r19
+ 706:	90 81       	ld	r25, Z
+ 708:	99 23       	and	r25, r25
+ 70a:	ec f7       	brge	.-6      	; 0x706 <i2c_start_wait+0x2e>
+ 70c:	9c 91       	ld	r25, X
+ 70e:	98 7f       	andi	r25, 0xF8	; 248
+ 710:	90 32       	cpi	r25, 0x20	; 32
+ 712:	11 f0       	breq	.+4      	; 0x718 <i2c_start_wait+0x40>
+ 714:	98 35       	cpi	r25, 0x58	; 88
+ 716:	29 f4       	brne	.+10     	; 0x722 <i2c_start_wait+0x4a>
+ 718:	40 83       	st	Z, r20
+ 71a:	90 81       	ld	r25, Z
+ 71c:	94 fd       	sbrc	r25, 4
+ 71e:	fd cf       	rjmp	.-6      	; 0x71a <i2c_start_wait+0x42>
+ 720:	e6 cf       	rjmp	.-52     	; 0x6ee <i2c_start_wait+0x16>
+ 722:	df 91       	pop	r29
+ 724:	cf 91       	pop	r28
+ 726:	08 95       	ret
+
+00000728 <i2c_rep_start>:
+ 728:	0e 94 45 03 	call	0x68a	; 0x68a <i2c_start>
+ 72c:	08 95       	ret
+
+0000072e <i2c_stop>:
+ 72e:	84 e9       	ldi	r24, 0x94	; 148
+ 730:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+ 734:	ec eb       	ldi	r30, 0xBC	; 188
+ 736:	f0 e0       	ldi	r31, 0x00	; 0
+ 738:	80 81       	ld	r24, Z
+ 73a:	84 fd       	sbrc	r24, 4
+ 73c:	fd cf       	rjmp	.-6      	; 0x738 <i2c_stop+0xa>
+ 73e:	08 95       	ret
+
+00000740 <i2c_write>:
+ 740:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7e00bb>
+ 744:	84 e8       	ldi	r24, 0x84	; 132
+ 746:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+ 74a:	ec eb       	ldi	r30, 0xBC	; 188
+ 74c:	f0 e0       	ldi	r31, 0x00	; 0
+ 74e:	80 81       	ld	r24, Z
+ 750:	88 23       	and	r24, r24
+ 752:	ec f7       	brge	.-6      	; 0x74e <i2c_write+0xe>
+ 754:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+ 758:	98 7f       	andi	r25, 0xF8	; 248
+ 75a:	81 e0       	ldi	r24, 0x01	; 1
+ 75c:	98 32       	cpi	r25, 0x28	; 40
+ 75e:	09 f4       	brne	.+2      	; 0x762 <i2c_write+0x22>
+ 760:	80 e0       	ldi	r24, 0x00	; 0
+ 762:	08 95       	ret
+
+00000764 <i2c_readNak>:
+ 
+ Return:  byte read from I2C device
+*************************************************************************/
+unsigned char i2c_readNak(void)
+{
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 764:	84 e8       	ldi	r24, 0x84	; 132
+ 766:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+	while(!(TWCR & (1<<TWINT)));
+ 76a:	ec eb       	ldi	r30, 0xBC	; 188
+ 76c:	f0 e0       	ldi	r31, 0x00	; 0
+ 76e:	80 81       	ld	r24, Z
+ 770:	88 23       	and	r24, r24
+ 772:	ec f7       	brge	.-6      	; 0x76e <i2c_readNak+0xa>
+	
+    return TWDR;
+ 774:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7e00bb>
+
+}/* i2c_readNak */
+ 778:	08 95       	ret
+
+0000077a <_exit>:
+ 77a:	f8 94       	cli
+
+0000077c <__stop_program>:
+ 77c:	ff cf       	rjmp	.-2      	; 0x77c <__stop_program>

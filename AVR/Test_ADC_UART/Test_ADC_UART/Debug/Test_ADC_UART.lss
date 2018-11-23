@@ -3,31 +3,29 @@ Test_ADC_UART.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000218  2**0
+  0 .data         00000000  00800100  00800100  000001ae  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001a4  00000000  00000000  00000074  2**1
+  1 .text         0000015a  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800100  00800100  00000218  2**0
-                  ALLOC
-  3 .comment      00000030  00000000  00000000  00000218  2**0
+  2 .comment      00000030  00000000  00000000  000001ae  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000248  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001e0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000048  00000000  00000000  00000288  2**0
+  4 .debug_aranges 00000048  00000000  00000000  00000220  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000c16  00000000  00000000  000002d0  2**0
+  5 .debug_info   00000c4f  00000000  00000000  00000268  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000ae2  00000000  00000000  00000ee6  2**0
+  6 .debug_abbrev 00000aef  00000000  00000000  00000eb7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000003a8  00000000  00000000  000019c8  2**0
+  7 .debug_line   000003b0  00000000  00000000  000019a6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000074  00000000  00000000  00001d70  2**2
+  8 .debug_frame  00000074  00000000  00000000  00001d58  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000547  00000000  00000000  00001de4  2**0
+  9 .debug_str    00000547  00000000  00000000  00001dcc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000048  00000000  00000000  0000232b  2**0
+ 10 .debug_loc    0000008e  00000000  00000000  00002313  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000038  00000000  00000000  00002373  2**0
+ 11 .debug_ranges 00000038  00000000  00000000  000023a1  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -95,191 +93,118 @@ Disassembly of section .text:
   c0:	1d 92       	st	X+, r1
 
 000000c2 <.do_clear_bss_start>:
-  c2:	a1 30       	cpi	r26, 0x01	; 1
+  c2:	a0 30       	cpi	r26, 0x00	; 0
   c4:	b2 07       	cpc	r27, r18
   c6:	e1 f7       	brne	.-8      	; 0xc0 <.do_clear_bss_loop>
-  c8:	0e 94 bc 00 	call	0x178	; 0x178 <main>
-  cc:	0c 94 d0 00 	jmp	0x1a0	; 0x1a0 <_exit>
+  c8:	0e 94 94 00 	call	0x128	; 0x128 <main>
+  cc:	0c 94 ab 00 	jmp	0x156	; 0x156 <_exit>
 
 000000d0 <__bad_interrupt>:
   d0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000d4 <AVR_Init>:
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
 
-	__builtin_avr_delay_cycles(__ticks_dc);
-  d4:	2f ef       	ldi	r18, 0xFF	; 255
-  d6:	89 e6       	ldi	r24, 0x69	; 105
-  d8:	98 e1       	ldi	r25, 0x18	; 24
+	ADCSRA |= _BV(ADSC);			//Start ADC conversion
+	loop_until_bit_is_set(ADCSRA, ADIF);	//Wait until conversion is complete
+	ADCSRA |= _BV(ADIF);			//Set ADC interrupt flag again
+	return(ADCH);				//Return the 8-bit converted value
+}
+  d4:	2f e9       	ldi	r18, 0x9F	; 159
+  d6:	86 e8       	ldi	r24, 0x86	; 134
+  d8:	91 e0       	ldi	r25, 0x01	; 1
   da:	21 50       	subi	r18, 0x01	; 1
   dc:	80 40       	sbci	r24, 0x00	; 0
   de:	90 40       	sbci	r25, 0x00	; 0
   e0:	e1 f7       	brne	.-8      	; 0xda <AVR_Init+0x6>
   e2:	00 c0       	rjmp	.+0      	; 0xe4 <AVR_Init+0x10>
   e4:	00 00       	nop
-** - Initializes the I/O peripherals
-*************************************************************************************/
-void AVR_Init(void)
-{
-	_delay_ms(500);		//Short pause
-	DDRD |= _BV(1);		//Set TX as output
   e6:	51 9a       	sbi	0x0a, 1	; 10
-	DDRD |= ~(_BV(0));	//Set RX as input
-  e8:	8a b1       	in	r24, 0x0a	; 10
-  ea:	8e 6f       	ori	r24, 0xFE	; 254
-  ec:	8a b9       	out	0x0a, r24	; 10
-  ee:	08 95       	ret
+  e8:	50 98       	cbi	0x0a, 0	; 10
+  ea:	08 95       	ret
 
-000000f0 <ADC_Init>:
-** - Select ADC data resolution
-** - Enable the ADC
-*************************************************************************************/
-void ADC_Init(void)
-{
-	ADCSRA |= _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); //Pre-scalar = 128
-  f0:	ea e7       	ldi	r30, 0x7A	; 122
-  f2:	f0 e0       	ldi	r31, 0x00	; 0
-  f4:	80 81       	ld	r24, Z
-  f6:	87 60       	ori	r24, 0x07	; 7
-  f8:	80 83       	st	Z, r24
-	ADMUX  |= _BV(REFS0);							//AVCC as reference
-  fa:	ac e7       	ldi	r26, 0x7C	; 124
-  fc:	b0 e0       	ldi	r27, 0x00	; 0
-  fe:	8c 91       	ld	r24, X
- 100:	80 64       	ori	r24, 0x40	; 64
- 102:	8c 93       	st	X, r24
-	ADMUX  |= _BV(ADLAR);							//8-bit resolution
- 104:	8c 91       	ld	r24, X
- 106:	80 62       	ori	r24, 0x20	; 32
- 108:	8c 93       	st	X, r24
-	ADCSRA |= _BV(ADEN);							//Enable ADC
- 10a:	80 81       	ld	r24, Z
- 10c:	80 68       	ori	r24, 0x80	; 128
- 10e:	80 83       	st	Z, r24
- 110:	08 95       	ret
+000000ec <UART_Init>:
+  ec:	8c e0       	ldi	r24, 0x0C	; 12
+  ee:	90 e0       	ldi	r25, 0x00	; 0
+  f0:	90 93 cd 00 	sts	0x00CD, r25	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
+  f4:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
+  f8:	e8 ec       	ldi	r30, 0xC8	; 200
+  fa:	f0 e0       	ldi	r31, 0x00	; 0
+  fc:	80 81       	ld	r24, Z
+  fe:	8d 7f       	andi	r24, 0xFD	; 253
+ 100:	80 83       	st	Z, r24
+ 102:	ea ec       	ldi	r30, 0xCA	; 202
+ 104:	f0 e0       	ldi	r31, 0x00	; 0
+ 106:	80 81       	ld	r24, Z
+ 108:	86 60       	ori	r24, 0x06	; 6
+ 10a:	80 83       	st	Z, r24
+ 10c:	e9 ec       	ldi	r30, 0xC9	; 201
+ 10e:	f0 e0       	ldi	r31, 0x00	; 0
+ 110:	80 81       	ld	r24, Z
+ 112:	88 61       	ori	r24, 0x18	; 24
+ 114:	80 83       	st	Z, r24
+ 116:	08 95       	ret
 
-00000112 <UART_Init>:
-*************************************************************************************/
-void UART_Init(void)
-{
-	//Set the BAUD rate(Ref. ATmega32U4 Datasheet Pg.189, Table 18-1)
-	//To hard-code the Baud rate, Ref. Tables 18-9 to 18-12 in Pgs. 210 - 213
-	UBRR1 = ((F_CPU / (16UL * BAUD)) - 1);
- 112:	87 e6       	ldi	r24, 0x67	; 103
- 114:	90 e0       	ldi	r25, 0x00	; 0
- 116:	90 93 cd 00 	sts	0x00CD, r25	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
- 11a:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
-	
-	//Disables 2x speed
-	UCSR1A &= ~(_BV(U2X1));
- 11e:	e8 ec       	ldi	r30, 0xC8	; 200
- 120:	f0 e0       	ldi	r31, 0x00	; 0
- 122:	80 81       	ld	r24, Z
- 124:	8d 7f       	andi	r24, 0xFD	; 253
- 126:	80 83       	st	Z, r24
-	
-	//Enable 8-bit character size, one stop-bit, no parity & asynchronous mode
-	UCSR1C |= _BV(UCSZ11) | _BV(UCSZ10);
- 128:	ea ec       	ldi	r30, 0xCA	; 202
- 12a:	f0 e0       	ldi	r31, 0x00	; 0
- 12c:	80 81       	ld	r24, Z
- 12e:	86 60       	ori	r24, 0x06	; 6
- 130:	80 83       	st	Z, r24
-	
-	//Enable Transmitter & Receiver
-	UCSR1B |= _BV(TXEN1) | _BV(RXEN1);
- 132:	e9 ec       	ldi	r30, 0xC9	; 201
- 134:	f0 e0       	ldi	r31, 0x00	; 0
- 136:	80 81       	ld	r24, Z
- 138:	88 61       	ori	r24, 0x18	; 24
- 13a:	80 83       	st	Z, r24
- 13c:	08 95       	ret
-
-0000013e <ADC_Pot>:
-*************************************************************************************/
-unsigned char ADC_Pot(void)
-{
-	//Reset ADC Multiplexer
-	//Select ADC_0
-	ADMUX &= 0b11100000;			
- 13e:	ec e7       	ldi	r30, 0x7C	; 124
- 140:	f0 e0       	ldi	r31, 0x00	; 0
- 142:	80 81       	ld	r24, Z
- 144:	80 7e       	andi	r24, 0xE0	; 224
- 146:	80 83       	st	Z, r24
-
-	ADCSRA |= _BV(ADSC);				 //Start ADC conversion
- 148:	ea e7       	ldi	r30, 0x7A	; 122
- 14a:	f0 e0       	ldi	r31, 0x00	; 0
- 14c:	80 81       	ld	r24, Z
- 14e:	80 64       	ori	r24, 0x40	; 64
- 150:	80 83       	st	Z, r24
-	loop_until_bit_is_set(ADCSRA, ADIF); //Wait until conversion is complete
- 152:	80 81       	ld	r24, Z
- 154:	84 ff       	sbrs	r24, 4
- 156:	fd cf       	rjmp	.-6      	; 0x152 <ADC_Pot+0x14>
-	ADCSRA |= _BV(ADIF);				 //Set ADC interrupt flag again
- 158:	ea e7       	ldi	r30, 0x7A	; 122
- 15a:	f0 e0       	ldi	r31, 0x00	; 0
- 15c:	80 81       	ld	r24, Z
- 15e:	80 61       	ori	r24, 0x10	; 16
- 160:	80 83       	st	Z, r24
-	return(ADCH);						 //Return the 8-bit converted value
- 162:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
-}
- 166:	08 95       	ret
-
-00000168 <UART_Tx>:
+00000118 <UART_Tx>:
 ** - Transmits the ADC data via the USB Serial
 ** - The data is received & displayed in a Hyperterminal
 *************************************************************************************/
 void UART_Tx(unsigned char data)
 {
-	loop_until_bit_is_set(UCSR1A, UDRE1);  //Wait until buffer is empty
- 168:	e8 ec       	ldi	r30, 0xC8	; 200
- 16a:	f0 e0       	ldi	r31, 0x00	; 0
- 16c:	90 81       	ld	r25, Z
- 16e:	95 ff       	sbrs	r25, 5
- 170:	fd cf       	rjmp	.-6      	; 0x16c <UART_Tx+0x4>
-	UDR1 = data;						   //Send 'H'	
- 172:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
- 176:	08 95       	ret
+	loop_until_bit_is_set(UCSR1A, UDRE1);	//Wait until buffer is empty
+ 118:	e8 ec       	ldi	r30, 0xC8	; 200
+ 11a:	f0 e0       	ldi	r31, 0x00	; 0
+ 11c:	90 81       	ld	r25, Z
+ 11e:	95 ff       	sbrs	r25, 5
+ 120:	fd cf       	rjmp	.-6      	; 0x11c <UART_Tx+0x4>
+	UDR1 = data;				//Send 'H'	
+ 122:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
+ 126:	08 95       	ret
 
-00000178 <main>:
+00000128 <main>:
 ** - Contains an endless loop
 ** - Fetches the ADC data and transmits it serially @1Hz
 *************************************************************************************/
 int main(void)
 {
 	AVR_Init();
- 178:	0e 94 6a 00 	call	0xd4	; 0xd4 <AVR_Init>
-	ADC_Init();
- 17c:	0e 94 78 00 	call	0xf0	; 0xf0 <ADC_Init>
+ 128:	0e 94 6a 00 	call	0xd4	; 0xd4 <AVR_Init>
+//	ADC_Init();
 	UART_Init();
- 180:	0e 94 89 00 	call	0x112	; 0x112 <UART_Init>
+ 12c:	0e 94 76 00 	call	0xec	; 0xec <UART_Init>
 
 	//Endless Loop
 	while(1)
 	{
-		POT_Value = ADC_Pot();
- 184:	0e 94 9f 00 	call	0x13e	; 0x13e <ADC_Pot>
- 188:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+//		POT_Value = ADC_Pot();
 		UART_Tx(0xAA);			
- 18c:	8a ea       	ldi	r24, 0xAA	; 170
- 18e:	0e 94 b4 00 	call	0x168	; 0x168 <UART_Tx>
- 192:	8f e3       	ldi	r24, 0x3F	; 63
- 194:	9c e9       	ldi	r25, 0x9C	; 156
- 196:	01 97       	sbiw	r24, 0x01	; 1
- 198:	f1 f7       	brne	.-4      	; 0x196 <main+0x1e>
- 19a:	00 c0       	rjmp	.+0      	; 0x19c <main+0x24>
- 19c:	00 00       	nop
- 19e:	f2 cf       	rjmp	.-28     	; 0x184 <main+0xc>
+ 130:	8a ea       	ldi	r24, 0xAA	; 170
+ 132:	0e 94 8c 00 	call	0x118	; 0x118 <UART_Tx>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-000001a0 <_exit>:
- 1a0:	f8 94       	cli
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 136:	83 ec       	ldi	r24, 0xC3	; 195
+ 138:	99 e0       	ldi	r25, 0x09	; 9
+ 13a:	01 97       	sbiw	r24, 0x01	; 1
+ 13c:	f1 f7       	brne	.-4      	; 0x13a <main+0x12>
+ 13e:	00 c0       	rjmp	.+0      	; 0x140 <main+0x18>
+ 140:	00 00       	nop
+		_delay_ms(10);			//1 second delay
+		UART_Tx(0x55);
+ 142:	85 e5       	ldi	r24, 0x55	; 85
+ 144:	0e 94 8c 00 	call	0x118	; 0x118 <UART_Tx>
+ 148:	83 ec       	ldi	r24, 0xC3	; 195
+ 14a:	99 e0       	ldi	r25, 0x09	; 9
+ 14c:	01 97       	sbiw	r24, 0x01	; 1
+ 14e:	f1 f7       	brne	.-4      	; 0x14c <main+0x24>
+ 150:	00 c0       	rjmp	.+0      	; 0x152 <main+0x2a>
+ 152:	00 00       	nop
+ 154:	ed cf       	rjmp	.-38     	; 0x130 <main+0x8>
 
-000001a2 <__stop_program>:
- 1a2:	ff cf       	rjmp	.-2      	; 0x1a2 <__stop_program>
+00000156 <_exit>:
+ 156:	f8 94       	cli
+
+00000158 <__stop_program>:
+ 158:	ff cf       	rjmp	.-2      	; 0x158 <__stop_program>

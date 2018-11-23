@@ -12,8 +12,8 @@
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
 
-#define F_CPU 16000000UL	//16 MHz frequency
-#define BAUD  9600
+#define F_CPU 1000000UL	//1 MHz frequency
+#define BAUD  4800
 #include <util/setbaud.h>
 #include <util/delay.h>
 
@@ -79,6 +79,7 @@ void UART_Init(void)
 	//Set the BAUD rate(Ref. ATmega32U4 Datasheet Pg.189, Table 18-1)
 	//To hard-code the Baud rate, Ref. Tables 18-9 to 18-12 in Pgs. 210 - 213
 	UBRR1 = ((F_CPU / (16UL * BAUD)) - 1);
+//	UBRR1 = 51;
 	
 	//Disables 2x speed
 	UCSR1A &= ~(_BV(U2X1));
@@ -128,14 +129,16 @@ void UART_Tx(unsigned char data)
 int main(void)
 {
 	AVR_Init();
-	ADC_Init();
+//	ADC_Init();
 	UART_Init();
 
 	//Endless Loop
 	while(1)
 	{
-		POT_Value = ADC_Pot();
+//		POT_Value = ADC_Pot();
 		UART_Tx(0xAA);			
+		_delay_ms(10);			//1 second delay
+		UART_Tx(0x55);
 		_delay_ms(10);			//1 second delay
 	}
 }

@@ -9,6 +9,7 @@
 #include <avr/sfr_defs.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdint.h>
 #include "nrf.h"
 
 #define MOSI		2
@@ -16,6 +17,16 @@
 #define SCLK		1
 #define CSN		0
 #define CE		4
+
+#define PAYLOAD_LEN	32
+
+uint8_t payload[32] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+		       0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
+		       0x17, 0x18, 0x19, 0x20, 0x21, 0x22, 0x23, 0x24,
+		       0x25, 0x26, 0x27, 0x28, 0x29, 0x30, 0x31, 0x32};
+
+uint8_t nrf24_isSending(void);
+uint8_t nrf24_getStatus(void);
 
 void Init_SPI()
 {
@@ -78,7 +89,7 @@ void Init_nrf(void)
 	_delay_ms(100);
 	
 	//Enable auto-acknowledgment for data pipe 0
-//	Write_byte(EN_AA, 0x01); 
+	Write_byte(EN_AA, 0x01); 
 	
 	//Enable data pipe 0
 	Write_byte(EN_RXADDR, 0x01); 
@@ -121,20 +132,20 @@ void Init_nrf(void)
 	//Setup the transmitter address
 	spi_tranceiver(W_REGISTER + TX_ADDR);
 	_delay_us(10);
-	spi_tranceiver(0x01);
+	spi_tranceiver(0xAA);
 	_delay_us(10);
-	spi_tranceiver(0x02);
+	spi_tranceiver(0xBB);
 	_delay_us(10);
-	spi_tranceiver(0x03);
+	spi_tranceiver(0xCC);
 	_delay_us(10);
-	spi_tranceiver(0x04);
+	spi_tranceiver(0xDD);
 	_delay_us(10);
-	spi_tranceiver(0x05);
+	spi_tranceiver(0xEE);
 	_delay_us(10);
 	PORTB |= _BV(CSN);	//CSN high
 		
-	//Set the payload width as 1-byte	
-	Write_byte(RX_PW_P0, 0x01); 
+	//Set the payload width as 32-bytes	
+	Write_byte(RX_PW_P0, 0x20); 
 	
 	//Set the retransmission delay to 750us with 15 retries
 //	Write_byte(SETUP_RETR, 0x2F); 
@@ -168,22 +179,59 @@ void Flush_rx(void)
 	_delay_us(10);
 }
 
-void transmit_data(unsigned char tdata)
+void Payload_TX(uint8_t* data, uint8_t len)
+{
+	uint8_t i;
+	
+	for(i = 0; i < len; i++)
+	{
+		spi_tranceiver(payload[i]);
+	}
+
+}
+
+void transmit_data(unsigned char *tdata)
 {
 	Flush_tx();
-    	PORTB &= ~_BV(CSN);	//CSN low
+	PORTB &= ~_BV(CSN); //CSN low
 	_delay_us(10);
 	//Transmit payload with ACK enabled
 	spi_tranceiver(W_TX_PAYLOAD);
 	_delay_us(10);
-	spi_tranceiver(tdata);
+	Payload_TX(payload, PAYLOAD_LEN);
 	_delay_us(10);
-	PORTB |= _BV(CSN);	//CSN high
-	_delay_ms(10);		//Need 10ms before sending
-	PORTB |= _BV(CE);	//CE high
-	_delay_us(20);  	//Hold CE high for at least 10us and not longer than 2ms
-	PORTB &= ~_BV(CE);	//CE low
-	_delay_ms(10); 		//Delay needed for retransmissions before reset
+	PORTB |= _BV(CSN);  //CSN high
+	_delay_us(15);      //Need at least 10us before sending
+	PORTB |= _BV(CE);   //CE high
+	_delay_us(20);      //Hold CE high for at least 10us and not longer than 4ms
+//	PORTB &= ~_BV(CE);  //CE low
+//	_delay_ms(1);       //Delay needed for retransmissions before reset
+}
+
+uint8_t nrf24_isSending()
+{
+	uint8_t status;
+
+	/* read the current status */
+	status = nrf24_getStatus();
+	
+	/* if sending successful (TX_DS) or max retries exceeded (MAX_RT). */
+	if((status & ((1 << TX_DS)  | (1 << MAX_RT))))
+	{
+		return 0; /* false */
+	}
+
+	return 1; /* true */
+
+}
+
+uint8_t nrf24_getStatus()
+{
+	uint8_t rv;
+	PORTB &= ~_BV(CSN); //CSN low
+	rv = spi_tranceiver(NOP);
+	PORTB |= _BV(CSN);  //CSN high
+	return rv;
 }
 
 void reset(void)
@@ -194,16 +242,6 @@ void reset(void)
 	_delay_us(10);
 }
 
-void nRF_Put_String(char *s)
-{
-	//Loop through entire string
-	while(*s)
-	{
-		transmit_data(*s);
-		s++;
-	}
-}
-
 //Main function for TX
 int main(void)
 {
@@ -212,21 +250,11 @@ int main(void)
 
 	//Initialize devices
 	Init_nrf();
-    	
-    	unsigned char my_data;
 	
     	while(1) 
     	{
-        
-//		_delay_ms(1000);	//1s delay 
-//		my_data = 0x55;
-//		transmit_data(my_data);
-		nRF_Put_String("Hmmmmmm...\n");
-		reset();
-
-		_delay_ms(10);   	//1s delay
-//		my_data = 0xAA;
-//		transmit_data(my_data);
+		transmit_data(payload);
+		while(nrf24_isSending());
 		reset();
     	}
 }

@@ -7,7 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
-#define F_CPU 16000000UL	//16 MHz clock speed
+#define F_CPU 1000000UL	//1 MHz clock speed
 #include <util/delay.h>
 
 int main(void)

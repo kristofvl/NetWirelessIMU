@@ -85,9 +85,9 @@ Disassembly of section .text:
   c6:	3f 9a       	sbi	0x07, 7	; 7
   c8:	46 98       	cbi	0x08, 6	; 8
   ca:	47 9a       	sbi	0x08, 7	; 8
-  cc:	2f ef       	ldi	r18, 0xFF	; 255
-  ce:	89 e6       	ldi	r24, 0x69	; 105
-  d0:	98 e1       	ldi	r25, 0x18	; 24
+  cc:	2f e9       	ldi	r18, 0x9F	; 159
+  ce:	86 e8       	ldi	r24, 0x86	; 134
+  d0:	91 e0       	ldi	r25, 0x01	; 1
   d2:	21 50       	subi	r18, 0x01	; 1
   d4:	80 40       	sbci	r24, 0x00	; 0
   d6:	90 40       	sbci	r25, 0x00	; 0
@@ -96,9 +96,9 @@ Disassembly of section .text:
   dc:	00 00       	nop
   de:	46 9a       	sbi	0x08, 6	; 8
   e0:	47 98       	cbi	0x08, 7	; 8
-  e2:	2f ef       	ldi	r18, 0xFF	; 255
-  e4:	89 e6       	ldi	r24, 0x69	; 105
-  e6:	98 e1       	ldi	r25, 0x18	; 24
+  e2:	2f e9       	ldi	r18, 0x9F	; 159
+  e4:	86 e8       	ldi	r24, 0x86	; 134
+  e6:	91 e0       	ldi	r25, 0x01	; 1
   e8:	21 50       	subi	r18, 0x01	; 1
   ea:	80 40       	sbci	r24, 0x00	; 0
   ec:	90 40       	sbci	r25, 0x00	; 0
