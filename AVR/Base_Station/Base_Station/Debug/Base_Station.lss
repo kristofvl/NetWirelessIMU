@@ -3,31 +3,31 @@ Base_Station.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000008  00800100  0000053e  000005d2  2**0
+  0 .data         00000008  00800100  000005ac  00000640  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000053e  00000000  00000000  00000094  2**1
+  1 .text         000005ac  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000008  00800108  00800108  000005da  2**0
+  2 .bss          00000009  00800108  00800108  00000648  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000005da  2**0
+  3 .comment      00000030  00000000  00000000  00000648  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000060c  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000678  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000c8  00000000  00000000  0000064c  2**0
+  5 .debug_aranges 000000c0  00000000  00000000  000006b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001cbe  00000000  00000000  00000714  2**0
+  6 .debug_info   00001d4f  00000000  00000000  00000778  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c09  00000000  00000000  000023d2  2**0
+  7 .debug_abbrev 00000c28  00000000  00000000  000024c7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000008fe  00000000  00000000  00002fdb  2**0
+  8 .debug_line   00000917  00000000  00000000  000030ef  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001bc  00000000  00000000  000038dc  2**2
+  9 .debug_frame  000001e8  00000000  00000000  00003a08  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000065c  00000000  00000000  00003a98  2**0
+ 10 .debug_str    00000636  00000000  00000000  00003bf0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000fdc  00000000  00000000  000040f4  2**0
+ 11 .debug_loc    0000108e  00000000  00000000  00004226  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b8  00000000  00000000  000050d0  2**0
+ 12 .debug_ranges 000000b0  00000000  00000000  000052b4  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -40,7 +40,7 @@ Disassembly of section .text:
   10:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
   14:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
   18:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
-  1c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  1c:	0c 94 5d 02 	jmp	0x4ba	; 0x4ba <__vector_7>
   20:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
   24:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
   28:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
@@ -89,7 +89,7 @@ Disassembly of section .text:
   b8:	11 e0       	ldi	r17, 0x01	; 1
   ba:	a0 e0       	ldi	r26, 0x00	; 0
   bc:	b1 e0       	ldi	r27, 0x01	; 1
-  be:	ee e3       	ldi	r30, 0x3E	; 62
+  be:	ec ea       	ldi	r30, 0xAC	; 172
   c0:	f5 e0       	ldi	r31, 0x05	; 5
   c2:	02 c0       	rjmp	.+4      	; 0xc8 <__do_copy_data+0x10>
   c4:	05 90       	lpm	r0, Z+
@@ -108,11 +108,11 @@ Disassembly of section .text:
   d6:	1d 92       	st	X+, r1
 
 000000d8 <.do_clear_bss_start>:
-  d8:	a0 31       	cpi	r26, 0x10	; 16
+  d8:	a1 31       	cpi	r26, 0x11	; 17
   da:	b2 07       	cpc	r27, r18
   dc:	e1 f7       	brne	.-8      	; 0xd6 <.do_clear_bss_loop>
-  de:	0e 94 6c 02 	call	0x4d8	; 0x4d8 <main>
-  e2:	0c 94 9d 02 	jmp	0x53a	; 0x53a <_exit>
+  de:	0e 94 af 02 	call	0x55e	; 0x55e <main>
+  e2:	0c 94 d4 02 	jmp	0x5a8	; 0x5a8 <_exit>
 
 000000e6 <__bad_interrupt>:
   e6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -200,7 +200,7 @@ void UART_Tx(unsigned char data)
  136:	90 81       	ld	r25, Z
  138:	95 ff       	sbrs	r25, 5
  13a:	fd cf       	rjmp	.-6      	; 0x136 <UART_Tx+0x4>
-	UDR1 = data;				//Send data
+	UDR1 = data;				//Send data	
  13c:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
  140:	08 95       	ret
 
@@ -249,7 +249,7 @@ unsigned char spi_tranceiver(unsigned char data)
  15e:	8e bd       	out	0x2e, r24	; 46
 	
 	//Wait until transmission complete
-	while(!(SPSR & (1 << SPIF)));
+	while(!(SPSR & (1 << SPIF)));   
  160:	0d b4       	in	r0, 0x2d	; 45
  162:	07 fe       	sbrs	r0, 7
  164:	fd cf       	rjmp	.-6      	; 0x160 <spi_tranceiver+0x2>
@@ -377,713 +377,729 @@ void Flush_tx(void)
  1fc:	08 95       	ret
 
 000001fe <nRF_TX_mode>:
-	_delay_ms(100);
 }
+*/
 
 void nRF_TX_mode(void)
 {
-	PORTB &= ~_BV(CE); //CE low
+	PORTB &= ~_BV(CE);						 //CE low - Standby-I
  1fe:	2c 98       	cbi	0x05, 4	; 5
-	Write_byte(CONFIG, 0x1E);
- 200:	6e e1       	ldi	r22, 0x1E	; 30
- 202:	80 e0       	ldi	r24, 0x00	; 0
- 204:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
-	Flush_tx();
- 208:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <Flush_tx>
- 20c:	87 e5       	ldi	r24, 0x57	; 87
- 20e:	92 e0       	ldi	r25, 0x02	; 2
- 210:	01 97       	sbiw	r24, 0x01	; 1
- 212:	f1 f7       	brne	.-4      	; 0x210 <nRF_TX_mode+0x12>
- 214:	00 c0       	rjmp	.+0      	; 0x216 <nRF_TX_mode+0x18>
- 216:	00 00       	nop
- 218:	08 95       	ret
+//	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PWR_UP));		 //Power-down mode
+//	_delay_ms(1);							 
+	//Power-up and set as TX
+	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PRIM_RX));
+ 200:	80 e0       	ldi	r24, 0x00	; 0
+ 202:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+ 206:	68 2f       	mov	r22, r24
+ 208:	6e 7f       	andi	r22, 0xFE	; 254
+ 20a:	80 e0       	ldi	r24, 0x00	; 0
+ 20c:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP));
+ 210:	80 e0       	ldi	r24, 0x00	; 0
+ 212:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+ 216:	68 2f       	mov	r22, r24
+ 218:	62 60       	ori	r22, 0x02	; 2
+ 21a:	80 e0       	ldi	r24, 0x00	; 0
+ 21c:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+//	_delay_ms(1);
+	Flush_tx();							 //Flush TX FIFO
+ 220:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <Flush_tx>
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+ 224:	60 e7       	ldi	r22, 0x70	; 112
+ 226:	87 e0       	ldi	r24, 0x07	; 7
+ 228:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
+ 22c:	80 e0       	ldi	r24, 0x00	; 0
+ 22e:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+ 232:	68 2f       	mov	r22, r24
+ 234:	60 63       	ori	r22, 0x30	; 48
+ 236:	80 e0       	ldi	r24, 0x00	; 0
+ 238:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 23c:	87 e5       	ldi	r24, 0x57	; 87
+ 23e:	92 e0       	ldi	r25, 0x02	; 2
+ 240:	01 97       	sbiw	r24, 0x01	; 1
+ 242:	f1 f7       	brne	.-4      	; 0x240 <nRF_TX_mode+0x42>
+ 244:	00 c0       	rjmp	.+0      	; 0x246 <nRF_TX_mode+0x48>
+ 246:	00 00       	nop
+ 248:	08 95       	ret
 
-0000021a <Init_nrf>:
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
+0000024a <Init_nrf>:
+}
 
-	__builtin_avr_delay_cycles(__ticks_dc);
- 21a:	2f ef       	ldi	r18, 0xFF	; 255
- 21c:	81 ee       	ldi	r24, 0xE1	; 225
- 21e:	94 e0       	ldi	r25, 0x04	; 4
- 220:	21 50       	subi	r18, 0x01	; 1
- 222:	80 40       	sbci	r24, 0x00	; 0
- 224:	90 40       	sbci	r25, 0x00	; 0
- 226:	e1 f7       	brne	.-8      	; 0x220 <Init_nrf+0x6>
- 228:	00 c0       	rjmp	.+0      	; 0x22a <Init_nrf+0x10>
- 22a:	00 00       	nop
 void Init_nrf(void)
 {
-	_delay_ms(100);
-	
 	//Enable auto-acknowledgment for data pipe 0
 	Write_byte(EN_AA, 0x01);
- 22c:	61 e0       	ldi	r22, 0x01	; 1
- 22e:	81 e0       	ldi	r24, 0x01	; 1
- 230:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 24a:	61 e0       	ldi	r22, 0x01	; 1
+ 24c:	81 e0       	ldi	r24, 0x01	; 1
+ 24e:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
 	
 	//Enable data pipe 0
 	Write_byte(EN_RXADDR, 0x01);
- 234:	61 e0       	ldi	r22, 0x01	; 1
- 236:	82 e0       	ldi	r24, 0x02	; 2
- 238:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 252:	61 e0       	ldi	r22, 0x01	; 1
+ 254:	82 e0       	ldi	r24, 0x02	; 2
+ 256:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
 
 	//Set address width to 5 bytes
 	Write_byte(SETUP_AW, 0x03);
- 23c:	63 e0       	ldi	r22, 0x03	; 3
- 23e:	83 e0       	ldi	r24, 0x03	; 3
- 240:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 25a:	63 e0       	ldi	r22, 0x03	; 3
+ 25c:	83 e0       	ldi	r24, 0x03	; 3
+ 25e:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
 	
 	//Set channel frequency to 2.505GHz
 	Write_byte(RF_CH, 0x69);
- 244:	69 e6       	ldi	r22, 0x69	; 105
- 246:	85 e0       	ldi	r24, 0x05	; 5
- 248:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 262:	69 e6       	ldi	r22, 0x69	; 105
+ 264:	85 e0       	ldi	r24, 0x05	; 5
+ 266:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
 	
 	//Set data rate to 2Mbps and 0dB gain
 	Write_byte(RF_SETUP, 0x0E);
- 24c:	6e e0       	ldi	r22, 0x0E	; 14
- 24e:	86 e0       	ldi	r24, 0x06	; 6
- 250:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- 254:	25 e3       	ldi	r18, 0x35	; 53
- 256:	2a 95       	dec	r18
- 258:	f1 f7       	brne	.-4      	; 0x256 <Init_nrf+0x3c>
- 25a:	00 00       	nop
+ 26a:	6e e0       	ldi	r22, 0x0E	; 14
+ 26c:	86 e0       	ldi	r24, 0x06	; 6
+ 26e:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 272:	85 e3       	ldi	r24, 0x35	; 53
+ 274:	8a 95       	dec	r24
+ 276:	f1 f7       	brne	.-4      	; 0x274 <Init_nrf+0x2a>
+ 278:	00 00       	nop
 	//Enable W_TX_PAYLOAD_NOACK command
-	//	Write_byte(FEATURE, 0x01);
+//	Write_byte(FEATURE, 0x01);
 	
 	//Set the 5-bytes receiver address as 0x01 0x02 0x03 0x04 0x05
 	_delay_us(10);
 	PORTB &= ~_BV(CSN);	//CSN low
- 25c:	28 98       	cbi	0x05, 0	; 5
- 25e:	85 e3       	ldi	r24, 0x35	; 53
- 260:	8a 95       	dec	r24
- 262:	f1 f7       	brne	.-4      	; 0x260 <Init_nrf+0x46>
- 264:	00 00       	nop
+ 27a:	28 98       	cbi	0x05, 0	; 5
+ 27c:	95 e3       	ldi	r25, 0x35	; 53
+ 27e:	9a 95       	dec	r25
+ 280:	f1 f7       	brne	.-4      	; 0x27e <Init_nrf+0x34>
+ 282:	00 00       	nop
 	_delay_us(10);
 	//Setup p0 pipe address for receiving
 	spi_tranceiver(W_REGISTER + RX_ADDR_P0);
- 266:	8a e2       	ldi	r24, 0x2A	; 42
- 268:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 26c:	95 e3       	ldi	r25, 0x35	; 53
- 26e:	9a 95       	dec	r25
- 270:	f1 f7       	brne	.-4      	; 0x26e <Init_nrf+0x54>
- 272:	00 00       	nop
+ 284:	8a e2       	ldi	r24, 0x2A	; 42
+ 286:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 28a:	85 e3       	ldi	r24, 0x35	; 53
+ 28c:	8a 95       	dec	r24
+ 28e:	f1 f7       	brne	.-4      	; 0x28c <Init_nrf+0x42>
+ 290:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0x11);
- 274:	81 e1       	ldi	r24, 0x11	; 17
- 276:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 27a:	25 e3       	ldi	r18, 0x35	; 53
- 27c:	2a 95       	dec	r18
- 27e:	f1 f7       	brne	.-4      	; 0x27c <Init_nrf+0x62>
- 280:	00 00       	nop
+ 292:	81 e1       	ldi	r24, 0x11	; 17
+ 294:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 298:	95 e3       	ldi	r25, 0x35	; 53
+ 29a:	9a 95       	dec	r25
+ 29c:	f1 f7       	brne	.-4      	; 0x29a <Init_nrf+0x50>
+ 29e:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0x12);
- 282:	82 e1       	ldi	r24, 0x12	; 18
- 284:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 288:	85 e3       	ldi	r24, 0x35	; 53
- 28a:	8a 95       	dec	r24
- 28c:	f1 f7       	brne	.-4      	; 0x28a <Init_nrf+0x70>
- 28e:	00 00       	nop
+ 2a0:	82 e1       	ldi	r24, 0x12	; 18
+ 2a2:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 2a6:	85 e3       	ldi	r24, 0x35	; 53
+ 2a8:	8a 95       	dec	r24
+ 2aa:	f1 f7       	brne	.-4      	; 0x2a8 <Init_nrf+0x5e>
+ 2ac:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0x13);
- 290:	83 e1       	ldi	r24, 0x13	; 19
- 292:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 296:	95 e3       	ldi	r25, 0x35	; 53
- 298:	9a 95       	dec	r25
- 29a:	f1 f7       	brne	.-4      	; 0x298 <Init_nrf+0x7e>
- 29c:	00 00       	nop
+ 2ae:	83 e1       	ldi	r24, 0x13	; 19
+ 2b0:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 2b4:	95 e3       	ldi	r25, 0x35	; 53
+ 2b6:	9a 95       	dec	r25
+ 2b8:	f1 f7       	brne	.-4      	; 0x2b6 <Init_nrf+0x6c>
+ 2ba:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0x14);
- 29e:	84 e1       	ldi	r24, 0x14	; 20
- 2a0:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2a4:	25 e3       	ldi	r18, 0x35	; 53
- 2a6:	2a 95       	dec	r18
- 2a8:	f1 f7       	brne	.-4      	; 0x2a6 <Init_nrf+0x8c>
- 2aa:	00 00       	nop
+ 2bc:	84 e1       	ldi	r24, 0x14	; 20
+ 2be:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 2c2:	85 e3       	ldi	r24, 0x35	; 53
+ 2c4:	8a 95       	dec	r24
+ 2c6:	f1 f7       	brne	.-4      	; 0x2c4 <Init_nrf+0x7a>
+ 2c8:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0x15);
- 2ac:	85 e1       	ldi	r24, 0x15	; 21
- 2ae:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2b2:	85 e3       	ldi	r24, 0x35	; 53
- 2b4:	8a 95       	dec	r24
- 2b6:	f1 f7       	brne	.-4      	; 0x2b4 <Init_nrf+0x9a>
- 2b8:	00 00       	nop
+ 2ca:	85 e1       	ldi	r24, 0x15	; 21
+ 2cc:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 2d0:	95 e3       	ldi	r25, 0x35	; 53
+ 2d2:	9a 95       	dec	r25
+ 2d4:	f1 f7       	brne	.-4      	; 0x2d2 <Init_nrf+0x88>
+ 2d6:	00 00       	nop
 	_delay_us(10);
 	PORTB |= _BV(CSN);	//CSN high
- 2ba:	28 9a       	sbi	0x05, 0	; 5
- 2bc:	95 e3       	ldi	r25, 0x35	; 53
- 2be:	9a 95       	dec	r25
- 2c0:	f1 f7       	brne	.-4      	; 0x2be <Init_nrf+0xa4>
- 2c2:	00 00       	nop
+ 2d8:	28 9a       	sbi	0x05, 0	; 5
+ 2da:	85 e3       	ldi	r24, 0x35	; 53
+ 2dc:	8a 95       	dec	r24
+ 2de:	f1 f7       	brne	.-4      	; 0x2dc <Init_nrf+0x92>
+ 2e0:	00 00       	nop
 	
 	//Set the 5-bytes transmitter address as 0x01 0x02 0x03 0x04 0x05
 	_delay_us(10);
 	PORTB &= ~_BV(CSN);	//CSN low
- 2c4:	28 98       	cbi	0x05, 0	; 5
- 2c6:	25 e3       	ldi	r18, 0x35	; 53
- 2c8:	2a 95       	dec	r18
- 2ca:	f1 f7       	brne	.-4      	; 0x2c8 <Init_nrf+0xae>
- 2cc:	00 00       	nop
+ 2e2:	28 98       	cbi	0x05, 0	; 5
+ 2e4:	95 e3       	ldi	r25, 0x35	; 53
+ 2e6:	9a 95       	dec	r25
+ 2e8:	f1 f7       	brne	.-4      	; 0x2e6 <Init_nrf+0x9c>
+ 2ea:	00 00       	nop
 	_delay_us(10);
 	//Setup the transmitter address
 	spi_tranceiver(W_REGISTER + TX_ADDR);
- 2ce:	80 e3       	ldi	r24, 0x30	; 48
- 2d0:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2d4:	85 e3       	ldi	r24, 0x35	; 53
- 2d6:	8a 95       	dec	r24
- 2d8:	f1 f7       	brne	.-4      	; 0x2d6 <Init_nrf+0xbc>
- 2da:	00 00       	nop
+ 2ec:	80 e3       	ldi	r24, 0x30	; 48
+ 2ee:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 2f2:	85 e3       	ldi	r24, 0x35	; 53
+ 2f4:	8a 95       	dec	r24
+ 2f6:	f1 f7       	brne	.-4      	; 0x2f4 <Init_nrf+0xaa>
+ 2f8:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0xAA);
- 2dc:	8a ea       	ldi	r24, 0xAA	; 170
- 2de:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2e2:	95 e3       	ldi	r25, 0x35	; 53
- 2e4:	9a 95       	dec	r25
- 2e6:	f1 f7       	brne	.-4      	; 0x2e4 <Init_nrf+0xca>
- 2e8:	00 00       	nop
+ 2fa:	8a ea       	ldi	r24, 0xAA	; 170
+ 2fc:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 300:	95 e3       	ldi	r25, 0x35	; 53
+ 302:	9a 95       	dec	r25
+ 304:	f1 f7       	brne	.-4      	; 0x302 <Init_nrf+0xb8>
+ 306:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0xBB);
- 2ea:	8b eb       	ldi	r24, 0xBB	; 187
- 2ec:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2f0:	25 e3       	ldi	r18, 0x35	; 53
- 2f2:	2a 95       	dec	r18
- 2f4:	f1 f7       	brne	.-4      	; 0x2f2 <Init_nrf+0xd8>
- 2f6:	00 00       	nop
+ 308:	8b eb       	ldi	r24, 0xBB	; 187
+ 30a:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 30e:	85 e3       	ldi	r24, 0x35	; 53
+ 310:	8a 95       	dec	r24
+ 312:	f1 f7       	brne	.-4      	; 0x310 <Init_nrf+0xc6>
+ 314:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0xCC);
- 2f8:	8c ec       	ldi	r24, 0xCC	; 204
- 2fa:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 2fe:	85 e3       	ldi	r24, 0x35	; 53
- 300:	8a 95       	dec	r24
- 302:	f1 f7       	brne	.-4      	; 0x300 <Init_nrf+0xe6>
- 304:	00 00       	nop
+ 316:	8c ec       	ldi	r24, 0xCC	; 204
+ 318:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 31c:	95 e3       	ldi	r25, 0x35	; 53
+ 31e:	9a 95       	dec	r25
+ 320:	f1 f7       	brne	.-4      	; 0x31e <Init_nrf+0xd4>
+ 322:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0xDD);
- 306:	8d ed       	ldi	r24, 0xDD	; 221
- 308:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 30c:	95 e3       	ldi	r25, 0x35	; 53
- 30e:	9a 95       	dec	r25
- 310:	f1 f7       	brne	.-4      	; 0x30e <Init_nrf+0xf4>
- 312:	00 00       	nop
+ 324:	8d ed       	ldi	r24, 0xDD	; 221
+ 326:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 32a:	85 e3       	ldi	r24, 0x35	; 53
+ 32c:	8a 95       	dec	r24
+ 32e:	f1 f7       	brne	.-4      	; 0x32c <Init_nrf+0xe2>
+ 330:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(0xEE);
- 314:	8e ee       	ldi	r24, 0xEE	; 238
- 316:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 31a:	25 e3       	ldi	r18, 0x35	; 53
- 31c:	2a 95       	dec	r18
- 31e:	f1 f7       	brne	.-4      	; 0x31c <Init_nrf+0x102>
- 320:	00 00       	nop
+ 332:	8e ee       	ldi	r24, 0xEE	; 238
+ 334:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 338:	95 e3       	ldi	r25, 0x35	; 53
+ 33a:	9a 95       	dec	r25
+ 33c:	f1 f7       	brne	.-4      	; 0x33a <Init_nrf+0xf0>
+ 33e:	00 00       	nop
 	_delay_us(10);
 	PORTB |= _BV(CSN);	//CSN high
- 322:	28 9a       	sbi	0x05, 0	; 5
+ 340:	28 9a       	sbi	0x05, 0	; 5
 	
 	//Set the payload width as 8-bytes
 	Write_byte(RX_PW_P0, 0x08);
- 324:	68 e0       	ldi	r22, 0x08	; 8
- 326:	81 e1       	ldi	r24, 0x11	; 17
- 328:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 342:	68 e0       	ldi	r22, 0x08	; 8
+ 344:	81 e1       	ldi	r24, 0x11	; 17
+ 346:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	
 	//Set the retransmission delay to 750us with 15 retries
-//	Write_byte(SETUP_RETR, 0x2F);
+	Write_byte(SETUP_RETR, 0x2F);
+ 34a:	6f e2       	ldi	r22, 0x2F	; 47
+ 34c:	84 e0       	ldi	r24, 0x04	; 4
+ 34e:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
 	
 	//Boot the nrf as TX and mask the maximum retransmission interrupt(disable)
 	//Enable CRC and set the length to 2-bytes
 	nRF_TX_mode();
- 32c:	0e 94 ff 00 	call	0x1fe	; 0x1fe <nRF_TX_mode>
+ 352:	0e 94 ff 00 	call	0x1fe	; 0x1fe <nRF_TX_mode>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 330:	8f ef       	ldi	r24, 0xFF	; 255
- 332:	91 ee       	ldi	r25, 0xE1	; 225
- 334:	24 e0       	ldi	r18, 0x04	; 4
- 336:	81 50       	subi	r24, 0x01	; 1
- 338:	90 40       	sbci	r25, 0x00	; 0
- 33a:	20 40       	sbci	r18, 0x00	; 0
- 33c:	e1 f7       	brne	.-8      	; 0x336 <Init_nrf+0x11c>
- 33e:	00 c0       	rjmp	.+0      	; 0x340 <Init_nrf+0x126>
- 340:	00 00       	nop
- 342:	08 95       	ret
+ 356:	8f e3       	ldi	r24, 0x3F	; 63
+ 358:	9c e9       	ldi	r25, 0x9C	; 156
+ 35a:	01 97       	sbiw	r24, 0x01	; 1
+ 35c:	f1 f7       	brne	.-4      	; 0x35a <Init_nrf+0x110>
+ 35e:	00 c0       	rjmp	.+0      	; 0x360 <Init_nrf+0x116>
+ 360:	00 00       	nop
+ 362:	08 95       	ret
 
-00000344 <Flush_rx>:
+00000364 <Flush_rx>:
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 344:	85 e3       	ldi	r24, 0x35	; 53
- 346:	8a 95       	dec	r24
- 348:	f1 f7       	brne	.-4      	; 0x346 <Flush_rx+0x2>
- 34a:	00 00       	nop
+ 364:	85 e3       	ldi	r24, 0x35	; 53
+ 366:	8a 95       	dec	r24
+ 368:	f1 f7       	brne	.-4      	; 0x366 <Flush_rx+0x2>
+ 36a:	00 00       	nop
 }
 
 void Flush_rx(void)
 {
 	_delay_us(10);
 	PORTB &= ~_BV(CSN);
- 34c:	28 98       	cbi	0x05, 0	; 5
- 34e:	85 e3       	ldi	r24, 0x35	; 53
- 350:	8a 95       	dec	r24
- 352:	f1 f7       	brne	.-4      	; 0x350 <Flush_rx+0xc>
- 354:	00 00       	nop
+ 36c:	28 98       	cbi	0x05, 0	; 5
+ 36e:	85 e3       	ldi	r24, 0x35	; 53
+ 370:	8a 95       	dec	r24
+ 372:	f1 f7       	brne	.-4      	; 0x370 <Flush_rx+0xc>
+ 374:	00 00       	nop
 	_delay_us(10);
 	spi_tranceiver(FLUSH_RX);
- 356:	82 ee       	ldi	r24, 0xE2	; 226
- 358:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 35c:	85 e3       	ldi	r24, 0x35	; 53
- 35e:	8a 95       	dec	r24
- 360:	f1 f7       	brne	.-4      	; 0x35e <Flush_rx+0x1a>
- 362:	00 00       	nop
+ 376:	82 ee       	ldi	r24, 0xE2	; 226
+ 378:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 37c:	85 e3       	ldi	r24, 0x35	; 53
+ 37e:	8a 95       	dec	r24
+ 380:	f1 f7       	brne	.-4      	; 0x37e <Flush_rx+0x1a>
+ 382:	00 00       	nop
 	_delay_us(10);
 	PORTB |= _BV(CSN);
- 364:	28 9a       	sbi	0x05, 0	; 5
- 366:	85 e3       	ldi	r24, 0x35	; 53
- 368:	8a 95       	dec	r24
- 36a:	f1 f7       	brne	.-4      	; 0x368 <Flush_rx+0x24>
- 36c:	00 00       	nop
- 36e:	08 95       	ret
+ 384:	28 9a       	sbi	0x05, 0	; 5
+ 386:	85 e3       	ldi	r24, 0x35	; 53
+ 388:	8a 95       	dec	r24
+ 38a:	f1 f7       	brne	.-4      	; 0x388 <Flush_rx+0x24>
+ 38c:	00 00       	nop
+ 38e:	08 95       	ret
 
-00000370 <Payload_TX>:
+00000390 <nRF_RX_mode>:
+	_delay_us(150);
+}
+
+void nRF_RX_mode(void)
+{
+	PORTB &= ~_BV(CE); 						 //CE low - Standby-I
+ 390:	2c 98       	cbi	0x05, 4	; 5
+//	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PWR_UP));		 //Power-down mode
+//	_delay_ms(1);	
+	//Power-up as set as RX
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP) | (1 << PRIM_RX));
+ 392:	80 e0       	ldi	r24, 0x00	; 0
+ 394:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+ 398:	68 2f       	mov	r22, r24
+ 39a:	63 60       	ori	r22, 0x03	; 3
+ 39c:	80 e0       	ldi	r24, 0x00	; 0
+ 39e:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+//	_delay_ms(1);
+	Flush_rx();							 //Flush RX FIFO
+ 3a2:	0e 94 b2 01 	call	0x364	; 0x364 <Flush_rx>
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+ 3a6:	60 e7       	ldi	r22, 0x70	; 112
+ 3a8:	87 e0       	ldi	r24, 0x07	; 7
+ 3aa:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	//Mask TX_DR and MAX_RT interrupts
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
+ 3ae:	80 e0       	ldi	r24, 0x00	; 0
+ 3b0:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+ 3b4:	68 2f       	mov	r22, r24
+ 3b6:	60 63       	ori	r22, 0x30	; 48
+ 3b8:	80 e0       	ldi	r24, 0x00	; 0
+ 3ba:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	PORTB |= _BV(CE);  						 //CE high
+ 3be:	2c 9a       	sbi	0x05, 4	; 5
+ 3c0:	87 e5       	ldi	r24, 0x57	; 87
+ 3c2:	92 e0       	ldi	r25, 0x02	; 2
+ 3c4:	01 97       	sbiw	r24, 0x01	; 1
+ 3c6:	f1 f7       	brne	.-4      	; 0x3c4 <nRF_RX_mode+0x34>
+ 3c8:	00 c0       	rjmp	.+0      	; 0x3ca <nRF_RX_mode+0x3a>
+ 3ca:	00 00       	nop
+ 3cc:	08 95       	ret
+
+000003ce <Payload_TX>:
+	PORTB |= _BV(CSN);
 	_delay_us(10);
 }
 
 void Payload_TX(uint8_t* data, uint8_t len)
 {
- 370:	0f 93       	push	r16
- 372:	1f 93       	push	r17
- 374:	cf 93       	push	r28
- 376:	df 93       	push	r29
+ 3ce:	0f 93       	push	r16
+ 3d0:	1f 93       	push	r17
+ 3d2:	cf 93       	push	r28
+ 3d4:	df 93       	push	r29
 	uint8_t i;
 	
 	for(i = 0; i < len; i++)
- 378:	66 23       	and	r22, r22
- 37a:	69 f0       	breq	.+26     	; 0x396 <Payload_TX+0x26>
- 37c:	c0 e0       	ldi	r28, 0x00	; 0
- 37e:	d1 e0       	ldi	r29, 0x01	; 1
- 380:	61 50       	subi	r22, 0x01	; 1
- 382:	06 2f       	mov	r16, r22
- 384:	10 e0       	ldi	r17, 0x00	; 0
- 386:	0f 5f       	subi	r16, 0xFF	; 255
- 388:	1e 4f       	sbci	r17, 0xFE	; 254
+ 3d6:	66 23       	and	r22, r22
+ 3d8:	69 f0       	breq	.+26     	; 0x3f4 <Payload_TX+0x26>
+ 3da:	c0 e0       	ldi	r28, 0x00	; 0
+ 3dc:	d1 e0       	ldi	r29, 0x01	; 1
+ 3de:	61 50       	subi	r22, 0x01	; 1
+ 3e0:	06 2f       	mov	r16, r22
+ 3e2:	10 e0       	ldi	r17, 0x00	; 0
+ 3e4:	0f 5f       	subi	r16, 0xFF	; 255
+ 3e6:	1e 4f       	sbci	r17, 0xFE	; 254
 	{
 		spi_tranceiver(BS_payload_TX[i]);
- 38a:	89 91       	ld	r24, Y+
- 38c:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 3e8:	89 91       	ld	r24, Y+
+ 3ea:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
 
 void Payload_TX(uint8_t* data, uint8_t len)
 {
 	uint8_t i;
 	
 	for(i = 0; i < len; i++)
- 390:	c0 17       	cp	r28, r16
- 392:	d1 07       	cpc	r29, r17
- 394:	d1 f7       	brne	.-12     	; 0x38a <Payload_TX+0x1a>
+ 3ee:	c0 17       	cp	r28, r16
+ 3f0:	d1 07       	cpc	r29, r17
+ 3f2:	d1 f7       	brne	.-12     	; 0x3e8 <Payload_TX+0x1a>
 	{
 		spi_tranceiver(BS_payload_TX[i]);
 	}
-
 }
- 396:	df 91       	pop	r29
- 398:	cf 91       	pop	r28
- 39a:	1f 91       	pop	r17
- 39c:	0f 91       	pop	r16
- 39e:	08 95       	ret
+ 3f4:	df 91       	pop	r29
+ 3f6:	cf 91       	pop	r28
+ 3f8:	1f 91       	pop	r17
+ 3fa:	0f 91       	pop	r16
+ 3fc:	08 95       	ret
 
-000003a0 <transmit_data>:
+000003fe <transmit_data>:
 
 void transmit_data(unsigned char *tdata)
 {
 	Flush_tx();
- 3a0:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <Flush_tx>
+ 3fe:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <Flush_tx>
 	PORTB &= ~_BV(CSN); //CSN low
- 3a4:	28 98       	cbi	0x05, 0	; 5
- 3a6:	85 e3       	ldi	r24, 0x35	; 53
- 3a8:	8a 95       	dec	r24
- 3aa:	f1 f7       	brne	.-4      	; 0x3a8 <transmit_data+0x8>
- 3ac:	00 00       	nop
+ 402:	28 98       	cbi	0x05, 0	; 5
+ 404:	85 e3       	ldi	r24, 0x35	; 53
+ 406:	8a 95       	dec	r24
+ 408:	f1 f7       	brne	.-4      	; 0x406 <__LOCK_REGION_LENGTH__+0x6>
+ 40a:	00 00       	nop
 	_delay_us(10);
 	//Transmit payload with ACK enabled
 	spi_tranceiver(W_TX_PAYLOAD);
- 3ae:	80 ea       	ldi	r24, 0xA0	; 160
- 3b0:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 3b4:	85 e3       	ldi	r24, 0x35	; 53
- 3b6:	8a 95       	dec	r24
- 3b8:	f1 f7       	brne	.-4      	; 0x3b6 <transmit_data+0x16>
- 3ba:	00 00       	nop
+ 40c:	80 ea       	ldi	r24, 0xA0	; 160
+ 40e:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 412:	85 e3       	ldi	r24, 0x35	; 53
+ 414:	8a 95       	dec	r24
+ 416:	f1 f7       	brne	.-4      	; 0x414 <__LOCK_REGION_LENGTH__+0x14>
+ 418:	00 00       	nop
 	_delay_us(10);
 	Payload_TX(BS_payload_TX, PAYLOAD_LEN);
- 3bc:	68 e0       	ldi	r22, 0x08	; 8
- 3be:	80 e0       	ldi	r24, 0x00	; 0
- 3c0:	91 e0       	ldi	r25, 0x01	; 1
- 3c2:	0e 94 b8 01 	call	0x370	; 0x370 <Payload_TX>
- 3c6:	85 e3       	ldi	r24, 0x35	; 53
- 3c8:	8a 95       	dec	r24
- 3ca:	f1 f7       	brne	.-4      	; 0x3c8 <transmit_data+0x28>
- 3cc:	00 00       	nop
+ 41a:	68 e0       	ldi	r22, 0x08	; 8
+ 41c:	80 e0       	ldi	r24, 0x00	; 0
+ 41e:	91 e0       	ldi	r25, 0x01	; 1
+ 420:	0e 94 e7 01 	call	0x3ce	; 0x3ce <Payload_TX>
+ 424:	85 e3       	ldi	r24, 0x35	; 53
+ 426:	8a 95       	dec	r24
+ 428:	f1 f7       	brne	.-4      	; 0x426 <__LOCK_REGION_LENGTH__+0x26>
+ 42a:	00 00       	nop
 	_delay_us(10);
 	PORTB |= _BV(CSN);  //CSN high
- 3ce:	28 9a       	sbi	0x05, 0	; 5
- 3d0:	80 e5       	ldi	r24, 0x50	; 80
- 3d2:	8a 95       	dec	r24
- 3d4:	f1 f7       	brne	.-4      	; 0x3d2 <transmit_data+0x32>
-	_delay_us(15);      //Need at least 10us before sending
+ 42c:	28 9a       	sbi	0x05, 0	; 5
+ 42e:	85 e3       	ldi	r24, 0x35	; 53
+ 430:	8a 95       	dec	r24
+ 432:	f1 f7       	brne	.-4      	; 0x430 <__LOCK_REGION_LENGTH__+0x30>
+ 434:	00 00       	nop
+	_delay_us(10);      //Need at least 10us before sending
 	PORTB |= _BV(CE);   //CE high
- 3d6:	2c 9a       	sbi	0x05, 4	; 5
- 3d8:	8a e6       	ldi	r24, 0x6A	; 106
- 3da:	8a 95       	dec	r24
- 3dc:	f1 f7       	brne	.-4      	; 0x3da <transmit_data+0x3a>
- 3de:	00 c0       	rjmp	.+0      	; 0x3e0 <transmit_data+0x40>
- 3e0:	08 95       	ret
+ 436:	2c 9a       	sbi	0x05, 4	; 5
+ 438:	85 e3       	ldi	r24, 0x35	; 53
+ 43a:	8a 95       	dec	r24
+ 43c:	f1 f7       	brne	.-4      	; 0x43a <__LOCK_REGION_LENGTH__+0x3a>
+ 43e:	00 00       	nop
+	_delay_us(10);      //Hold CE high for at least 10us and not longer than 4ms
+	PORTB &= ~_BV(CE);  //CE low
+ 440:	2c 98       	cbi	0x05, 4	; 5
+ 442:	08 95       	ret
 
-000003e2 <Payload_RX>:
-	Write_byte(STATUS, (1<<RX_DR));
-}
-
-/* send and receive multiple bytes over SPI */
-void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
-{
- 3e2:	ef 92       	push	r14
- 3e4:	ff 92       	push	r15
- 3e6:	0f 93       	push	r16
- 3e8:	1f 93       	push	r17
- 3ea:	cf 93       	push	r28
- 3ec:	df 93       	push	r29
-	uint8_t i;
-
-	for(i=0; i<len; i++)
- 3ee:	44 23       	and	r20, r20
- 3f0:	c9 f0       	breq	.+50     	; 0x424 <__LOCK_REGION_LENGTH__+0x24>
- 3f2:	ec 01       	movw	r28, r24
- 3f4:	06 2f       	mov	r16, r22
- 3f6:	17 2f       	mov	r17, r23
- 3f8:	41 50       	subi	r20, 0x01	; 1
- 3fa:	e4 2e       	mov	r14, r20
- 3fc:	f1 2c       	mov	r15, r1
- 3fe:	2f ef       	ldi	r18, 0xFF	; 255
- 400:	e2 1a       	sub	r14, r18
- 402:	f2 0a       	sbc	r15, r18
- 404:	e8 0e       	add	r14, r24
- 406:	f9 1e       	adc	r15, r25
-	{
-		data_in[i] = spi_tranceiver(data_out[i]);
- 408:	89 91       	ld	r24, Y+
- 40a:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
- 40e:	f8 01       	movw	r30, r16
- 410:	81 93       	st	Z+, r24
- 412:	8f 01       	movw	r16, r30
-		UART_Tx(data_in[i]);   //Send the received data to UART
- 414:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
-		UART_Tx(0x11);	       //BP5
- 418:	81 e1       	ldi	r24, 0x11	; 17
- 41a:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
-/* send and receive multiple bytes over SPI */
-void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
-{
-	uint8_t i;
-
-	for(i=0; i<len; i++)
- 41e:	ce 15       	cp	r28, r14
- 420:	df 05       	cpc	r29, r15
- 422:	91 f7       	brne	.-28     	; 0x408 <__LOCK_REGION_LENGTH__+0x8>
-	{
-		data_in[i] = spi_tranceiver(data_out[i]);
-		UART_Tx(data_in[i]);   //Send the received data to UART
-		UART_Tx(0x11);	       //BP5
-	}
-}
- 424:	df 91       	pop	r29
- 426:	cf 91       	pop	r28
- 428:	1f 91       	pop	r17
- 42a:	0f 91       	pop	r16
- 42c:	ff 90       	pop	r15
- 42e:	ef 90       	pop	r14
- 430:	08 95       	ret
-
-00000432 <nrf24_getData>:
-
-	return 1; /* true */
-}
-
-void nrf24_getData(uint8_t* data)
-{
- 432:	cf 93       	push	r28
- 434:	df 93       	push	r29
- 436:	ec 01       	movw	r28, r24
-	/* Pull down chip select */
-	PORTB &= ~_BV(CSN); //CSN low
- 438:	28 98       	cbi	0x05, 0	; 5
-
-	/* Send command to read RX payload */
-	spi_tranceiver(R_RX_PAYLOAD);
- 43a:	81 e6       	ldi	r24, 0x61	; 97
- 43c:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
-	
-	/* Read payload */
-	Payload_RX(data, data, PAYLOAD_LEN);
- 440:	48 e0       	ldi	r20, 0x08	; 8
- 442:	be 01       	movw	r22, r28
- 444:	ce 01       	movw	r24, r28
- 446:	0e 94 f1 01 	call	0x3e2	; 0x3e2 <Payload_RX>
-	
-	/* Pull up chip select */
-	PORTB |= _BV(CSN);  //CSN high
- 44a:	28 9a       	sbi	0x05, 0	; 5
-
-	/* Reset status register */
-	Write_byte(STATUS, (1<<RX_DR));
- 44c:	60 e4       	ldi	r22, 0x40	; 64
- 44e:	87 e0       	ldi	r24, 0x07	; 7
- 450:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
-}
- 454:	df 91       	pop	r29
- 456:	cf 91       	pop	r28
- 458:	08 95       	ret
-
-0000045a <nrf24_getStatus>:
+00000444 <nrf24_getStatus>:
 }
 
 uint8_t nrf24_getStatus()
 {
 	uint8_t rv;
 	PORTB &= ~_BV(CSN); //CSN low
- 45a:	28 98       	cbi	0x05, 0	; 5
+ 444:	28 98       	cbi	0x05, 0	; 5
 	rv = spi_tranceiver(NOP);
- 45c:	8f ef       	ldi	r24, 0xFF	; 255
- 45e:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 446:	8f ef       	ldi	r24, 0xFF	; 255
+ 448:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
 	PORTB |= _BV(CSN);  //CSN high
- 462:	28 9a       	sbi	0x05, 0	; 5
+ 44c:	28 9a       	sbi	0x05, 0	; 5
 	return rv;
 }
- 464:	08 95       	ret
+ 44e:	08 95       	ret
 
-00000466 <nrf24_isSending>:
+00000450 <nrf24_isSending>:
 uint8_t nrf24_isSending()
 {
 	uint8_t status;
 
 	/* read the current status */
 	status = nrf24_getStatus();
- 466:	0e 94 2d 02 	call	0x45a	; 0x45a <nrf24_getStatus>
- 46a:	98 2f       	mov	r25, r24
- 46c:	90 73       	andi	r25, 0x30	; 48
- 46e:	81 e0       	ldi	r24, 0x01	; 1
- 470:	09 f0       	breq	.+2      	; 0x474 <nrf24_isSending+0xe>
- 472:	80 e0       	ldi	r24, 0x00	; 0
+ 450:	0e 94 22 02 	call	0x444	; 0x444 <nrf24_getStatus>
+ 454:	98 2f       	mov	r25, r24
+ 456:	90 73       	andi	r25, 0x30	; 48
+ 458:	81 e0       	ldi	r24, 0x01	; 1
+ 45a:	09 f0       	breq	.+2      	; 0x45e <nrf24_isSending+0xe>
+ 45c:	80 e0       	ldi	r24, 0x00	; 0
 	{
 		return 0; /* false */
 	}
 
 	return 1; /* true */
 }
- 474:	08 95       	ret
+ 45e:	08 95       	ret
 
-00000476 <nrf24_rxFifoEmpty>:
-/* Checks if receive FIFO is empty or not */
-uint8_t nrf24_rxFifoEmpty()
+00000460 <Init_INT6>:
+
+void Init_INT6(void)
 {
-	uint8_t fifoStatus;
+	EICRB &= ~(1 << ISC60) | (1 << ISC61);	//INT6 active when low
+ 460:	ea e6       	ldi	r30, 0x6A	; 106
+ 462:	f0 e0       	ldi	r31, 0x00	; 0
+ 464:	80 81       	ld	r24, Z
+ 466:	8f 7e       	andi	r24, 0xEF	; 239
+ 468:	80 83       	st	Z, r24
+	EIMSK |= (1 << INT6);			//Enable INT6
+ 46a:	ee 9a       	sbi	0x1d, 6	; 29
+	sei();					//Enable global interrupts
+ 46c:	78 94       	sei
+ 46e:	08 95       	ret
 
-	fifoStatus = Read_Byte(FIFO_STATUS);
- 476:	87 e1       	ldi	r24, 0x17	; 23
- 478:	0e 94 b5 00 	call	0x16a	; 0x16a <Read_Byte>
+00000470 <Payload_RX>:
+	mode = 0;	    //Set as TX
+}
+
+/* send and receive multiple bytes over SPI */
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+ 470:	ef 92       	push	r14
+ 472:	ff 92       	push	r15
+ 474:	0f 93       	push	r16
+ 476:	1f 93       	push	r17
+ 478:	cf 93       	push	r28
+ 47a:	df 93       	push	r29
+	uint8_t i;
+
+	for(i = 0; i < len; i++)
+ 47c:	44 23       	and	r20, r20
+ 47e:	b1 f0       	breq	.+44     	; 0x4ac <Payload_RX+0x3c>
+ 480:	ec 01       	movw	r28, r24
+ 482:	06 2f       	mov	r16, r22
+ 484:	17 2f       	mov	r17, r23
+ 486:	41 50       	subi	r20, 0x01	; 1
+ 488:	e4 2e       	mov	r14, r20
+ 48a:	f1 2c       	mov	r15, r1
+ 48c:	2f ef       	ldi	r18, 0xFF	; 255
+ 48e:	e2 1a       	sub	r14, r18
+ 490:	f2 0a       	sbc	r15, r18
+ 492:	e8 0e       	add	r14, r24
+ 494:	f9 1e       	adc	r15, r25
+	{
+		data_in[i] = spi_tranceiver(data_out[i]);
+ 496:	89 91       	ld	r24, Y+
+ 498:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 49c:	f8 01       	movw	r30, r16
+ 49e:	81 93       	st	Z+, r24
+ 4a0:	8f 01       	movw	r16, r30
+		UART_Tx(data_in[i]);   //Send the received data to UART
+ 4a2:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
+/* send and receive multiple bytes over SPI */
+void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+	uint8_t i;
+
+	for(i = 0; i < len; i++)
+ 4a6:	ce 15       	cp	r28, r14
+ 4a8:	df 05       	cpc	r29, r15
+ 4aa:	a9 f7       	brne	.-22     	; 0x496 <Payload_RX+0x26>
+	{
+		data_in[i] = spi_tranceiver(data_out[i]);
+		UART_Tx(data_in[i]);   //Send the received data to UART
+	}
+}
+ 4ac:	df 91       	pop	r29
+ 4ae:	cf 91       	pop	r28
+ 4b0:	1f 91       	pop	r17
+ 4b2:	0f 91       	pop	r16
+ 4b4:	ff 90       	pop	r15
+ 4b6:	ef 90       	pop	r14
+ 4b8:	08 95       	ret
+
+000004ba <__vector_7>:
+	EIMSK |= (1 << INT6);			//Enable INT6
+	sei();					//Enable global interrupts
+}
+
+ISR(INT6_vect)
+{
+ 4ba:	1f 92       	push	r1
+ 4bc:	0f 92       	push	r0
+ 4be:	0f b6       	in	r0, 0x3f	; 63
+ 4c0:	0f 92       	push	r0
+ 4c2:	11 24       	eor	r1, r1
+ 4c4:	2f 93       	push	r18
+ 4c6:	3f 93       	push	r19
+ 4c8:	4f 93       	push	r20
+ 4ca:	5f 93       	push	r21
+ 4cc:	6f 93       	push	r22
+ 4ce:	7f 93       	push	r23
+ 4d0:	8f 93       	push	r24
+ 4d2:	9f 93       	push	r25
+ 4d4:	af 93       	push	r26
+ 4d6:	bf 93       	push	r27
+ 4d8:	ef 93       	push	r30
+ 4da:	ff 93       	push	r31
+	cli();					//Disable global interrupt
+ 4dc:	f8 94       	cli
 	
-	return (fifoStatus & (1 << RX_EMPTY));
+	PORTB &= ~_BV(CE); 			//Stop listening
+ 4de:	2c 98       	cbi	0x05, 4	; 5
+	// Pull down chip select 
+	PORTB &= ~_BV(CSN); //CSN low
+ 4e0:	28 98       	cbi	0x05, 0	; 5
+ 4e2:	85 e3       	ldi	r24, 0x35	; 53
+ 4e4:	8a 95       	dec	r24
+ 4e6:	f1 f7       	brne	.-4      	; 0x4e4 <__vector_7+0x2a>
+ 4e8:	00 00       	nop
+	_delay_us(10);
+	// Send command to read RX payload 
+	spi_tranceiver(R_RX_PAYLOAD);
+ 4ea:	81 e6       	ldi	r24, 0x61	; 97
+ 4ec:	0e 94 af 00 	call	0x15e	; 0x15e <spi_tranceiver>
+ 4f0:	85 e3       	ldi	r24, 0x35	; 53
+ 4f2:	8a 95       	dec	r24
+ 4f4:	f1 f7       	brne	.-4      	; 0x4f2 <__vector_7+0x38>
+ 4f6:	00 00       	nop
+	_delay_us(10);
+	// Read payload 
+	Payload_RX(BS_payload_RX, BS_payload_RX, PAYLOAD_LEN);
+ 4f8:	48 e0       	ldi	r20, 0x08	; 8
+ 4fa:	69 e0       	ldi	r22, 0x09	; 9
+ 4fc:	71 e0       	ldi	r23, 0x01	; 1
+ 4fe:	cb 01       	movw	r24, r22
+ 500:	0e 94 38 02 	call	0x470	; 0x470 <Payload_RX>
+ 504:	85 e3       	ldi	r24, 0x35	; 53
+ 506:	8a 95       	dec	r24
+ 508:	f1 f7       	brne	.-4      	; 0x506 <__vector_7+0x4c>
+ 50a:	00 00       	nop
+	_delay_us(10);
+	// Pull up chip select
+	PORTB |= _BV(CSN);  //CSN high
+ 50c:	28 9a       	sbi	0x05, 0	; 5
+ 50e:	85 e3       	ldi	r24, 0x35	; 53
+ 510:	8a 95       	dec	r24
+ 512:	f1 f7       	brne	.-4      	; 0x510 <__vector_7+0x56>
+ 514:	00 00       	nop
+	_delay_us(10);
+	// Reset status register 
+	Write_byte(STATUS, (1 << RX_DR));
+ 516:	60 e4       	ldi	r22, 0x40	; 64
+ 518:	87 e0       	ldi	r24, 0x07	; 7
+ 51a:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+	mode = 0;	    //Set as TX
+ 51e:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <__data_end>
 }
- 47c:	81 70       	andi	r24, 0x01	; 1
- 47e:	08 95       	ret
+ 522:	ff 91       	pop	r31
+ 524:	ef 91       	pop	r30
+ 526:	bf 91       	pop	r27
+ 528:	af 91       	pop	r26
+ 52a:	9f 91       	pop	r25
+ 52c:	8f 91       	pop	r24
+ 52e:	7f 91       	pop	r23
+ 530:	6f 91       	pop	r22
+ 532:	5f 91       	pop	r21
+ 534:	4f 91       	pop	r20
+ 536:	3f 91       	pop	r19
+ 538:	2f 91       	pop	r18
+ 53a:	0f 90       	pop	r0
+ 53c:	0f be       	out	0x3f, r0	; 63
+ 53e:	0f 90       	pop	r0
+ 540:	1f 90       	pop	r1
+ 542:	18 95       	reti
 
-00000480 <nrf24_dataReady>:
-/* Checks if data is available for reading */
-/* Returns 1 if data is ready ... */
-uint8_t nrf24_dataReady()
-{
-	// See note in getData() function - just checking RX_DR isn't good enough
-	uint8_t status = nrf24_getStatus();
- 480:	0e 94 2d 02 	call	0x45a	; 0x45a <nrf24_getStatus>
-
-	// We can short circuit on RX_DR, but if it's not set, we still need
-	// to check the FIFO for any pending packets
-	if (status & (1 << RX_DR))
- 484:	86 fd       	sbrc	r24, 6
- 486:	07 c0       	rjmp	.+14     	; 0x496 <nrf24_dataReady+0x16>
-	{
-		return 1;
-	}
-
-	return !nrf24_rxFifoEmpty();;
- 488:	0e 94 3b 02 	call	0x476	; 0x476 <nrf24_rxFifoEmpty>
- 48c:	91 e0       	ldi	r25, 0x01	; 1
- 48e:	88 23       	and	r24, r24
- 490:	19 f0       	breq	.+6      	; 0x498 <nrf24_dataReady+0x18>
- 492:	90 e0       	ldi	r25, 0x00	; 0
- 494:	01 c0       	rjmp	.+2      	; 0x498 <nrf24_dataReady+0x18>
-
-	// We can short circuit on RX_DR, but if it's not set, we still need
-	// to check the FIFO for any pending packets
-	if (status & (1 << RX_DR))
-	{
-		return 1;
- 496:	91 e0       	ldi	r25, 0x01	; 1
-	}
-
-	return !nrf24_rxFifoEmpty();;
-}
- 498:	89 2f       	mov	r24, r25
- 49a:	08 95       	ret
-
-0000049c <reset>:
- 49c:	85 e3       	ldi	r24, 0x35	; 53
- 49e:	8a 95       	dec	r24
- 4a0:	f1 f7       	brne	.-4      	; 0x49e <reset+0x2>
- 4a2:	00 00       	nop
+00000544 <reset>:
+ 544:	85 e3       	ldi	r24, 0x35	; 53
+ 546:	8a 95       	dec	r24
+ 548:	f1 f7       	brne	.-4      	; 0x546 <reset+0x2>
+ 54a:	00 00       	nop
 
 void reset(void)
 {
 	_delay_us(10);
 	//Reset IRQ-flags in status register
-	Write_byte(STATUS, 0x70);
- 4a4:	60 e7       	ldi	r22, 0x70	; 112
- 4a6:	87 e0       	ldi	r24, 0x07	; 7
- 4a8:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
- 4ac:	85 e3       	ldi	r24, 0x35	; 53
- 4ae:	8a 95       	dec	r24
- 4b0:	f1 f7       	brne	.-4      	; 0x4ae <reset+0x12>
- 4b2:	00 00       	nop
- 4b4:	08 95       	ret
+    	Write_byte(STATUS, 0x70);   
+ 54c:	60 e7       	ldi	r22, 0x70	; 112
+ 54e:	87 e0       	ldi	r24, 0x07	; 7
+ 550:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
+ 554:	85 e3       	ldi	r24, 0x35	; 53
+ 556:	8a 95       	dec	r24
+ 558:	f1 f7       	brne	.-4      	; 0x556 <reset+0x12>
+ 55a:	00 00       	nop
+ 55c:	08 95       	ret
 
-000004b6 <nRF_RX_mode>:
-	_delay_us(150);
+0000055e <main>:
+	_delay_us(10);
 }
 
-void nRF_RX_mode(void)
-{
-	PORTB &= ~_BV(CE); //CE low
- 4b6:	2c 98       	cbi	0x05, 4	; 5
-	Write_byte(CONFIG, 0x1F);
- 4b8:	6f e1       	ldi	r22, 0x1F	; 31
- 4ba:	80 e0       	ldi	r24, 0x00	; 0
- 4bc:	0e 94 cd 00 	call	0x19a	; 0x19a <Write_byte>
-	Flush_rx();
- 4c0:	0e 94 a2 01 	call	0x344	; 0x344 <Flush_rx>
-	reset();
- 4c4:	0e 94 4e 02 	call	0x49c	; 0x49c <reset>
-	PORTB |= _BV(CE);  //CE high
- 4c8:	2c 9a       	sbi	0x05, 4	; 5
- 4ca:	87 e5       	ldi	r24, 0x57	; 87
- 4cc:	92 e0       	ldi	r25, 0x02	; 2
- 4ce:	01 97       	sbiw	r24, 0x01	; 1
- 4d0:	f1 f7       	brne	.-4      	; 0x4ce <nRF_RX_mode+0x18>
- 4d2:	00 c0       	rjmp	.+0      	; 0x4d4 <nRF_RX_mode+0x1e>
- 4d4:	00 00       	nop
- 4d6:	08 95       	ret
-
-000004d8 <main>:
-** - Contains an endless loop
-** - Sets the BNO055 in NDOF mode and fetches the quaternion data
-*************************************************************************************/
 int main(void)
 {
 	AVR_Init();
- 4d8:	0e 94 75 00 	call	0xea	; 0xea <AVR_Init>
+ 55e:	0e 94 75 00 	call	0xea	; 0xea <AVR_Init>
 	Init_SPI();
- 4dc:	0e 94 a1 00 	call	0x142	; 0x142 <Init_SPI>
+ 562:	0e 94 a1 00 	call	0x142	; 0x142 <Init_SPI>
 	Init_nrf();
- 4e0:	0e 94 0d 01 	call	0x21a	; 0x21a <Init_nrf>
+ 566:	0e 94 25 01 	call	0x24a	; 0x24a <Init_nrf>
 	UART_Init();
- 4e4:	0e 94 81 00 	call	0x102	; 0x102 <UART_Init>
-** Main function:
-** - Contains an endless loop
-** - Sets the BNO055 in NDOF mode and fetches the quaternion data
-*************************************************************************************/
-int main(void)
-{
- 4e8:	10 e0       	ldi	r17, 0x00	; 0
+ 56a:	0e 94 81 00 	call	0x102	; 0x102 <UART_Init>
+	Init_INT6();
+ 56e:	0e 94 30 02 	call	0x460	; 0x460 <Init_INT6>
+	
+	//0 - TX; 1 - RX
+	mode = 0;
+ 572:	10 92 08 01 	sts	0x0108, r1	; 0x800108 <__data_end>
+	
+	//Disable Interrupt initially
+	cli();
+ 576:	f8 94       	cli
+			reset();
+*/
+//			UART_Tx(0x66);   	//Send BP2 to UART
+		
 			//Configure as Receiver
-			nRF_RX_mode();
-
-			UART_Tx(0x77);   //Send BP3 to UART
-			
-			mode = 1;	//Set as RX			
- 4ea:	d1 e0       	ldi	r29, 0x01	; 1
-** Main function:
-** - Contains an endless loop
-** - Sets the BNO055 in NDOF mode and fetches the quaternion data
-*************************************************************************************/
-int main(void)
-{
- 4ec:	c1 2f       	mov	r28, r17
-	int8_t mode = 0;
+			mode = 1;		//Set as RX
+ 578:	c1 e0       	ldi	r28, 0x01	; 1
+	cli();
 
 	//Endless Loop
 	while(1)
 	{
-		if (mode == 0) //TX
- 4ee:	c1 11       	cpse	r28, r1
- 4f0:	18 c0       	rjmp	.+48     	; 0x522 <main+0x4a>
+		if(mode == 0) //TX
+ 57a:	80 91 08 01 	lds	r24, 0x0108	; 0x800108 <__data_end>
+ 57e:	81 11       	cpse	r24, r1
+ 580:	fc cf       	rjmp	.-8      	; 0x57a <main+0x1c>
 		{
 			//Configure as Transmitter
 			nRF_TX_mode();
- 4f2:	0e 94 ff 00 	call	0x1fe	; 0x1fe <nRF_TX_mode>
+ 582:	0e 94 ff 00 	call	0x1fe	; 0x1fe <nRF_TX_mode>
 		
-			UART_Tx(0x55);   //Send BP1 to UART
- 4f6:	85 e5       	ldi	r24, 0x55	; 85
- 4f8:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
+//			UART_Tx(0x55);   	//Send BP1 to UART
 		
 			transmit_data(BS_payload_TX);
- 4fc:	80 e0       	ldi	r24, 0x00	; 0
- 4fe:	91 e0       	ldi	r25, 0x01	; 1
- 500:	0e 94 d0 01 	call	0x3a0	; 0x3a0 <transmit_data>
+ 586:	80 e0       	ldi	r24, 0x00	; 0
+ 588:	91 e0       	ldi	r25, 0x01	; 1
+ 58a:	0e 94 ff 01 	call	0x3fe	; 0x3fe <transmit_data>
 			while(nrf24_isSending());
- 504:	0e 94 33 02 	call	0x466	; 0x466 <nrf24_isSending>
- 508:	81 11       	cpse	r24, r1
- 50a:	fc cf       	rjmp	.-8      	; 0x504 <main+0x2c>
+ 58e:	0e 94 28 02 	call	0x450	; 0x450 <nrf24_isSending>
+ 592:	81 11       	cpse	r24, r1
+ 594:	fc cf       	rjmp	.-8      	; 0x58e <main+0x30>
 			reset();
- 50c:	0e 94 4e 02 	call	0x49c	; 0x49c <reset>
-
-			UART_Tx(0x66);   //Send BP2 to UART
- 510:	86 e6       	ldi	r24, 0x66	; 102
- 512:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
+ 596:	0e 94 a2 02 	call	0x544	; 0x544 <reset>
+			reset();
+*/
+//			UART_Tx(0x66);   	//Send BP2 to UART
 		
 			//Configure as Receiver
+			mode = 1;		//Set as RX
+ 59a:	c0 93 08 01 	sts	0x0108, r28	; 0x800108 <__data_end>
 			nRF_RX_mode();
- 516:	0e 94 5b 02 	call	0x4b6	; 0x4b6 <nRF_RX_mode>
+ 59e:	0e 94 c8 01 	call	0x390	; 0x390 <nRF_RX_mode>
+			PORTB |= _BV(CE);	//Start listening again	
+ 5a2:	2c 9a       	sbi	0x05, 4	; 5
+			sei();		
+ 5a4:	78 94       	sei
+ 5a6:	e9 cf       	rjmp	.-46     	; 0x57a <main+0x1c>
 
-			UART_Tx(0x77);   //Send BP3 to UART
- 51a:	87 e7       	ldi	r24, 0x77	; 119
- 51c:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
-			
-			mode = 1;	//Set as RX			
- 520:	cd 2f       	mov	r28, r29
-		}
+000005a8 <_exit>:
+ 5a8:	f8 94       	cli
 
-		
-		if(nrf24_dataReady())
- 522:	0e 94 40 02 	call	0x480	; 0x480 <nrf24_dataReady>
- 526:	88 23       	and	r24, r24
- 528:	11 f3       	breq	.-60     	; 0x4ee <main+0x16>
-		{
-			UART_Tx(0x88);   //Send BP4 to UART
- 52a:	88 e8       	ldi	r24, 0x88	; 136
- 52c:	0e 94 99 00 	call	0x132	; 0x132 <UART_Tx>
-			nrf24_getData(BS_payload_RX);
- 530:	88 e0       	ldi	r24, 0x08	; 8
- 532:	91 e0       	ldi	r25, 0x01	; 1
- 534:	0e 94 19 02 	call	0x432	; 0x432 <nrf24_getData>
- 538:	d9 cf       	rjmp	.-78     	; 0x4ec <main+0x14>
-
-0000053a <_exit>:
- 53a:	f8 94       	cli
-
-0000053c <__stop_program>:
- 53c:	ff cf       	rjmp	.-2      	; 0x53c <__stop_program>
+000005aa <__stop_program>:
+ 5aa:	ff cf       	rjmp	.-2      	; 0x5aa <__stop_program>

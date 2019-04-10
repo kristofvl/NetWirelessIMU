@@ -4,7 +4,6 @@
  * Created: 21-Nov-18 6:21:39 PM
  * Author : Frederic Philips
  */ 
-
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
 #include <stdint.h>
@@ -13,6 +12,7 @@
 #define BAUD  57600
 #include <util/setbaud.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
 #include "Test_BNO055.h"
 #include "i2cmaster.h"
@@ -29,18 +29,15 @@
 uint8_t N1_payload_TX[PAYLOAD_LEN];
 uint8_t N1_payload_RX[PAYLOAD_LEN];
 
-uint8_t RX_Payload_cnt;
+volatile uint8_t RX_Payload_cnt;
 
 void nRF_TX_mode(void);
 void nRF_RX_mode(void);
 void Flush_tx(void);
 void Flush_rx(void);
 void reset(void);
-
 void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len);
 uint8_t nrf24_getStatus(void);
-uint8_t nrf24_dataReady(void);
-uint8_t nrf24_rxFifoEmpty(void);
 uint8_t nrf24_isSending(void);
 
 /************************************************************************************
@@ -101,6 +98,65 @@ void UART_Tx(unsigned char data)
 	UDR1 = data;				//Send data
 }
 
+void BNO_Read_Quaternions(void)
+{
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_W_LSB_ADDR);	//Access LSB of Quaternion_W value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[0] = i2c_readNak();
+	UART_Tx(N1_payload_TX[0]);
+	i2c_stop();
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_W_MSB_ADDR);	//Access MSB of Quaternion_W value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[1] = i2c_readNak();
+	UART_Tx(N1_payload_TX[1]);
+	i2c_stop();
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_X_LSB_ADDR);	//Access LSB of Quaternion_X value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[2] = i2c_readNak();
+	UART_Tx(N1_payload_TX[2]);
+	i2c_stop();
+
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_X_MSB_ADDR);	//Access MSB of Quaternion_X value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[3] = i2c_readNak();
+	UART_Tx(N1_payload_TX[3]);
+	i2c_stop();
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_Y_LSB_ADDR);	//Access LSB of Quaternion_Y value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[4] = i2c_readNak();
+	UART_Tx(N1_payload_TX[4]);
+	i2c_stop();
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_Y_MSB_ADDR);	//Access MSB of Quaternion_Y value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[5] = i2c_readNak();
+	UART_Tx(N1_payload_TX[5]);
+	i2c_stop();
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_Z_LSB_ADDR);	//Access LSB of Quaternion_Z value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[6] = i2c_readNak();
+	UART_Tx(N1_payload_TX[6]);
+	i2c_stop();
+		
+	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
+	i2c_write(BNO055_QUATERNION_DATA_Z_MSB_ADDR);	//Access MSB of Quaternion_Z value
+	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
+	N1_payload_TX[7] = i2c_readNak();
+	UART_Tx(N1_payload_TX[7]);
+	i2c_stop();	
+}
+
 void Init_SPI()
 {
 	//Set the output pin(s) for SPI
@@ -118,11 +174,12 @@ void Init_SPI()
 	
 	PORTB |= _BV(CSN);	//CSN high
 	PORTB &= ~_BV(CE);	//CE low
+	_delay_ms(10);		//10ms delay
 }
 
 unsigned char spi_tranceiver(unsigned char data)
 {
-	// Load data into the buffer
+	//Load data into the buffer
 	SPDR = data;
 	
 	//Wait until transmission complete
@@ -158,9 +215,7 @@ void Write_byte(unsigned char reg, unsigned char data)
 }
 
 void Init_nrf(void)
-{
-	_delay_ms(100);
-	
+{	
 	//Enable auto-acknowledgment for data pipe 0
 	Write_byte(EN_AA, 0x01);
 	
@@ -177,7 +232,7 @@ void Init_nrf(void)
 	Write_byte(RF_SETUP, 0x0E);
 	
 	//Enable W_TX_PAYLOAD_NOACK command
-	//	Write_byte(FEATURE, 0x01);
+//	Write_byte(FEATURE, 0x01);
 	
 	//Set the 5-bytes receiver address as 0x01 0x02 0x03 0x04 0x05
 	_delay_us(10);
@@ -221,30 +276,72 @@ void Init_nrf(void)
 	Write_byte(RX_PW_P0, 0x08);
 	
 	//Set the retransmission delay to 750us with 15 retries
-//	Write_byte(SETUP_RETR, 0x2F);
+	Write_byte(SETUP_RETR, 0x2F);
 	
 	//Boot the nrf as RX and mask the maximum retransmission interrupt(disable)
 	//Enable CRC and set the length to 2-bytes
 	nRF_RX_mode();
 	
-	_delay_ms(100);
+	_delay_ms(10);		//10ms delay after power-up
 }
 
+/*
 void nRF_TX_mode(void)
 {
-	PORTB &= ~_BV(CE); //CE low
-	Write_byte(CONFIG, 0x1E);
-	Flush_tx();
+	Flush_tx();							 //Flush TX FIFO
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+	PORTB &= ~_BV(CE);						 //CE low - Standby-I
+	//Power-up and set as TX
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP) | (0 << PRIM_RX));
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
 	_delay_us(150);
 }
 
 void nRF_RX_mode(void)
 {
-	PORTB &= ~_BV(CE); //CE low
-	Write_byte(CONFIG, 0x1F);
-	Flush_rx();
-	reset();
-	PORTB |= _BV(CE);  //CE high
+	Flush_rx();							 //Flush RX FIFO
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+	PORTB &= ~_BV(CE); 						 //CE low
+	//Power-up as set as RX
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP) | (1 << PRIM_RX));
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
+	PORTB |= _BV(CE);  						 //CE high
+	_delay_us(150);
+}
+*/
+
+void nRF_TX_mode(void)
+{
+	PORTB &= ~_BV(CE);						 //CE low - Standby-I
+//	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PWR_UP));		 //Power-down mode
+//	_delay_ms(1);							 
+	//Power-up and set as TX
+	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PRIM_RX));
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP));
+//	_delay_ms(1);
+	Flush_tx();							 //Flush TX FIFO
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
+	_delay_us(150);
+}
+
+void nRF_RX_mode(void)
+{
+	PORTB &= ~_BV(CE); 						 //CE low - Standby-I
+//	Write_byte(CONFIG, Read_Byte(CONFIG) & ~(1 << PWR_UP));		 //Power-down mode
+//	_delay_ms(1);	
+	//Power-up as set as RX
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << PWR_UP) | (1 << PRIM_RX));
+//	_delay_ms(1);
+	Flush_rx();							 //Flush RX FIFO
+	Write_byte(STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT)); //Reset status
+	//Mask TX_DR and MAX_RT interrupts
+	//Mask TX_DR and MAX_RT interrupts
+	Write_byte(CONFIG, Read_Byte(CONFIG) | (1 << MASK_TX_DS) | (1 << MASK_MAX_RT));
+	PORTB |= _BV(CE);  						 //CE high
 	_delay_us(150);
 }
 
@@ -262,11 +359,11 @@ void Flush_tx(void)
 void Flush_rx(void)
 {
 	_delay_us(10);
-	PORTB &= ~_BV(CSN);
+	PORTB &= ~_BV(CSN);	//CSN low
 	_delay_us(10);
 	spi_tranceiver(FLUSH_RX);
 	_delay_us(10);
-	PORTB |= _BV(CSN);
+	PORTB |= _BV(CSN);	//CSN high
 	_delay_us(10);
 }
 
@@ -278,7 +375,6 @@ void Payload_TX(uint8_t* data, uint8_t len)
 	{
 		spi_tranceiver(N1_payload_TX[i]);
 	}
-
 }
 
 void transmit_data(unsigned char *tdata)
@@ -292,11 +388,19 @@ void transmit_data(unsigned char *tdata)
 	Payload_TX(N1_payload_TX, PAYLOAD_LEN);
 	_delay_us(10);
 	PORTB |= _BV(CSN);  //CSN high
-	_delay_us(15);      //Need at least 10us before sending
+	_delay_us(10);      //Need at least 10us before sending
 	PORTB |= _BV(CE);   //CE high
-	_delay_us(20);      //Hold CE high for at least 10us and not longer than 4ms
-	//	PORTB &= ~_BV(CE);  //CE low
-	//	_delay_ms(1);       //Delay needed for retransmissions before reset
+	_delay_us(10);      //Hold CE high for at least 10us and not longer than 4ms
+	PORTB &= ~_BV(CE);  //CE low
+}
+
+uint8_t nrf24_getStatus()
+{
+	uint8_t rv;
+	PORTB &= ~_BV(CSN); //CSN low
+	rv = spi_tranceiver(NOP);
+	PORTB |= _BV(CSN);  //CSN high
+	return rv;
 }
 
 uint8_t nrf24_isSending()
@@ -315,22 +419,32 @@ uint8_t nrf24_isSending()
 	return 1; /* true */
 }
 
-void nrf24_getData(uint8_t* data)
+void Init_INT6(void)
 {
-	/* Pull down chip select */
+	EICRB &= ~(1 << ISC60) | (1 << ISC61);	//INT6 active when low
+	EIMSK |= (1 << INT6);			//Enable INT6
+	sei();					//Enable global interrupts
+}
+
+ISR(INT6_vect)
+{
+	cli();					//Disable global interrupt
+	
+	PORTB &= ~_BV(CE); 			//Stop listening
+	// Pull down chip select 
 	PORTB &= ~_BV(CSN); //CSN low
-
-	/* Send command to read RX payload */
+	_delay_us(10);
+	// Send command to read RX payload 
 	spi_tranceiver(R_RX_PAYLOAD);
-	
-	/* Read payload */
-	Payload_RX(data, data, PAYLOAD_LEN);
-	
-	/* Pull up chip select */
+	_delay_us(10);
+	// Read payload 
+	Payload_RX(N1_payload_RX, N1_payload_RX, PAYLOAD_LEN);
+	_delay_us(10);
+	// Pull up chip select
 	PORTB |= _BV(CSN);  //CSN high
-
-	/* Reset status register */
-	Write_byte(STATUS, (1<<RX_DR));
+	_delay_us(10);
+	// Reset status register 
+	Write_byte(STATUS, (1 << RX_DR));
 }
 
 /* send and receive multiple bytes over SPI */
@@ -344,46 +458,10 @@ void Payload_RX(uint8_t *data_out, uint8_t *data_in, uint8_t len)
 		UART_Tx(data_in[i]);		   //Send the received data to UART
 		if (data_in[i] == 0xAA)
 		{
-			UART_Tx(RX_Payload_cnt);   //Send RX_Payload count to UART
 			RX_Payload_cnt++;
+			UART_Tx(RX_Payload_cnt);   //Send RX_Payload count to UART
 		}
 	}
-}
-
-uint8_t nrf24_getStatus()
-{
-	uint8_t rv;
-	PORTB &= ~_BV(CSN); //CSN low
-	rv = spi_tranceiver(NOP);
-	PORTB |= _BV(CSN);  //CSN high
-	return rv;
-}
-
-/* Checks if data is available for reading */
-/* Returns 1 if data is ready ... */
-uint8_t nrf24_dataReady()
-{
-	// See note in getData() function - just checking RX_DR isn't good enough
-	uint8_t status = nrf24_getStatus();
-
-	// We can short circuit on RX_DR, but if it's not set, we still need
-	// to check the FIFO for any pending packets
-	if (status & (1 << RX_DR))
-	{
-		return 1;
-	}
-
-	return !nrf24_rxFifoEmpty();;
-}
-
-/* Checks if receive FIFO is empty or not */
-uint8_t nrf24_rxFifoEmpty()
-{
-	uint8_t fifoStatus;
-
-	fifoStatus = Read_Byte(FIFO_STATUS);
-	
-	return (fifoStatus & (1 << RX_EMPTY));
 }
 
 void reset(void)
@@ -392,65 +470,6 @@ void reset(void)
 	//Reset IRQ-flags in status register
 	Write_byte(STATUS, 0x70);
 	_delay_us(10);
-}
-
-void BNO_Read_Quaternions(void)
-{
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_W_LSB_ADDR);	//Access LSB of Quaternion_W value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[0] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[0]);
-	i2c_stop();
-
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_W_MSB_ADDR);	//Access MSB of Quaternion_W value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[1] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[1]);
-	i2c_stop();
-
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_X_LSB_ADDR);	//Access LSB of Quaternion_X value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[2] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[2]);
-	i2c_stop();
-
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_X_MSB_ADDR);	//Access MSB of Quaternion_X value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[3] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[3]);
-	i2c_stop();
-		
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_Y_LSB_ADDR);	//Access LSB of Quaternion_Y value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[4] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[4]);
-	i2c_stop();
-		
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_Y_MSB_ADDR);	//Access MSB of Quaternion_Y value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[5] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[5]);
-	i2c_stop();
-		
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_Z_LSB_ADDR);	//Access LSB of Quaternion_Z value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[6] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[6]);
-	i2c_stop();
-		
-	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
-	i2c_write(BNO055_QUATERNION_DATA_Z_MSB_ADDR);	//Access MSB of Quaternion_Z value
-	i2c_rep_start(BNO055_ADDRESS+I2C_READ);		//Set device address and read mode
-	N1_payload_TX[7] = i2c_readNak();
-//	UART_Tx(N1_payload_TX[7]);
-	i2c_stop();	
 }
 
 /************************************************************************************
@@ -466,6 +485,7 @@ int main(void)
 	Init_SPI();
 	Init_nrf();
 	UART_Init();
+	Init_INT6();
 
 	i2c_start_wait(BNO055_ADDRESS+I2C_WRITE);	//Set device address and read mode
 	i2c_write(BNO055_OPR_MODE_ADDR);
@@ -473,54 +493,56 @@ int main(void)
 	i2c_stop();
 	_delay_ms(10);
 	
-	Flush_rx();
-	reset();
-	PORTB |= _BV(CE);				//Start listening
-	
 	//Initialize the received payload count
 	RX_Payload_cnt = 0;
+	
+	Flush_rx();
+	reset();
+	PORTB |= _BV(CE);			//Start listening
 
 	//Endless Loop
 	while(1)
 	{	
-	        if(nrf24_dataReady())
-	        {
-		        nrf24_getData(N1_payload_RX);
-	        }
-
-	        UART_Tx(0xBB);   	//Send BP6 to UART
-		
 		if (RX_Payload_cnt == PAYLOAD_LEN)
 		{
-			UART_Tx(0x55);   //Send BP1 to UART
+			UART_Tx(0x55);   	//Send BP1 to UART
 			
 			RX_Payload_cnt = 0;
+			
+			//Configure as Transmitter
+			nRF_TX_mode();
+
+			UART_Tx(0x66);   	//Send BP2 to UART
 			
 			//Read the Quaternions data from the BNO055
 			BNO_Read_Quaternions();
 
-			UART_Tx(0x66);   //Send BP2 to UART
+			UART_Tx(0x77);   	//Send BP3 to UART
 			
-			//Configure as Transmitter
-			nRF_TX_mode();
-//			_delay_us(1000);
-
-			UART_Tx(0x77);   //Send BP3 to UART
-			
-			//Transmit Quaternion payload
+		
 			transmit_data(N1_payload_TX);
 			while(nrf24_isSending());
 			reset();
-
-			UART_Tx(0x88);   //Send BP4 to UART
+/*
+			while(!nrf24_isSending())
+			{
+				transmit_data(N1_payload_TX);
+//				reset();
+			}
+			reset();
+*/
+			UART_Tx(0x88);   	//Send BP4 to UART
 				
 			//Configure as Receiver
 			nRF_RX_mode();
-//			_delay_us(150);
+			Flush_rx();
+//			reset();
+			PORTB |= _BV(CE);	//Start listening again
+			sei();
 
-			UART_Tx(0x99);   //Send BP5 to UART
+			UART_Tx(0x99);   	//Send BP5 to UART
 		}
 
-		UART_Tx(0x00);   //Send BP5 to UART
+//		UART_Tx(0x00);   //Send BP5 to UART
 	}
 }

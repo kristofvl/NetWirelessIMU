@@ -1,0 +1,887 @@
+
+N1_ACK_INT.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000014  00800100  00000628  000006bc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000628  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000000b  00800114  00800114  000006d0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000006d0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000700  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000e8  00000000  00000000  00000740  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00001e21  00000000  00000000  00000828  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000caa  00000000  00000000  00002649  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000a3e  00000000  00000000  000032f3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000274  00000000  00000000  00003d34  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000762  00000000  00000000  00003fa8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00001265  00000000  00000000  0000470a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000d8  00000000  00000000  0000596f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+   4:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+   8:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+   c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  10:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  14:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  18:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  1c:	0c 94 98 02 	jmp	0x530	; 0x530 <__vector_7>
+  20:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  24:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  28:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  2c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  30:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  34:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  38:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  3c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  40:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  44:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  48:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  4c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  50:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  54:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  58:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  5c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  60:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  64:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  68:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  6c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  70:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  74:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  78:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  7c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  80:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  84:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  88:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  8c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  90:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  94:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  98:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  9c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  a0:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  a4:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+  a8:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+
+000000ac <__ctors_end>:
+  ac:	11 24       	eor	r1, r1
+  ae:	1f be       	out	0x3f, r1	; 63
+  b0:	cf ef       	ldi	r28, 0xFF	; 255
+  b2:	da e0       	ldi	r29, 0x0A	; 10
+  b4:	de bf       	out	0x3e, r29	; 62
+  b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_copy_data>:
+  b8:	11 e0       	ldi	r17, 0x01	; 1
+  ba:	a0 e0       	ldi	r26, 0x00	; 0
+  bc:	b1 e0       	ldi	r27, 0x01	; 1
+  be:	e8 e2       	ldi	r30, 0x28	; 40
+  c0:	f6 e0       	ldi	r31, 0x06	; 6
+  c2:	02 c0       	rjmp	.+4      	; 0xc8 <__do_copy_data+0x10>
+  c4:	05 90       	lpm	r0, Z+
+  c6:	0d 92       	st	X+, r0
+  c8:	a4 31       	cpi	r26, 0x14	; 20
+  ca:	b1 07       	cpc	r27, r17
+  cc:	d9 f7       	brne	.-10     	; 0xc4 <__do_copy_data+0xc>
+
+000000ce <__do_clear_bss>:
+  ce:	21 e0       	ldi	r18, 0x01	; 1
+  d0:	a4 e1       	ldi	r26, 0x14	; 20
+  d2:	b1 e0       	ldi	r27, 0x01	; 1
+  d4:	01 c0       	rjmp	.+2      	; 0xd8 <.do_clear_bss_start>
+
+000000d6 <.do_clear_bss_loop>:
+  d6:	1d 92       	st	X+, r1
+
+000000d8 <.do_clear_bss_start>:
+  d8:	af 31       	cpi	r26, 0x1F	; 31
+  da:	b2 07       	cpc	r27, r18
+  dc:	e1 f7       	brne	.-8      	; 0xd6 <.do_clear_bss_loop>
+  de:	0e 94 e8 02 	call	0x5d0	; 0x5d0 <main>
+  e2:	0c 94 12 03 	jmp	0x624	; 0x624 <_exit>
+
+000000e6 <__bad_interrupt>:
+  e6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ea <AVR_Init>:
+{
+	uint8_t rv;
+	rv = SPI_Read_Byte(OBSERVE_TX);
+	rv = rv & 0x0F;
+	return rv;
+}
+  ea:	90 e0       	ldi	r25, 0x00	; 0
+  ec:	80 e8       	ldi	r24, 0x80	; 128
+  ee:	0f b6       	in	r0, 0x3f	; 63
+  f0:	f8 94       	cli
+  f2:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <__TEXT_REGION_LENGTH__+0x7e0061>
+  f6:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__TEXT_REGION_LENGTH__+0x7e0061>
+  fa:	0f be       	out	0x3f, r0	; 63
+  fc:	51 9a       	sbi	0x0a, 1	; 10
+  fe:	50 98       	cbi	0x0a, 0	; 10
+ 100:	3e 9a       	sbi	0x07, 6	; 7
+ 102:	3f 9a       	sbi	0x07, 7	; 7
+ 104:	85 e0       	ldi	r24, 0x05	; 5
+ 106:	90 e0       	ldi	r25, 0x00	; 0
+ 108:	46 98       	cbi	0x08, 6	; 8
+ 10a:	47 9a       	sbi	0x08, 7	; 8
+ 10c:	2f ef       	ldi	r18, 0xFF	; 255
+ 10e:	30 e7       	ldi	r19, 0x70	; 112
+ 110:	42 e0       	ldi	r20, 0x02	; 2
+ 112:	21 50       	subi	r18, 0x01	; 1
+ 114:	30 40       	sbci	r19, 0x00	; 0
+ 116:	40 40       	sbci	r20, 0x00	; 0
+ 118:	e1 f7       	brne	.-8      	; 0x112 <AVR_Init+0x28>
+ 11a:	00 c0       	rjmp	.+0      	; 0x11c <AVR_Init+0x32>
+ 11c:	00 00       	nop
+ 11e:	46 9a       	sbi	0x08, 6	; 8
+ 120:	47 98       	cbi	0x08, 7	; 8
+ 122:	2f ef       	ldi	r18, 0xFF	; 255
+ 124:	30 e7       	ldi	r19, 0x70	; 112
+ 126:	42 e0       	ldi	r20, 0x02	; 2
+ 128:	21 50       	subi	r18, 0x01	; 1
+ 12a:	30 40       	sbci	r19, 0x00	; 0
+ 12c:	40 40       	sbci	r20, 0x00	; 0
+ 12e:	e1 f7       	brne	.-8      	; 0x128 <AVR_Init+0x3e>
+ 130:	00 c0       	rjmp	.+0      	; 0x132 <AVR_Init+0x48>
+ 132:	00 00       	nop
+ 134:	01 97       	sbiw	r24, 0x01	; 1
+ 136:	41 f7       	brne	.-48     	; 0x108 <AVR_Init+0x1e>
+ 138:	46 98       	cbi	0x08, 6	; 8
+ 13a:	47 98       	cbi	0x08, 7	; 8
+ 13c:	8f e7       	ldi	r24, 0x7F	; 127
+ 13e:	9f e4       	ldi	r25, 0x4F	; 79
+ 140:	22 e1       	ldi	r18, 0x12	; 18
+ 142:	81 50       	subi	r24, 0x01	; 1
+ 144:	90 40       	sbci	r25, 0x00	; 0
+ 146:	20 40       	sbci	r18, 0x00	; 0
+ 148:	e1 f7       	brne	.-8      	; 0x142 <AVR_Init+0x58>
+ 14a:	00 c0       	rjmp	.+0      	; 0x14c <AVR_Init+0x62>
+ 14c:	00 00       	nop
+ 14e:	08 95       	ret
+
+00000150 <UART_Init>:
+ 150:	83 e3       	ldi	r24, 0x33	; 51
+ 152:	90 e0       	ldi	r25, 0x00	; 0
+ 154:	90 93 cd 00 	sts	0x00CD, r25	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
+ 158:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
+ 15c:	e8 ec       	ldi	r30, 0xC8	; 200
+ 15e:	f0 e0       	ldi	r31, 0x00	; 0
+ 160:	80 81       	ld	r24, Z
+ 162:	8d 7f       	andi	r24, 0xFD	; 253
+ 164:	80 83       	st	Z, r24
+ 166:	ea ec       	ldi	r30, 0xCA	; 202
+ 168:	f0 e0       	ldi	r31, 0x00	; 0
+ 16a:	80 81       	ld	r24, Z
+ 16c:	86 60       	ori	r24, 0x06	; 6
+ 16e:	80 83       	st	Z, r24
+ 170:	e9 ec       	ldi	r30, 0xC9	; 201
+ 172:	f0 e0       	ldi	r31, 0x00	; 0
+ 174:	80 81       	ld	r24, Z
+ 176:	88 61       	ori	r24, 0x18	; 24
+ 178:	80 83       	st	Z, r24
+ 17a:	08 95       	ret
+
+0000017c <UART_Tx>:
+ 17c:	e8 ec       	ldi	r30, 0xC8	; 200
+ 17e:	f0 e0       	ldi	r31, 0x00	; 0
+ 180:	90 81       	ld	r25, Z
+ 182:	95 ff       	sbrs	r25, 5
+ 184:	fd cf       	rjmp	.-6      	; 0x180 <UART_Tx+0x4>
+ 186:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
+ 18a:	08 95       	ret
+
+0000018c <SPI_Init>:
+ 18c:	25 9a       	sbi	0x04, 5	; 4
+ 18e:	20 9a       	sbi	0x04, 0	; 4
+ 190:	22 9a       	sbi	0x04, 2	; 4
+ 192:	21 9a       	sbi	0x04, 1	; 4
+ 194:	23 98       	cbi	0x04, 3	; 4
+ 196:	8c b5       	in	r24, 0x2c	; 44
+ 198:	80 65       	ori	r24, 0x50	; 80
+ 19a:	8c bd       	out	0x2c, r24	; 44
+ 19c:	8c b5       	in	r24, 0x2c	; 44
+ 19e:	81 60       	ori	r24, 0x01	; 1
+ 1a0:	8c bd       	out	0x2c, r24	; 44
+ 1a2:	8c b5       	in	r24, 0x2c	; 44
+ 1a4:	8d 7f       	andi	r24, 0xFD	; 253
+ 1a6:	8c bd       	out	0x2c, r24	; 44
+ 1a8:	8d b5       	in	r24, 0x2d	; 45
+ 1aa:	81 60       	ori	r24, 0x01	; 1
+ 1ac:	8d bd       	out	0x2d, r24	; 45
+ 1ae:	28 9a       	sbi	0x05, 0	; 5
+ 1b0:	2d 98       	cbi	0x05, 5	; 5
+ 1b2:	8f e1       	ldi	r24, 0x1F	; 31
+ 1b4:	9e e4       	ldi	r25, 0x4E	; 78
+ 1b6:	01 97       	sbiw	r24, 0x01	; 1
+ 1b8:	f1 f7       	brne	.-4      	; 0x1b6 <SPI_Init+0x2a>
+ 1ba:	00 c0       	rjmp	.+0      	; 0x1bc <SPI_Init+0x30>
+ 1bc:	00 00       	nop
+ 1be:	08 95       	ret
+
+000001c0 <SPI_Tranceiver>:
+ 1c0:	8e bd       	out	0x2e, r24	; 46
+ 1c2:	0d b4       	in	r0, 0x2d	; 45
+ 1c4:	07 fe       	sbrs	r0, 7
+ 1c6:	fd cf       	rjmp	.-6      	; 0x1c2 <SPI_Tranceiver+0x2>
+ 1c8:	8e b5       	in	r24, 0x2e	; 46
+ 1ca:	08 95       	ret
+
+000001cc <SPI_Read_Byte>:
+ 1cc:	9a e1       	ldi	r25, 0x1A	; 26
+ 1ce:	9a 95       	dec	r25
+ 1d0:	f1 f7       	brne	.-4      	; 0x1ce <SPI_Read_Byte+0x2>
+ 1d2:	00 c0       	rjmp	.+0      	; 0x1d4 <SPI_Read_Byte+0x8>
+ 1d4:	28 98       	cbi	0x05, 0	; 5
+ 1d6:	9a e1       	ldi	r25, 0x1A	; 26
+ 1d8:	9a 95       	dec	r25
+ 1da:	f1 f7       	brne	.-4      	; 0x1d8 <SPI_Read_Byte+0xc>
+ 1dc:	00 c0       	rjmp	.+0      	; 0x1de <SPI_Read_Byte+0x12>
+ 1de:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 1e2:	8a e1       	ldi	r24, 0x1A	; 26
+ 1e4:	8a 95       	dec	r24
+ 1e6:	f1 f7       	brne	.-4      	; 0x1e4 <SPI_Read_Byte+0x18>
+ 1e8:	00 c0       	rjmp	.+0      	; 0x1ea <SPI_Read_Byte+0x1e>
+ 1ea:	8f ef       	ldi	r24, 0xFF	; 255
+ 1ec:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 1f0:	9a e1       	ldi	r25, 0x1A	; 26
+ 1f2:	9a 95       	dec	r25
+ 1f4:	f1 f7       	brne	.-4      	; 0x1f2 <SPI_Read_Byte+0x26>
+ 1f6:	00 c0       	rjmp	.+0      	; 0x1f8 <SPI_Read_Byte+0x2c>
+ 1f8:	28 9a       	sbi	0x05, 0	; 5
+ 1fa:	08 95       	ret
+
+000001fc <SPI_Write_Byte>:
+ 1fc:	cf 93       	push	r28
+ 1fe:	c6 2f       	mov	r28, r22
+ 200:	9a e1       	ldi	r25, 0x1A	; 26
+ 202:	9a 95       	dec	r25
+ 204:	f1 f7       	brne	.-4      	; 0x202 <SPI_Write_Byte+0x6>
+ 206:	00 c0       	rjmp	.+0      	; 0x208 <SPI_Write_Byte+0xc>
+ 208:	28 98       	cbi	0x05, 0	; 5
+ 20a:	9a e1       	ldi	r25, 0x1A	; 26
+ 20c:	9a 95       	dec	r25
+ 20e:	f1 f7       	brne	.-4      	; 0x20c <SPI_Write_Byte+0x10>
+ 210:	00 c0       	rjmp	.+0      	; 0x212 <SPI_Write_Byte+0x16>
+ 212:	80 5e       	subi	r24, 0xE0	; 224
+ 214:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 218:	8a e1       	ldi	r24, 0x1A	; 26
+ 21a:	8a 95       	dec	r24
+ 21c:	f1 f7       	brne	.-4      	; 0x21a <SPI_Write_Byte+0x1e>
+ 21e:	00 c0       	rjmp	.+0      	; 0x220 <SPI_Write_Byte+0x24>
+ 220:	8c 2f       	mov	r24, r28
+ 222:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 226:	9a e1       	ldi	r25, 0x1A	; 26
+ 228:	9a 95       	dec	r25
+ 22a:	f1 f7       	brne	.-4      	; 0x228 <SPI_Write_Byte+0x2c>
+ 22c:	00 c0       	rjmp	.+0      	; 0x22e <SPI_Write_Byte+0x32>
+ 22e:	28 9a       	sbi	0x05, 0	; 5
+ 230:	cf 91       	pop	r28
+ 232:	08 95       	ret
+
+00000234 <nRF_Set_Addr_RX>:
+ 234:	0f 93       	push	r16
+ 236:	1f 93       	push	r17
+ 238:	cf 93       	push	r28
+ 23a:	df 93       	push	r29
+ 23c:	06 2f       	mov	r16, r22
+ 23e:	8a e1       	ldi	r24, 0x1A	; 26
+ 240:	8a 95       	dec	r24
+ 242:	f1 f7       	brne	.-4      	; 0x240 <nRF_Set_Addr_RX+0xc>
+ 244:	00 c0       	rjmp	.+0      	; 0x246 <nRF_Set_Addr_RX+0x12>
+ 246:	28 98       	cbi	0x05, 0	; 5
+ 248:	8a e1       	ldi	r24, 0x1A	; 26
+ 24a:	8a 95       	dec	r24
+ 24c:	f1 f7       	brne	.-4      	; 0x24a <nRF_Set_Addr_RX+0x16>
+ 24e:	00 c0       	rjmp	.+0      	; 0x250 <nRF_Set_Addr_RX+0x1c>
+ 250:	8a e2       	ldi	r24, 0x2A	; 42
+ 252:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 256:	00 23       	and	r16, r16
+ 258:	81 f0       	breq	.+32     	; 0x27a <nRF_Set_Addr_RX+0x46>
+ 25a:	cf e0       	ldi	r28, 0x0F	; 15
+ 25c:	d1 e0       	ldi	r29, 0x01	; 1
+ 25e:	01 50       	subi	r16, 0x01	; 1
+ 260:	10 e0       	ldi	r17, 0x00	; 0
+ 262:	00 5f       	subi	r16, 0xF0	; 240
+ 264:	1e 4f       	sbci	r17, 0xFE	; 254
+ 266:	8a e1       	ldi	r24, 0x1A	; 26
+ 268:	8a 95       	dec	r24
+ 26a:	f1 f7       	brne	.-4      	; 0x268 <nRF_Set_Addr_RX+0x34>
+ 26c:	00 c0       	rjmp	.+0      	; 0x26e <nRF_Set_Addr_RX+0x3a>
+ 26e:	89 91       	ld	r24, Y+
+ 270:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 274:	c0 17       	cp	r28, r16
+ 276:	d1 07       	cpc	r29, r17
+ 278:	b1 f7       	brne	.-20     	; 0x266 <nRF_Set_Addr_RX+0x32>
+ 27a:	8a e1       	ldi	r24, 0x1A	; 26
+ 27c:	8a 95       	dec	r24
+ 27e:	f1 f7       	brne	.-4      	; 0x27c <nRF_Set_Addr_RX+0x48>
+ 280:	00 c0       	rjmp	.+0      	; 0x282 <nRF_Set_Addr_RX+0x4e>
+ 282:	28 9a       	sbi	0x05, 0	; 5
+ 284:	df 91       	pop	r29
+ 286:	cf 91       	pop	r28
+ 288:	1f 91       	pop	r17
+ 28a:	0f 91       	pop	r16
+ 28c:	08 95       	ret
+
+0000028e <nRF_Set_Addr_TX>:
+ 28e:	0f 93       	push	r16
+ 290:	1f 93       	push	r17
+ 292:	cf 93       	push	r28
+ 294:	df 93       	push	r29
+ 296:	06 2f       	mov	r16, r22
+ 298:	8a e1       	ldi	r24, 0x1A	; 26
+ 29a:	8a 95       	dec	r24
+ 29c:	f1 f7       	brne	.-4      	; 0x29a <nRF_Set_Addr_TX+0xc>
+ 29e:	00 c0       	rjmp	.+0      	; 0x2a0 <nRF_Set_Addr_TX+0x12>
+ 2a0:	28 98       	cbi	0x05, 0	; 5
+ 2a2:	8a e1       	ldi	r24, 0x1A	; 26
+ 2a4:	8a 95       	dec	r24
+ 2a6:	f1 f7       	brne	.-4      	; 0x2a4 <nRF_Set_Addr_TX+0x16>
+ 2a8:	00 c0       	rjmp	.+0      	; 0x2aa <nRF_Set_Addr_TX+0x1c>
+ 2aa:	80 e3       	ldi	r24, 0x30	; 48
+ 2ac:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 2b0:	00 23       	and	r16, r16
+ 2b2:	81 f0       	breq	.+32     	; 0x2d4 <nRF_Set_Addr_TX+0x46>
+ 2b4:	ca e0       	ldi	r28, 0x0A	; 10
+ 2b6:	d1 e0       	ldi	r29, 0x01	; 1
+ 2b8:	01 50       	subi	r16, 0x01	; 1
+ 2ba:	10 e0       	ldi	r17, 0x00	; 0
+ 2bc:	05 5f       	subi	r16, 0xF5	; 245
+ 2be:	1e 4f       	sbci	r17, 0xFE	; 254
+ 2c0:	8a e1       	ldi	r24, 0x1A	; 26
+ 2c2:	8a 95       	dec	r24
+ 2c4:	f1 f7       	brne	.-4      	; 0x2c2 <nRF_Set_Addr_TX+0x34>
+ 2c6:	00 c0       	rjmp	.+0      	; 0x2c8 <nRF_Set_Addr_TX+0x3a>
+ 2c8:	89 91       	ld	r24, Y+
+ 2ca:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 2ce:	c0 17       	cp	r28, r16
+ 2d0:	d1 07       	cpc	r29, r17
+ 2d2:	b1 f7       	brne	.-20     	; 0x2c0 <nRF_Set_Addr_TX+0x32>
+ 2d4:	8a e1       	ldi	r24, 0x1A	; 26
+ 2d6:	8a 95       	dec	r24
+ 2d8:	f1 f7       	brne	.-4      	; 0x2d6 <nRF_Set_Addr_TX+0x48>
+ 2da:	00 c0       	rjmp	.+0      	; 0x2dc <nRF_Set_Addr_TX+0x4e>
+ 2dc:	28 9a       	sbi	0x05, 0	; 5
+ 2de:	df 91       	pop	r29
+ 2e0:	cf 91       	pop	r28
+ 2e2:	1f 91       	pop	r17
+ 2e4:	0f 91       	pop	r16
+ 2e6:	08 95       	ret
+
+000002e8 <nRF_Flush_TX>:
+ 2e8:	8a e1       	ldi	r24, 0x1A	; 26
+ 2ea:	8a 95       	dec	r24
+ 2ec:	f1 f7       	brne	.-4      	; 0x2ea <nRF_Flush_TX+0x2>
+ 2ee:	00 c0       	rjmp	.+0      	; 0x2f0 <nRF_Flush_TX+0x8>
+ 2f0:	28 98       	cbi	0x05, 0	; 5
+ 2f2:	8a e1       	ldi	r24, 0x1A	; 26
+ 2f4:	8a 95       	dec	r24
+ 2f6:	f1 f7       	brne	.-4      	; 0x2f4 <nRF_Flush_TX+0xc>
+ 2f8:	00 c0       	rjmp	.+0      	; 0x2fa <nRF_Flush_TX+0x12>
+ 2fa:	81 ee       	ldi	r24, 0xE1	; 225
+ 2fc:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 300:	8a e1       	ldi	r24, 0x1A	; 26
+ 302:	8a 95       	dec	r24
+ 304:	f1 f7       	brne	.-4      	; 0x302 <nRF_Flush_TX+0x1a>
+ 306:	00 c0       	rjmp	.+0      	; 0x308 <nRF_Flush_TX+0x20>
+ 308:	28 9a       	sbi	0x05, 0	; 5
+ 30a:	8a e1       	ldi	r24, 0x1A	; 26
+ 30c:	8a 95       	dec	r24
+ 30e:	f1 f7       	brne	.-4      	; 0x30c <nRF_Flush_TX+0x24>
+ 310:	00 c0       	rjmp	.+0      	; 0x312 <nRF_Flush_TX+0x2a>
+ 312:	08 95       	ret
+
+00000314 <nRF_TX_Mode>:
+ 314:	2d 98       	cbi	0x05, 5	; 5
+ 316:	80 e0       	ldi	r24, 0x00	; 0
+ 318:	0e 94 e6 00 	call	0x1cc	; 0x1cc <SPI_Read_Byte>
+ 31c:	68 2f       	mov	r22, r24
+ 31e:	6e 7f       	andi	r22, 0xFE	; 254
+ 320:	80 e0       	ldi	r24, 0x00	; 0
+ 322:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 326:	80 e0       	ldi	r24, 0x00	; 0
+ 328:	0e 94 e6 00 	call	0x1cc	; 0x1cc <SPI_Read_Byte>
+ 32c:	68 2f       	mov	r22, r24
+ 32e:	62 60       	ori	r22, 0x02	; 2
+ 330:	80 e0       	ldi	r24, 0x00	; 0
+ 332:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 336:	0e 94 74 01 	call	0x2e8	; 0x2e8 <nRF_Flush_TX>
+ 33a:	60 e7       	ldi	r22, 0x70	; 112
+ 33c:	87 e0       	ldi	r24, 0x07	; 7
+ 33e:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 342:	80 e0       	ldi	r24, 0x00	; 0
+ 344:	0e 94 e6 00 	call	0x1cc	; 0x1cc <SPI_Read_Byte>
+ 348:	68 2f       	mov	r22, r24
+ 34a:	60 63       	ori	r22, 0x30	; 48
+ 34c:	80 e0       	ldi	r24, 0x00	; 0
+ 34e:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 352:	8b e2       	ldi	r24, 0x2B	; 43
+ 354:	91 e0       	ldi	r25, 0x01	; 1
+ 356:	01 97       	sbiw	r24, 0x01	; 1
+ 358:	f1 f7       	brne	.-4      	; 0x356 <nRF_TX_Mode+0x42>
+ 35a:	00 c0       	rjmp	.+0      	; 0x35c <nRF_TX_Mode+0x48>
+ 35c:	00 00       	nop
+ 35e:	08 95       	ret
+
+00000360 <nRF_Flush_RX>:
+ 360:	8a e1       	ldi	r24, 0x1A	; 26
+ 362:	8a 95       	dec	r24
+ 364:	f1 f7       	brne	.-4      	; 0x362 <nRF_Flush_RX+0x2>
+ 366:	00 c0       	rjmp	.+0      	; 0x368 <nRF_Flush_RX+0x8>
+ 368:	28 98       	cbi	0x05, 0	; 5
+ 36a:	8a e1       	ldi	r24, 0x1A	; 26
+ 36c:	8a 95       	dec	r24
+ 36e:	f1 f7       	brne	.-4      	; 0x36c <nRF_Flush_RX+0xc>
+ 370:	00 c0       	rjmp	.+0      	; 0x372 <nRF_Flush_RX+0x12>
+ 372:	82 ee       	ldi	r24, 0xE2	; 226
+ 374:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 378:	8a e1       	ldi	r24, 0x1A	; 26
+ 37a:	8a 95       	dec	r24
+ 37c:	f1 f7       	brne	.-4      	; 0x37a <nRF_Flush_RX+0x1a>
+ 37e:	00 c0       	rjmp	.+0      	; 0x380 <nRF_Flush_RX+0x20>
+ 380:	28 9a       	sbi	0x05, 0	; 5
+ 382:	8a e1       	ldi	r24, 0x1A	; 26
+ 384:	8a 95       	dec	r24
+ 386:	f1 f7       	brne	.-4      	; 0x384 <nRF_Flush_RX+0x24>
+ 388:	00 c0       	rjmp	.+0      	; 0x38a <nRF_Flush_RX+0x2a>
+ 38a:	08 95       	ret
+
+0000038c <nRF_RX_Mode>:
+ 38c:	2d 98       	cbi	0x05, 5	; 5
+ 38e:	80 e0       	ldi	r24, 0x00	; 0
+ 390:	0e 94 e6 00 	call	0x1cc	; 0x1cc <SPI_Read_Byte>
+ 394:	68 2f       	mov	r22, r24
+ 396:	63 60       	ori	r22, 0x03	; 3
+ 398:	80 e0       	ldi	r24, 0x00	; 0
+ 39a:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 39e:	0e 94 b0 01 	call	0x360	; 0x360 <nRF_Flush_RX>
+ 3a2:	60 e7       	ldi	r22, 0x70	; 112
+ 3a4:	87 e0       	ldi	r24, 0x07	; 7
+ 3a6:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3aa:	80 e0       	ldi	r24, 0x00	; 0
+ 3ac:	0e 94 e6 00 	call	0x1cc	; 0x1cc <SPI_Read_Byte>
+ 3b0:	68 2f       	mov	r22, r24
+ 3b2:	60 63       	ori	r22, 0x30	; 48
+ 3b4:	80 e0       	ldi	r24, 0x00	; 0
+ 3b6:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3ba:	2d 9a       	sbi	0x05, 5	; 5
+ 3bc:	8b e2       	ldi	r24, 0x2B	; 43
+ 3be:	91 e0       	ldi	r25, 0x01	; 1
+ 3c0:	01 97       	sbiw	r24, 0x01	; 1
+ 3c2:	f1 f7       	brne	.-4      	; 0x3c0 <nRF_RX_Mode+0x34>
+ 3c4:	00 c0       	rjmp	.+0      	; 0x3c6 <nRF_RX_Mode+0x3a>
+ 3c6:	00 00       	nop
+ 3c8:	08 95       	ret
+
+000003ca <nRF_Init>:
+ 3ca:	61 e0       	ldi	r22, 0x01	; 1
+ 3cc:	81 e0       	ldi	r24, 0x01	; 1
+ 3ce:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3d2:	61 e0       	ldi	r22, 0x01	; 1
+ 3d4:	82 e0       	ldi	r24, 0x02	; 2
+ 3d6:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3da:	63 e0       	ldi	r22, 0x03	; 3
+ 3dc:	83 e0       	ldi	r24, 0x03	; 3
+ 3de:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3e2:	69 e6       	ldi	r22, 0x69	; 105
+ 3e4:	85 e0       	ldi	r24, 0x05	; 5
+ 3e6:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3ea:	66 e2       	ldi	r22, 0x26	; 38
+ 3ec:	86 e0       	ldi	r24, 0x06	; 6
+ 3ee:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 3f2:	65 e0       	ldi	r22, 0x05	; 5
+ 3f4:	8f e0       	ldi	r24, 0x0F	; 15
+ 3f6:	91 e0       	ldi	r25, 0x01	; 1
+ 3f8:	0e 94 1a 01 	call	0x234	; 0x234 <nRF_Set_Addr_RX>
+ 3fc:	65 e0       	ldi	r22, 0x05	; 5
+ 3fe:	8a e0       	ldi	r24, 0x0A	; 10
+ 400:	91 e0       	ldi	r25, 0x01	; 1
+ 402:	0e 94 47 01 	call	0x28e	; 0x28e <nRF_Set_Addr_TX>
+ 406:	6a e0       	ldi	r22, 0x0A	; 10
+ 408:	81 e1       	ldi	r24, 0x11	; 17
+ 40a:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 40e:	6f ef       	ldi	r22, 0xFF	; 255
+ 410:	84 e0       	ldi	r24, 0x04	; 4
+ 412:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 416:	0e 94 c6 01 	call	0x38c	; 0x38c <nRF_RX_Mode>
+ 41a:	8f e1       	ldi	r24, 0x1F	; 31
+ 41c:	9e e4       	ldi	r25, 0x4E	; 78
+ 41e:	01 97       	sbiw	r24, 0x01	; 1
+ 420:	f1 f7       	brne	.-4      	; 0x41e <__LOCK_REGION_LENGTH__+0x1e>
+ 422:	00 c0       	rjmp	.+0      	; 0x424 <__LOCK_REGION_LENGTH__+0x24>
+ 424:	00 00       	nop
+ 426:	08 95       	ret
+
+00000428 <nRF_send_Payload>:
+ 428:	0f 93       	push	r16
+ 42a:	1f 93       	push	r17
+ 42c:	cf 93       	push	r28
+ 42e:	df 93       	push	r29
+ 430:	66 23       	and	r22, r22
+ 432:	69 f0       	breq	.+26     	; 0x44e <nRF_send_Payload+0x26>
+ 434:	c0 e0       	ldi	r28, 0x00	; 0
+ 436:	d1 e0       	ldi	r29, 0x01	; 1
+ 438:	61 50       	subi	r22, 0x01	; 1
+ 43a:	06 2f       	mov	r16, r22
+ 43c:	10 e0       	ldi	r17, 0x00	; 0
+ 43e:	0f 5f       	subi	r16, 0xFF	; 255
+ 440:	1e 4f       	sbci	r17, 0xFE	; 254
+ 442:	89 91       	ld	r24, Y+
+ 444:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 448:	c0 17       	cp	r28, r16
+ 44a:	d1 07       	cpc	r29, r17
+ 44c:	d1 f7       	brne	.-12     	; 0x442 <nRF_send_Payload+0x1a>
+ 44e:	df 91       	pop	r29
+ 450:	cf 91       	pop	r28
+ 452:	1f 91       	pop	r17
+ 454:	0f 91       	pop	r16
+ 456:	08 95       	ret
+
+00000458 <nRF_TX_Data>:
+ 458:	0e 94 74 01 	call	0x2e8	; 0x2e8 <nRF_Flush_TX>
+ 45c:	28 98       	cbi	0x05, 0	; 5
+ 45e:	8a e1       	ldi	r24, 0x1A	; 26
+ 460:	8a 95       	dec	r24
+ 462:	f1 f7       	brne	.-4      	; 0x460 <nRF_TX_Data+0x8>
+ 464:	00 c0       	rjmp	.+0      	; 0x466 <nRF_TX_Data+0xe>
+ 466:	80 ea       	ldi	r24, 0xA0	; 160
+ 468:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 46c:	8a e1       	ldi	r24, 0x1A	; 26
+ 46e:	8a 95       	dec	r24
+ 470:	f1 f7       	brne	.-4      	; 0x46e <nRF_TX_Data+0x16>
+ 472:	00 c0       	rjmp	.+0      	; 0x474 <nRF_TX_Data+0x1c>
+ 474:	6a e0       	ldi	r22, 0x0A	; 10
+ 476:	80 e0       	ldi	r24, 0x00	; 0
+ 478:	91 e0       	ldi	r25, 0x01	; 1
+ 47a:	0e 94 14 02 	call	0x428	; 0x428 <nRF_send_Payload>
+ 47e:	8a e1       	ldi	r24, 0x1A	; 26
+ 480:	8a 95       	dec	r24
+ 482:	f1 f7       	brne	.-4      	; 0x480 <nRF_TX_Data+0x28>
+ 484:	00 c0       	rjmp	.+0      	; 0x486 <nRF_TX_Data+0x2e>
+ 486:	28 9a       	sbi	0x05, 0	; 5
+ 488:	8a e1       	ldi	r24, 0x1A	; 26
+ 48a:	8a 95       	dec	r24
+ 48c:	f1 f7       	brne	.-4      	; 0x48a <nRF_TX_Data+0x32>
+ 48e:	00 c0       	rjmp	.+0      	; 0x490 <nRF_TX_Data+0x38>
+ 490:	2d 9a       	sbi	0x05, 5	; 5
+ 492:	8a e1       	ldi	r24, 0x1A	; 26
+ 494:	8a 95       	dec	r24
+ 496:	f1 f7       	brne	.-4      	; 0x494 <nRF_TX_Data+0x3c>
+ 498:	00 c0       	rjmp	.+0      	; 0x49a <nRF_TX_Data+0x42>
+ 49a:	2d 98       	cbi	0x05, 5	; 5
+ 49c:	08 95       	ret
+
+0000049e <nRF_get_Status>:
+ 49e:	28 98       	cbi	0x05, 0	; 5
+ 4a0:	8f ef       	ldi	r24, 0xFF	; 255
+ 4a2:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 4a6:	28 9a       	sbi	0x05, 0	; 5
+ 4a8:	08 95       	ret
+
+000004aa <nRF_is_Sending>:
+ 4aa:	0e 94 4f 02 	call	0x49e	; 0x49e <nRF_get_Status>
+ 4ae:	98 2f       	mov	r25, r24
+ 4b0:	90 73       	andi	r25, 0x30	; 48
+ 4b2:	81 e0       	ldi	r24, 0x01	; 1
+ 4b4:	09 f0       	breq	.+2      	; 0x4b8 <nRF_is_Sending+0xe>
+ 4b6:	80 e0       	ldi	r24, 0x00	; 0
+ 4b8:	08 95       	ret
+
+000004ba <INT6_Init>:
+
+void INT6_Init(void)
+{
+	EICRB &= ~(1 << ISC60) | (1 << ISC61);	//INT6 active when low
+ 4ba:	ea e6       	ldi	r30, 0x6A	; 106
+ 4bc:	f0 e0       	ldi	r31, 0x00	; 0
+ 4be:	80 81       	ld	r24, Z
+ 4c0:	8f 7e       	andi	r24, 0xEF	; 239
+ 4c2:	80 83       	st	Z, r24
+	EIMSK |= (1 << INT6);			//Enable INT6
+ 4c4:	ee 9a       	sbi	0x1d, 6	; 29
+	sei();					//Enable global interrupts
+ 4c6:	78 94       	sei
+ 4c8:	08 95       	ret
+
+000004ca <nRF_get_Payload>:
+	SPI_Write_Byte(STATUS, (1 << RX_DR));
+}
+
+//Send and receive multiple bytes over SPI
+void nRF_get_Payload(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+ 4ca:	cf 92       	push	r12
+ 4cc:	df 92       	push	r13
+ 4ce:	ef 92       	push	r14
+ 4d0:	ff 92       	push	r15
+ 4d2:	0f 93       	push	r16
+ 4d4:	1f 93       	push	r17
+ 4d6:	cf 93       	push	r28
+ 4d8:	df 93       	push	r29
+	uint8_t i;
+
+	for(i=0; i<len; i++)
+ 4da:	44 23       	and	r20, r20
+ 4dc:	01 f1       	breq	.+64     	; 0x51e <nRF_get_Payload+0x54>
+ 4de:	08 2f       	mov	r16, r24
+ 4e0:	19 2f       	mov	r17, r25
+ 4e2:	eb 01       	movw	r28, r22
+ 4e4:	41 50       	subi	r20, 0x01	; 1
+ 4e6:	e4 2e       	mov	r14, r20
+ 4e8:	f1 2c       	mov	r15, r1
+ 4ea:	8f ef       	ldi	r24, 0xFF	; 255
+ 4ec:	e8 1a       	sub	r14, r24
+ 4ee:	f8 0a       	sbc	r15, r24
+ 4f0:	e6 0e       	add	r14, r22
+ 4f2:	f7 1e       	adc	r15, r23
+	{
+		data_in[i] = SPI_Tranceiver(data_out[i]);
+ 4f4:	f8 01       	movw	r30, r16
+ 4f6:	81 91       	ld	r24, Z+
+ 4f8:	8f 01       	movw	r16, r30
+ 4fa:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 4fe:	6e 01       	movw	r12, r28
+ 500:	89 93       	st	Y+, r24
+		UART_Tx(data_in[i]);
+ 502:	0e 94 be 00 	call	0x17c	; 0x17c <UART_Tx>
+		if (data_in[i] == 0xAA)
+ 506:	f6 01       	movw	r30, r12
+ 508:	80 81       	ld	r24, Z
+ 50a:	8a 3a       	cpi	r24, 0xAA	; 170
+ 50c:	29 f4       	brne	.+10     	; 0x518 <nRF_get_Payload+0x4e>
+		{
+			RX_Payload_cnt++;
+ 50e:	80 91 1e 01 	lds	r24, 0x011E	; 0x80011e <RX_Payload_cnt>
+ 512:	8f 5f       	subi	r24, 0xFF	; 255
+ 514:	80 93 1e 01 	sts	0x011E, r24	; 0x80011e <RX_Payload_cnt>
+//Send and receive multiple bytes over SPI
+void nRF_get_Payload(uint8_t *data_out, uint8_t *data_in, uint8_t len)
+{
+	uint8_t i;
+
+	for(i=0; i<len; i++)
+ 518:	ce 15       	cp	r28, r14
+ 51a:	df 05       	cpc	r29, r15
+ 51c:	59 f7       	brne	.-42     	; 0x4f4 <nRF_get_Payload+0x2a>
+		if (data_in[i] == 0xAA)
+		{
+			RX_Payload_cnt++;
+		}
+	}
+}
+ 51e:	df 91       	pop	r29
+ 520:	cf 91       	pop	r28
+ 522:	1f 91       	pop	r17
+ 524:	0f 91       	pop	r16
+ 526:	ff 90       	pop	r15
+ 528:	ef 90       	pop	r14
+ 52a:	df 90       	pop	r13
+ 52c:	cf 90       	pop	r12
+ 52e:	08 95       	ret
+
+00000530 <__vector_7>:
+	EIMSK |= (1 << INT6);			//Enable INT6
+	sei();					//Enable global interrupts
+}
+
+ISR(INT6_vect)
+{
+ 530:	1f 92       	push	r1
+ 532:	0f 92       	push	r0
+ 534:	0f b6       	in	r0, 0x3f	; 63
+ 536:	0f 92       	push	r0
+ 538:	11 24       	eor	r1, r1
+ 53a:	2f 93       	push	r18
+ 53c:	3f 93       	push	r19
+ 53e:	4f 93       	push	r20
+ 540:	5f 93       	push	r21
+ 542:	6f 93       	push	r22
+ 544:	7f 93       	push	r23
+ 546:	8f 93       	push	r24
+ 548:	9f 93       	push	r25
+ 54a:	af 93       	push	r26
+ 54c:	bf 93       	push	r27
+ 54e:	ef 93       	push	r30
+ 550:	ff 93       	push	r31
+	cli();					//Disable global interrupt
+ 552:	f8 94       	cli
+
+	PORTB &= ~_BV(CE); 			//Stop listening
+ 554:	2d 98       	cbi	0x05, 5	; 5
+	// Pull down chip select
+	PORTB &= ~_BV(CSN); //CSN low
+ 556:	28 98       	cbi	0x05, 0	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 558:	8a e1       	ldi	r24, 0x1A	; 26
+ 55a:	8a 95       	dec	r24
+ 55c:	f1 f7       	brne	.-4      	; 0x55a <__vector_7+0x2a>
+ 55e:	00 c0       	rjmp	.+0      	; 0x560 <__vector_7+0x30>
+	_delay_us(10);
+	// Send command to read RX payload
+	SPI_Tranceiver(R_RX_PAYLOAD);
+ 560:	81 e6       	ldi	r24, 0x61	; 97
+ 562:	0e 94 e0 00 	call	0x1c0	; 0x1c0 <SPI_Tranceiver>
+ 566:	8a e1       	ldi	r24, 0x1A	; 26
+ 568:	8a 95       	dec	r24
+ 56a:	f1 f7       	brne	.-4      	; 0x568 <__vector_7+0x38>
+ 56c:	00 c0       	rjmp	.+0      	; 0x56e <__vector_7+0x3e>
+	_delay_us(10);
+	// Read payload
+	nRF_get_Payload(N1_payload_RX, N1_payload_RX, PAYLOAD_LEN);
+ 56e:	4a e0       	ldi	r20, 0x0A	; 10
+ 570:	64 e1       	ldi	r22, 0x14	; 20
+ 572:	71 e0       	ldi	r23, 0x01	; 1
+ 574:	cb 01       	movw	r24, r22
+ 576:	0e 94 65 02 	call	0x4ca	; 0x4ca <nRF_get_Payload>
+ 57a:	8a e1       	ldi	r24, 0x1A	; 26
+ 57c:	8a 95       	dec	r24
+ 57e:	f1 f7       	brne	.-4      	; 0x57c <__vector_7+0x4c>
+ 580:	00 c0       	rjmp	.+0      	; 0x582 <__vector_7+0x52>
+	_delay_us(10);
+	// Pull up chip select
+	PORTB |= _BV(CSN);  //CSN high
+ 582:	28 9a       	sbi	0x05, 0	; 5
+ 584:	8a e1       	ldi	r24, 0x1A	; 26
+ 586:	8a 95       	dec	r24
+ 588:	f1 f7       	brne	.-4      	; 0x586 <__vector_7+0x56>
+ 58a:	00 c0       	rjmp	.+0      	; 0x58c <__vector_7+0x5c>
+	_delay_us(10);
+	// Reset status register
+	SPI_Write_Byte(STATUS, (1 << RX_DR));
+ 58c:	60 e4       	ldi	r22, 0x40	; 64
+ 58e:	87 e0       	ldi	r24, 0x07	; 7
+ 590:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+}
+ 594:	ff 91       	pop	r31
+ 596:	ef 91       	pop	r30
+ 598:	bf 91       	pop	r27
+ 59a:	af 91       	pop	r26
+ 59c:	9f 91       	pop	r25
+ 59e:	8f 91       	pop	r24
+ 5a0:	7f 91       	pop	r23
+ 5a2:	6f 91       	pop	r22
+ 5a4:	5f 91       	pop	r21
+ 5a6:	4f 91       	pop	r20
+ 5a8:	3f 91       	pop	r19
+ 5aa:	2f 91       	pop	r18
+ 5ac:	0f 90       	pop	r0
+ 5ae:	0f be       	out	0x3f, r0	; 63
+ 5b0:	0f 90       	pop	r0
+ 5b2:	1f 90       	pop	r1
+ 5b4:	18 95       	reti
+
+000005b6 <nRF_Reset>:
+ 5b6:	8a e1       	ldi	r24, 0x1A	; 26
+ 5b8:	8a 95       	dec	r24
+ 5ba:	f1 f7       	brne	.-4      	; 0x5b8 <nRF_Reset+0x2>
+ 5bc:	00 c0       	rjmp	.+0      	; 0x5be <nRF_Reset+0x8>
+
+void nRF_Reset(void)
+{
+	_delay_us(10);
+	//Reset IRQ-flags in status register
+	SPI_Write_Byte(STATUS, 0x70);
+ 5be:	60 e7       	ldi	r22, 0x70	; 112
+ 5c0:	87 e0       	ldi	r24, 0x07	; 7
+ 5c2:	0e 94 fe 00 	call	0x1fc	; 0x1fc <SPI_Write_Byte>
+ 5c6:	8a e1       	ldi	r24, 0x1A	; 26
+ 5c8:	8a 95       	dec	r24
+ 5ca:	f1 f7       	brne	.-4      	; 0x5c8 <nRF_Reset+0x12>
+ 5cc:	00 c0       	rjmp	.+0      	; 0x5ce <nRF_Reset+0x18>
+ 5ce:	08 95       	ret
+
+000005d0 <main>:
+** - Contains an endless loop
+** - Sets the BNO055 in NDOF mode and fetches the quaternion data
+*************************************************************************************/
+int main(void)
+{
+	AVR_Init();
+ 5d0:	0e 94 75 00 	call	0xea	; 0xea <AVR_Init>
+	UART_Init();
+ 5d4:	0e 94 a8 00 	call	0x150	; 0x150 <UART_Init>
+	SPI_Init();
+ 5d8:	0e 94 c6 00 	call	0x18c	; 0x18c <SPI_Init>
+	nRF_Init();
+ 5dc:	0e 94 e5 01 	call	0x3ca	; 0x3ca <nRF_Init>
+	INT6_Init();
+ 5e0:	0e 94 5d 02 	call	0x4ba	; 0x4ba <INT6_Init>
+
+	//Initialize the received payload count
+	RX_Payload_cnt = 0;
+ 5e4:	10 92 1e 01 	sts	0x011E, r1	; 0x80011e <RX_Payload_cnt>
+
+//	char String_Data[16];
+
+	nRF_Flush_RX();
+ 5e8:	0e 94 b0 01 	call	0x360	; 0x360 <nRF_Flush_RX>
+	nRF_Reset();
+ 5ec:	0e 94 db 02 	call	0x5b6	; 0x5b6 <nRF_Reset>
+	PORTB |= _BV(CE);			//Start listening
+ 5f0:	2d 9a       	sbi	0x05, 5	; 5
+
+	//Endless Loop
+	while(1)
+	{		
+		if (RX_Payload_cnt == PAYLOAD_LEN)
+ 5f2:	80 91 1e 01 	lds	r24, 0x011E	; 0x80011e <RX_Payload_cnt>
+ 5f6:	8a 30       	cpi	r24, 0x0A	; 10
+ 5f8:	e1 f7       	brne	.-8      	; 0x5f2 <main+0x22>
+		{
+			RX_Payload_cnt = 0;
+ 5fa:	10 92 1e 01 	sts	0x011E, r1	; 0x80011e <RX_Payload_cnt>
+
+			//Configure as Transmitter
+			nRF_TX_Mode();
+ 5fe:	0e 94 8a 01 	call	0x314	; 0x314 <nRF_TX_Mode>
+
+			nRF_TX_Data(N1_payload_TX);
+ 602:	80 e0       	ldi	r24, 0x00	; 0
+ 604:	91 e0       	ldi	r25, 0x01	; 1
+ 606:	0e 94 2c 02 	call	0x458	; 0x458 <nRF_TX_Data>
+			while(nRF_is_Sending());
+ 60a:	0e 94 55 02 	call	0x4aa	; 0x4aa <nRF_is_Sending>
+ 60e:	81 11       	cpse	r24, r1
+ 610:	fc cf       	rjmp	.-8      	; 0x60a <main+0x3a>
+			UART_Put_String("Retransmission count:");
+			UART_Put_String(String_Data);
+			UART_Put_String("\n");
+*/
+			//Configure as Receiver
+			nRF_RX_Mode();
+ 612:	0e 94 c6 01 	call	0x38c	; 0x38c <nRF_RX_Mode>
+			nRF_Flush_RX();
+ 616:	0e 94 b0 01 	call	0x360	; 0x360 <nRF_Flush_RX>
+			nRF_Reset();
+ 61a:	0e 94 db 02 	call	0x5b6	; 0x5b6 <nRF_Reset>
+			PORTB |= _BV(CE);	//Start listening again
+ 61e:	2d 9a       	sbi	0x05, 5	; 5
+			sei();
+ 620:	78 94       	sei
+ 622:	e7 cf       	rjmp	.-50     	; 0x5f2 <main+0x22>
+
+00000624 <_exit>:
+ 624:	f8 94       	cli
+
+00000626 <__stop_program>:
+ 626:	ff cf       	rjmp	.-2      	; 0x626 <__stop_program>
