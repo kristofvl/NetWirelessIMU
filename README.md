@@ -1,2 +1,2 @@
-# MasterThesis
-Data and reference concerning Master Thesis
+# Networked Wireless IMUs
+Project started by Frederic Philips as a Masters thesis, now continued
