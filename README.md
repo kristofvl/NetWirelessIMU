@@ -1,2 +1,3 @@
 # Networked Wireless IMUs
-Project started by Frederic Philips as a Masters thesis, now continued
+
+A project started by Frederic Philips as a Masters thesis, now continued to update a hardware/software system of networked IMUs. 
