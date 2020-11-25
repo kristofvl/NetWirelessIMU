@@ -17,8 +17,11 @@ uint8_t Chip_ID;
 
 void BNO_Init(void)
 {
+	//_delay_ms(500);		//0.5 second delay
 	for (int i = 0; i < MAX_IMU_COUNT; ++i)
 	{
+		PORTC |= _BV(7);	//Turns ON LED in Port C pin 7
+		
 		// select sensor
 		BNO_MUX_Select(i);
 		
@@ -27,6 +30,15 @@ void BNO_Init(void)
 		i2c_rep_start(BNO055_ADDRESS + I2C_READ);	//Set device address and read mode
 		Chip_ID = i2c_readNak();			//Should read 0xA0
 		i2c_stop();
+		
+		
+		_delay_ms(100);		//0.1 second delay
+		PORTC |= _BV(6);	//Turns ON LED in Port C pin 6
+		_delay_ms(100);		//0.1 second delay
+		PORTC &= ~(_BV(6));	//Turns OFF LED in Port C pin 6
+		PORTC &= ~(_BV(7));	//Turns OFF LED in Port C pin 7
+		
+		
 		/*
 		#if UART_DEBUG == 1
 			if(Chip_ID != BNO055_CHIP_ID)
@@ -67,7 +79,7 @@ void BNO_Init(void)
 		BNO_MUX_Select(i);
 		
 		
-		// set axis mapping
+		// set axis mapping for fingers
 		if (i > 0)
 		{
 			// fingers are rotated by 90° around z-axis
