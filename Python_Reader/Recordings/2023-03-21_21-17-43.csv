@@ -1,0 +1,10 @@
+Sensor,0,4,wrist,Orientation
+Sensor,1,4,palm,Orientation
+Sensor,2,4,thumb,Orientation
+Sensor,3,4,index,Orientation
+Sensor,4,4,mid,Orientation
+Sensor,5,4,ring,Orientation
+Sensor,6,4,pinky,Orientation
+16,0,0.06573486328125,-0.27789306640625,-0.06488037109375,0.9561615495508404
+17,0,-0.95989990234375,-0.92431640625,0.0025634765625,nan
+18,0,0.3585205078125,0.40643310546875,0.0828857421875,0.8363044481520604
