@@ -120,24 +120,6 @@ def cubeDraw():  # render 3D Box:
              glVertex3fv(vertices[vertex])
     glEnd()
 
-#################################
-# open serial port and log file
-#################################
-ser = serial.Serial()
-ser.baudrate = 500000
-ser.port = serport
-ser.timeout = 0 # = None means wait forever, = 0 means do not wait
-ser.open()
-# iteration variables for storing to a log file:
-count = 0
-nextTs = 1000
-# helper variables:
-syncBytes = b'\xAB\xCD'
-#syncBytes = b'\x80\x80'
-doSync = False
-# object to store all data
-data = np.zeros((dataCount,9))
-filename = 'log.csv'
 
 
 ##################################
@@ -169,6 +151,34 @@ glTranslatef(0.0, 0.0, -10.0)
 vertices = np.array( [ [-1,-1,-1],[-1,-1, 1],[-1, 1,-1],[-1, 1, 1],
                        [ 1,-1,-1],[ 1,-1, 1],[ 1, 1,-1],[ 1, 1, 1] ], dtype=np.float32)
 edges = ((0,1),(0,2),(0,4),(1,3),(1,5),(2,3),(2,6),(3,7),(4,5),(4,6),(5,7),(6,7))
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+glPushMatrix()
+#glLoadMatrixf(rotM)
+cubeDraw()
+glPopMatrix()
+pygame.display.flip()
+pygame.time.wait(100)
+
+
+#################################
+# open serial port and log file
+#################################
+ser = serial.Serial()
+ser.baudrate = 500000
+ser.port = serport
+ser.timeout = 0 # = None means wait forever, = 0 means do not wait
+ser.open()
+# iteration variables for storing to a log file:
+count = 0
+nextTs = 1000
+# helper variables:
+syncBytes = b'\xAB\xCD'
+#syncBytes = b'\x80\x80'
+doSync = False
+# object to store all data
+data = np.zeros((dataCount,9))
+filename = 'log.csv'
+
 
 
 try:
@@ -295,10 +305,10 @@ try:
                         print( str( data[count][1].astype(int) ).zfill(7)+' {:+.3f}'.format(data[count][2])
                                +' {:+.3f}'.format(data[count][3])+' {:+.3f}'.format(data[count][4])
                                +' {:.3f}'.format(data[count][5]))
-                        imuQ = data[count][2:6]  # get the quaternion
+                        imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # get the quaternion
                         rotM = np.eye(4)
                         rotM[:3,:3] = R.from_quat(imuQ).as_matrix()  # convert to rotation matrix
-                        #rotM = rotM.flatten()  # 
+                        #print(rotM)
                         # apply rotation
 
                         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
