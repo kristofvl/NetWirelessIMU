@@ -8,6 +8,7 @@ Created on Thu May 28 04:15:18 2020
 import pygame
 from pygame.locals import *
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import serial
 import keyboard
@@ -120,15 +121,20 @@ def cubeDraw():  # render 3D Box:
              glVertex3fv(vertices[vertex])
     glEnd()
 
+rotM=np.array([[-0.88997803, 0.00583133, 0.45596612, 0       ],
+ [ 0.1899129,  -0.90433409,  0.38224723,  0       ],
+ [ 0.41457472,  0.42678548,  0.80373003,  0    ],
+ [ 0,          0,          0,          1        ]])
 
 
 ##################################
 # Graphics viz
 ##################################
 pygame.init()
-display = (900, 600)
+pygame.display.set_caption('Palm')
+display = (400, 400)
 pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
-#gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
+gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 aspect_ratio = display[0]/display[1]
@@ -141,7 +147,7 @@ f = 1.0 / np.tan(np.radians(fov)/2.0)
 projM = np.array( [ [f/aspect_ratio, 0, 0, 0], [0, f, 0, 0], 
 		    [0, 0, (far_clip+near_clip)/(near_clip-far_clip), -1], 
 		    [0, 0, 2*far_clip*near_clip/(near_clip-far_clip), 0] ], dtype=np.float32)
-glLoadMatrixf(projM)
+glMultMatrixf(projM)
 ##################################
 # modelview matrix:
 glMatrixMode(GL_MODELVIEW)
@@ -153,11 +159,11 @@ vertices = np.array( [ [-1,-1,-1],[-1,-1, 1],[-1, 1,-1],[-1, 1, 1],
 edges = ((0,1),(0,2),(0,4),(1,3),(1,5),(2,3),(2,6),(3,7),(4,5),(4,6),(5,7),(6,7))
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 glPushMatrix()
-#glLoadMatrixf(rotM)
 cubeDraw()
 glPopMatrix()
 pygame.display.flip()
 pygame.time.wait(100)
+
 
 
 #################################
@@ -299,28 +305,26 @@ try:
                         ID = (nodeId << 4) + numSamples*(packetId-1) + i
                     data[count] = [ID, ts, quatV[0], -quatV[2], quatV[1], quatW[0], 0, 0, 0]
                     
-                    
                     #######################################################################################
-                    if ID == 1:  # here we catch the first (thumb) sensor:
+                    if ID == 0:  # here we catch the first (thumb) sensor:
                         print( str( data[count][1].astype(int) ).zfill(7)+' {:+.3f}'.format(data[count][2])
                                +' {:+.3f}'.format(data[count][3])+' {:+.3f}'.format(data[count][4])
                                +' {:.3f}'.format(data[count][5]))
-                        imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # get the quaternion
+                        imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # get quaternion
                         rotM = np.eye(4)
                         rotM[:3,:3] = R.from_quat(imuQ).as_matrix()  # convert to rotation matrix
-                        #print(rotM)
                         # apply rotation
-
                         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-                        #glMatrixMode(GL_MODELVIEW)
+                        glMatrixMode(GL_MODELVIEW)
                         glPushMatrix()
-                        glLoadMatrixf(rotM)
+                        glMultMatrixf(rotM)
                         cubeDraw()
                         glPopMatrix()
                         pygame.display.flip()
                         pygame.time.wait(1)
                         count += 1
                     #######################################################################################
+
                                    
                 
         elif mode == 1:
@@ -436,8 +440,10 @@ try:
             # set count to zero not write to a file
             count = 0
             break
-except:
+except Exception as e: 
     print('An error occured during recording')
+    print(e)
+
 
 finally:
     ser.close()
@@ -464,4 +470,3 @@ else:
     print('recording aborted or no data available')
 
 
-    
