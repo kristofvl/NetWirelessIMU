@@ -10,7 +10,6 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import serial
-import keyboard
 import time
 import numpy as np
 import struct
@@ -69,35 +68,28 @@ start_point = np.array([0,0,0])
 def getPacketLength(mode, deviceId, packetId):
     if mode == 0:
         if deviceId == singleNode_Id:
-            return 8, 1
-        
+            return 8, 1        
         elif deviceId == glove_v1_Id:
-            return 18, 3
-        
+            return 18, 3        
         elif deviceId == glove_v2_Id:
             if packetId == 1:
                 return 24, 4
             elif packetId == 2:
-                return 18, 3
-            
+                return 18, 3            
     elif mode == 1:
         if deviceId == singleNode_Id:
-            return 14, 1
-        
+            return 14, 1        
         elif deviceId == glove_v1_Id:
-            return 24, 2
-        
+            return 24, 2        
         elif deviceId == glove_v2_Id:
             if packetId == 1:
                 return 24, 2
             elif packetId == 2:
                 return 30, 3
             elif packetId == 3:
-                return 30, 3
-    
+                return 30, 3    
     # if nothing above, input was invalid -> return -1
     return -1
-
 
 def isPacketValid(mode, deviceId, packetId):
     # for now, only mode = 0 or 1 is allowed. Change this accordingly
@@ -110,7 +102,6 @@ def isPacketValid(mode, deviceId, packetId):
     if mode == 1 and packetId > 2:
         return False
     return True
-
 
 ######################################################################################
 def cubeDraw(rotM, txt):  # render & rotate a 3D Box according a 4x4 rotation matrix
@@ -133,8 +124,6 @@ def cubeDraw(rotM, txt):  # render & rotate a 3D Box according a 4x4 rotation ma
     pygame.display.flip()
     pygame.time.wait(1)
 ######################################################################################
-    
-
     
 
 ##################################
@@ -219,15 +208,15 @@ try:
     # start timer
     t = time.perf_counter()
     
-    print("start receive loop")
+    print("start receive loop, press q to quit")
     # receive loop
     while ser.is_open:
     
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    sys.exit()
-        
+                    sys.exit()  # TODO: nicer exit
+                    
         # if requested: do synchronization
         if doSync:
             while ser.is_open:
