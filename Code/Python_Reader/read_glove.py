@@ -9,7 +9,6 @@ import pygame
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GLUT import *
 import serial
 import keyboard
 import time
@@ -17,7 +16,6 @@ import numpy as np
 import struct
 import csv
 import datetime
-import matplotlib.pyplot as plt
 from scipy.spatial.transform import Rotation as R
 
 serport = '/dev/ttyACM0' #'COM5'
@@ -114,7 +112,7 @@ def isPacketValid(mode, deviceId, packetId):
 
 
 ######################################################################################
-def cubeDraw(rotM):  # render and rotate a 3D Box according to a 4x4 rotation matrix
+def cubeDraw(rotM, txt):  # render & rotate a 3D Box according a 4x4 rotation matrix
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glPushMatrix()
     glMultMatrixf(rotM)
@@ -126,11 +124,16 @@ def cubeDraw(rotM):  # render and rotate a 3D Box according to a 4x4 rotation ma
             glVertex3fv(vertices[j])
     glEnd()
     glPopMatrix()
+    textSurface = font.render(txt, True, (255, 255, 66, 255), (0, 66, 0, 255))
+    textData = pygame.image.tostring(textSurface, "RGBA", True)
+    glWindowPos2d(10, 100)
+    glDrawPixels(textSurface.get_width(), textSurface.get_height(), 
+        GL_RGBA, GL_UNSIGNED_BYTE, textData)
     pygame.display.flip()
     pygame.time.wait(1)
 ######################################################################################
     
-    
+
     
 
 ##################################
@@ -165,9 +168,11 @@ vertices = ( ( 1, -1, -1), ( 1,  1, -1), (-1,  1, -1), (-1, -1, -1),
              ( 1, -1,  1), ( 1,  1,  1), (-1, -1,  1), (-1,  1,  1) )
 surf = ((0, 1, 2, 3), (3, 2, 7, 6), (6, 7, 5, 4), (4, 5, 1, 0), (1, 5, 7, 2), (4, 0, 3, 6))
 colors = ((1, 0, 0), (0, 1, 0), (1, 0.5, 0), (1, 1, 0), (0, 1, 1), (0, 0, 1))
+# text from the sensors below:
+font = pygame.font.SysFont('courier', 17)
 # init the cube:
 rotM = np.eye(4)  # identity matrix
-cubeDraw(rotM)
+cubeDraw(rotM, 'initialized')
 
 
 
@@ -275,16 +280,14 @@ try:
         # Todo: do some more sanity check with header data
         # i.e. check sampleID and packetID not equal to the one before etc.
         
-        packetLength, numSamples = getPacketLength(mode, deviceId, packetId)
-        
+        packetLength, numSamples = getPacketLength(mode, deviceId, packetId)        
         
         # ensure we already received the whole packet, otherwise wait until it arrives
         while len(inData) < packetLength:
             inData += ser.read(100)
         
         packet = inData[:packetLength]
-        inData = inData[packetLength:]
-        
+        inData = inData[packetLength:]        
         
         if mode == 0:
             if deviceId == singleNode_Id:
@@ -309,16 +312,16 @@ try:
                         ID = (nodeId << 4) + numSamples*(packetId-1) + i
                     data[count] = [ID, ts, quatV[0], -quatV[2], quatV[1], quatW[0], 0, 0, 0]
                     
-                    #######################################################################################
+                    #########################################################################################
                     if ID == 0:  # here we catch the first (thumb) sensor:
-                        print( str( data[count][1].astype(int) ).zfill(7)+' {:+.3f}'.format(data[count][2])
-                               +' {:+.3f}'.format(data[count][3])+' {:+.3f}'.format(data[count][4])
-                               +' {:.3f}'.format(data[count][5]))
-                        imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # get quaternion
+                        txt = str( data[count][1].astype(int) ).zfill(7)
+                        for ci in range(4):
+                            txt += ' {:+.3f}'.format(data[count][2+ci])
+                        imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # quaternion
                         rotM[:3,:3] = R.from_quat(imuQ).as_matrix()  # convert to rotation matrix
-                        cubeDraw(rotM)
+                        cubeDraw(rotM, txt)
                         count += 1
-                    #######################################################################################
+                    #########################################################################################
 
                                    
                 
@@ -442,4 +445,3 @@ if count > 0:
     
 else:
     print('recording aborted or no data available')
-	
