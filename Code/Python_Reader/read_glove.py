@@ -113,14 +113,25 @@ def isPacketValid(mode, deviceId, packetId):
     return True
 
 
-def cubeDraw():  # render 3D Box:
-    glBegin(GL_LINES)
+######################################################################################
+def cubeDraw(rotM):  # render and rotate a 3D Box according to a 4x4 rotation matrix
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glPushMatrix()
+    glMultMatrixf(rotM)
+    glBegin(GL_QUADS)
     glColor3fv((1.0,1.0,0.0))
-    for edge in edges:
-        for vertex in edge:
-             glVertex3fv(vertices[vertex])
+    for i in range(len(surf)):
+        glColor3fv(colors[i])
+        for j in surf[i]:
+            glVertex3fv(vertices[j])
     glEnd()
-
+    glPopMatrix()
+    pygame.display.flip()
+    pygame.time.wait(1)
+######################################################################################
+    
+    
+    
 
 ##################################
 # Graphics viz
@@ -128,9 +139,10 @@ def cubeDraw():  # render 3D Box:
 pygame.init()
 pygame.display.set_caption('Palm')
 display = (400, 400)
-pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
-gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
+pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+glEnable(GL_DEPTH_TEST) 
 glMatrixMode(GL_PROJECTION)
+gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 glLoadIdentity()
 aspect_ratio = display[0]/display[1]
 near_clip = 0.1
@@ -149,15 +161,13 @@ glMatrixMode(GL_MODELVIEW)
 glLoadIdentity()
 glTranslatef(0.0, 0.0, -10.0)
 # create 3D box:
-vertices = np.array( [ [-1,-1,-1],[-1,-1, 1],[-1, 1,-1],[-1, 1, 1],
-                       [ 1,-1,-1],[ 1,-1, 1],[ 1, 1,-1],[ 1, 1, 1] ], dtype=np.float32)
-edges = ((0,1),(0,2),(0,4),(1,3),(1,5),(2,3),(2,6),(3,7),(4,5),(4,6),(5,7),(6,7))
-glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-glPushMatrix()
-cubeDraw()
-glPopMatrix()
-pygame.display.flip()
-pygame.time.wait(100)
+vertices = ( ( 1, -1, -1), ( 1,  1, -1), (-1,  1, -1), (-1, -1, -1),
+             ( 1, -1,  1), ( 1,  1,  1), (-1, -1,  1), (-1,  1,  1) )
+surf = ((0, 1, 2, 3), (3, 2, 7, 6), (6, 7, 5, 4), (4, 5, 1, 0), (1, 5, 7, 2), (4, 0, 3, 6))
+colors = ((1, 0, 0), (0, 1, 0), (1, 0.5, 0), (1, 1, 0), (0, 1, 1), (0, 0, 1))
+# init the cube:
+rotM = np.eye(4)  # identity matrix
+cubeDraw(rotM)
 
 
 
@@ -282,7 +292,6 @@ try:
                 quat = np.array(struct.unpack('<4h', packet)) / 16384
                 data[count] = [nodeId << 4, ts, quat[1], -quat[3], quat[2], quat[0], 0, 0, 0]
                 count += 1
-            
             else:
                 #packetLength = 18, 3 or 24, 4
                 for i in range(numSamples):
@@ -306,17 +315,8 @@ try:
                                +' {:+.3f}'.format(data[count][3])+' {:+.3f}'.format(data[count][4])
                                +' {:.3f}'.format(data[count][5]))
                         imuQ = [data[count][5], data[count][2], data[count][3], data[count][4]] # get quaternion
-                        rotM = np.eye(4)
                         rotM[:3,:3] = R.from_quat(imuQ).as_matrix()  # convert to rotation matrix
-                        # apply rotation
-                        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-                        glMatrixMode(GL_MODELVIEW)
-                        glPushMatrix()
-                        glMultMatrixf(rotM)
-                        cubeDraw()
-                        glPopMatrix()
-                        pygame.display.flip()
-                        pygame.time.wait(1)
+                        cubeDraw(rotM)
                         count += 1
                     #######################################################################################
 
@@ -330,7 +330,6 @@ try:
                 acc = rcvd[4:] / 100
                 
                 data[count] = [nodeId << 4, ts, quat[1], -quat[3], quat[2], quat[0], -acc[0], acc[2], -acc[1]]
-                count += 1
             
             elif deviceId == glove_v1_Id:
                 # packetLength = 24, 2
@@ -402,26 +401,6 @@ try:
                         # packet 2 is missing
         
         
-        #data[count][0] = nodeId << 4 # create unique ID from nodeId, packetId, and actual IMU sample
-        #data[count][1] = ts
-        
-        # quat is in format wxyz -> change IMU coordinates to correct format xyzw
-        # also in quaternion coordinates z is up, in screen coordinates y is up -> switch axes to (x, -z, y, w)
-        #data[count][2] = quat[1] # x
-        #data[count][3] = -quat[3] # y
-        #data[count][4] = quat[2] # z
-        #data[count][5] = quat[0] # w
-        
-        #if mode == 1:
-            # in screen coordinates y is up -> switch axes to (-x, z, -y)
-            #data[count][6] = -acc[0] # x
-            #data[count][7] = acc[2] # y
-            #data[count][8] = -acc[1] # z
-            
-        
-        #count += 1
-    
-        
         if ts >= nextTs:
             #print('time: ' + str(ts/1000) + '  count: ' + str(count))
             nextTs += 1000
@@ -463,5 +442,4 @@ if count > 0:
     
 else:
     print('recording aborted or no data available')
-
-
+	
