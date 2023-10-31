@@ -16,6 +16,7 @@ import numpy as np
 import struct
 import csv
 import datetime
+import sys 
 from scipy.spatial.transform import Rotation as R
 
 serport = '/dev/ttyACM0' #'COM5'
@@ -221,6 +222,11 @@ try:
     print("start receive loop")
     # receive loop
     while ser.is_open:
+    
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    sys.exit()
         
         # if requested: do synchronization
         if doSync:
@@ -322,9 +328,7 @@ try:
                         cubeDraw(rotM, txt)
                         count += 1
                     #########################################################################################
-
-                                   
-                
+                                                  
         elif mode == 1:
             if deviceId == singleNode_Id:
                 # packetLength = 14, 1
